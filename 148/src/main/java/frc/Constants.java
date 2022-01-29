@@ -136,7 +136,7 @@ public class Constants {
 	public static final double kSwerveEncUnitsPerWheelRev = kSwerveDriveEncoderResolution * kSwerveEncoderToWheelRatio;
 	public static final double kSwerveEncUnitsPerInch = kSwerveEncUnitsPerWheelRev / (Math.PI * kSwerveWheelDiameter);
 
-	public static class BallHandoff {
+	public static class Feeder {
 
 		//Feeder Constants
 		public static final double FEEDER_SHOOTING_SPEED = 0.75;
@@ -245,12 +245,48 @@ public class Constants {
 		public static final double kAngleTolerance = 1.0;
 
 		//Ratios
-		public static final double kInternalEncToOutputRatio = ((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
+		public static final double kInternalEncToOutputRatio = ((140.0 * 40.0) / (10.0 * 8.0));//((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
 		public static final double kEncoderToOutputRatio = 14.0;//1.0;
 
 		public static final List<double[]> kVisionRanges = Arrays.asList(
 			new double[] {TURRET_MINCONTROLANGLE, 87.0},
 			new double[] {93.0, TURRET_MAXCONTROLANGLE}
+		);
+	}
+
+	public static class IntakePivot {
+
+		//IntakePivot Gains
+		public static double INTAKEPIVOT_KP = 0.3; // 0.7;
+		public static double INTAKEPIVOT_KI = 0.0;
+		public static double INTAKEPIVOT_KD = 0.0;// 0.0;
+		public static double INTAKEPIVOT_KF = 0.0465;
+		public static int INTAKEPIVOT_IZONE = (int) (1023.0 / INTAKEPIVOT_KP);
+		public static double INTAKEPIVOT_RAMPRATE = 0;
+		public static int INTAKEPIVOT_ALLOWED_ERROR = 100;
+
+		//IntakePivot Constants
+		public static final double INTAKEPIVOT_MAXSPEED = 22000.0;//22000.0;
+
+		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 210.0; //In both positive and negative directions | 220.0
+		public static final double INTAKEPIVOT_MINCONTROLANGLE = -35.0; // -25.0
+		public static final double INTAKEPIVOT_MAXINITIALANGLE = 220.0; // 220.0
+		public static final double INTAKEPIVOT_MININITIALLANGLE = -35.0; //-25.0
+
+		//IntakePivot pose with respect to the robot's center
+		public static final double kXOffset = -7.50;//-4.25;
+		public static final double kYOffset = 0.0;
+
+		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
+		public static final double kAngleTolerance = 1.0;
+
+		//Ratios
+		public static final double kInternalEncToOutputRatio = ((42.0 * 64.0 *  44.0) / (9.0 * 14.0 * 16.0));//((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
+		public static final double kEncoderToOutputRatio = 14.0;//1.0;
+
+		public static final List<double[]> kVisionRanges = Arrays.asList(
+			new double[] {INTAKEPIVOT_MINCONTROLANGLE, 87.0},
+			new double[] {93.0, INTAKEPIVOT_MAXCONTROLANGLE}
 		);
 	}
 

@@ -11,27 +11,11 @@ import frc.RobotMap;
 import frc.loops.ILooper;
 import frc.loops.Loop;
 
-public class BallHandoff extends Subsystem {
-  private WPI_VictorSPX hopperMaster = new WPI_VictorSPX(RobotMap.HOPPER_MASTER);
+public class Feeder extends Subsystem {
   private WPI_TalonSRX feederMaster = new WPI_TalonSRX(RobotMap.FEEDER_MASTER);
-  private static BallHandoff instance = null;
+  private static Feeder instance = null;
 
-  private BallHandoff(){
-    hopperMaster.configFactoryDefault();
-    hopperMaster.set(ControlMode.PercentOutput, 0.0);
-    hopperMaster.setNeutralMode(NeutralMode.Coast);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_6_Misc, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_7_CommStatus, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_9_MotProfBuffer, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_10_MotionMagic, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
-    hopperMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
+  private Feeder(){
 
     feederMaster.configFactoryDefault();
     feederMaster.set(ControlMode.PercentOutput, 0.0);
@@ -51,25 +35,23 @@ public class BallHandoff extends Subsystem {
     feederMaster.setInverted(false);
   }
 
-  public static BallHandoff getInstance() {
+  public static Feeder getInstance() {
       if(instance == null)
-        instance = new BallHandoff();
+        instance = new Feeder();
       return instance;
   }
 
-  public void setMotors(double feeder, double hopper) {
-    hopperMaster.set(hopper);
+  public void setMotors(double feeder) {
     feederMaster.set(feeder);
   }
 
-  synchronized void setOpenLoop(double feeder, double hopper) {
-    hopperMaster.set(ControlMode.PercentOutput, hopper);
+  synchronized void setOpenLoop(double feeder) {
     feederMaster.set(ControlMode.PercentOutput, feeder);
   }
 
   @Override
   public synchronized void stop() {
-      setOpenLoop(0,0);
+      setOpenLoop(0);
   }
 
   @Override
@@ -80,24 +62,14 @@ public class BallHandoff extends Subsystem {
   public void zeroSensors() {
   }
 
-  public enum BallHandoffState {
-      OFF,
-      INTAKING,
-      SHOOTING,
-      UNJAM_FEED,
-      UNJAM_HOPPER,
-      WHEEL_OF_FORTUNE,
-      POOP;
-  }
-
-  private BallHandoffState currentState = BallHandoffState.OFF;
+  private FeederState currentState = FeederState.OFF;
   private boolean stateChanged = false;
 
-  public BallHandoffState getState() {
+  public FeederState getState() {
       return currentState;
     }
 
-  public synchronized void setState(BallHandoffState newState) {
+  public synchronized void setState(FeederState newState) {
       if (newState != currentState)
           stateChanged = true;
   currentState = newState;
@@ -107,7 +79,7 @@ public class BallHandoff extends Subsystem {
 
   @Override
   public void onStart(double timestamp) {
-    setState(BallHandoffState.OFF);
+    setState(FeederState.OFF);
     stop();
   }
 
@@ -118,27 +90,27 @@ public class BallHandoff extends Subsystem {
           stop();
           break;
       case INTAKING:
-          setMotors(0.0, Constants.BallHandoff.HOPPER_INTAKING_SPEED + 0.2);
+          // setMotors(0.0, Constants.Feeder.HOPPER_INTAKING_SPEED + 0.2);
           break;
       case SHOOTING:
           // if(Math.abs(Robot.getHood().getAngle().getUnboundedDegrees() - Robot.getHood().getSetpoint()) < Constants.HOOD_SHOOTING_DEGREE_TOLERANCE){
             // if(Robot.getShooter().atTargetVelocity()){
               // TODO maybe check if vision on target
-              setMotors(Constants.BallHandoff.FEEDER_SHOOTING_SPEED, Constants.BallHandoff.HOPPER_SHOOTING_SPEED + 0.05);
+              // setMotors(Constants.Feeder.FEEDER_SHOOTING_SPEED, Constants.Feeder.HOPPER_SHOOTING_SPEED + 0.05);
             // }
           // }
           break;
       case UNJAM_FEED:
-          setMotors(Constants.BallHandoff.FEEDER_UNJAM_SPEED, 0.0);
+          // setMotors(Constants.Feeder.FEEDER_UNJAM_SPEED, 0.0);
           break;
       case UNJAM_HOPPER:
-          setMotors(0.0, Constants.BallHandoff.HOPPER_UNJAM_SPEED);
+          // setMotors(0.0, Constants.Feeder.HOPPER_UNJAM_SPEED);
           break;
       case WHEEL_OF_FORTUNE:
-          setMotors(0.0, Constants.BallHandoff.HOPPER_WOF_SPEED);
+          // setMotors(0.0, Constants.Feeder.HOPPER_WOF_SPEED);
           break;
       case POOP:
-          setMotors(0.38, -0.35);
+          // setMotors(0.38, -0.35);
       default:
           break;
 
@@ -149,7 +121,7 @@ public class BallHandoff extends Subsystem {
 
   @Override
   public void onStop(double timestamp) {
-    setState(BallHandoffState.OFF);
+    setState(FeederState.OFF);
     stop();
   }
 
@@ -158,4 +130,14 @@ public class BallHandoff extends Subsystem {
     public void registerEnabledLoops(ILooper enabledLooper) {
       enabledLooper.register(loop);
     }
+
+  public enum FeederState {
+    OFF,
+    INTAKING,
+    SHOOTING,
+    UNJAM_FEED,
+    UNJAM_HOPPER,
+    WHEEL_OF_FORTUNE,
+    POOP;
+  }
 }

@@ -25,6 +25,7 @@ public class Settings {
     private boolean kDebugVision = false;
     private boolean kDebugFeeder = false;
     private boolean kDebugHanger = false;
+    private boolean kDebugIntakePivot = false;
 
     private NetworkTableEntry swerveToggle;
     private NetworkTableEntry turretToggle;
@@ -32,6 +33,7 @@ public class Settings {
     private NetworkTableEntry visionToggle;
     private NetworkTableEntry feederToggle;
     private NetworkTableEntry hangerToggle;
+    private NetworkTableEntry intakePivotToggle;
 
     private final String TAB = "Settings";
 
@@ -42,6 +44,7 @@ public class Settings {
         visionToggle = Shuffleboard.getTab(TAB).addPersistent("Debug Vision", kDebugVision).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
         feederToggle = Shuffleboard.getTab(TAB).addPersistent("Debug Feeder", kDebugFeeder).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
         hangerToggle = Shuffleboard.getTab(TAB).addPersistent("Debug Hanger", kDebugHanger).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+        intakePivotToggle = Shuffleboard.getTab(TAB).addPersistent("Debug IntakePivot", kDebugIntakePivot).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
     }
 
     private void updateSettings() {
@@ -51,6 +54,7 @@ public class Settings {
         instance.kDebugVision = visionToggle.getBoolean(instance.kDebugVision);
         instance.kDebugFeeder = feederToggle.getBoolean(instance.kDebugFeeder);
         instance.kDebugHanger = hangerToggle.getBoolean(instance.kDebugHanger);
+        instance.kDebugIntakePivot = hangerToggle.getBoolean(instance.kDebugIntakePivot);
     }
 
     public static void initializeToggles() {
@@ -67,5 +71,6 @@ public class Settings {
     public static boolean debugVision(){ return instance.kDebugVision; }
     public static boolean debugFeeder(){ return instance.kDebugFeeder ;}
     public static boolean debugHanger(){ return instance.kDebugHanger ;}
+    public static boolean debugIntakePivot(){return instance.kDebugIntakePivot;}
 
 }

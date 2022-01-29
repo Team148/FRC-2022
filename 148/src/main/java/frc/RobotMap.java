@@ -36,11 +36,14 @@ public class RobotMap {
     //Map Intake CAN IDs
     public static final int INTAKE_MASTER = 14;
 
+    //Map IntakePivot CAN IDs
+    public static final int INTAKE_PIVOT_MASTER = 15;
+
     //Map Hanger CAN IDs
     public static final int HANGER_MASTER = 16;
 
     //Pigeon
-    public static final int PIGEON = 15;    
+    public static final int PIGEON = 17;    
     
     //Digital Inputs
 

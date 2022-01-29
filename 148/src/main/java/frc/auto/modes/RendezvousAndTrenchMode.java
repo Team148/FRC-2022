@@ -11,7 +11,7 @@ import frc.auto.actions.ResetPoseAction;
 import frc.auto.actions.SeriesAction;
 import frc.auto.actions.SetBallIntakeSpeedAction;
 import frc.auto.actions.SetHoodAngleAction;
-import frc.auto.actions.SetBallHandoffState;
+import frc.auto.actions.SetFeederState;
 import frc.auto.actions.SetShooterSpeedAction;
 import frc.auto.actions.SuperStructureAction;
 import frc.auto.actions.SetTrajectoryAction;
@@ -31,7 +31,7 @@ import frc.loops.LimelightProcessor.Pipeline;
 import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
 import frc.subsystems.Hanger.HangerState;
-import frc.subsystems.BallHandoff.BallHandoffState;
+import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.Turret.State;
 import com.team254.lib.geometry.Pose2dWithCurvature;
 import com.team254.lib.geometry.Rotation2d;
@@ -61,7 +61,7 @@ public class RendezvousAndTrenchMode extends AutoModeBase {
         runAction(new SetHoodAngleAction(40.0));
         runAction(new WaitAction(0.5));
         runAction(new SuperStructureAction());
-        runAction(new SetBallHandoffState(BallHandoffState.SHOOTING));
+        runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new SetBallIntakeSpeedAction(0.69));
         // s.firingVision();
         runAction(new WaitAction(1.0));
@@ -79,7 +79,7 @@ public class RendezvousAndTrenchMode extends AutoModeBase {
         runAction(new RemainingProgressAction(0.01));
         s.turretPositionState(0.0);
         runAction(new SetShooterSpeedAction(14000));
-        runAction(new SetBallHandoffState(BallHandoffState.INTAKING));
+        runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetTrajectoryAction(trajectories.rendezvousThreeBall, 330.0, 1.0));
         runAction(new RemainingProgressAction(0.01));
         runAction(new SetTrajectoryAction(trajectories.rendezvousThreeBall2, 330.0, 1.0));
@@ -91,7 +91,7 @@ public class RendezvousAndTrenchMode extends AutoModeBase {
         runAction(new SetTrajectoryAction(trajectories.twoToPew, 180.0, 1.0));
         runAction(new WaitToFinishPathAction());
         s.firingVision();
-        runAction(new SetBallHandoffState(BallHandoffState.SHOOTING));
+        runAction(new SetFeederState(FeederState.SHOOTING));
         //rendezvous^^
         System.out.println("Auto mode finished in " + currentTime() + " seconds");
     }

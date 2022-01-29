@@ -13,7 +13,7 @@ import frc.auto.actions.ResetPoseAction;
 import frc.auto.actions.SeriesAction;
 import frc.auto.actions.SetBallIntakeSpeedAction;
 import frc.auto.actions.SetHoodAngleAction;
-import frc.auto.actions.SetBallHandoffState;
+import frc.auto.actions.SetFeederState;
 import frc.auto.actions.SetShooterSpeedAction;
 import frc.auto.actions.SetTrajectoryAction;
 import frc.auto.actions.SetTurretAngleAction;
@@ -32,7 +32,7 @@ import frc.loops.LimelightProcessor.Pipeline;
 import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
 import frc.subsystems.Hanger.HangerState;
-import frc.subsystems.BallHandoff.BallHandoffState;
+import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.Turret.State;
 
 import com.team254.lib.geometry.Pose2dWithCurvature;
@@ -64,7 +64,7 @@ public class ThiefAndRendezvous extends AutoModeBase {
         runAction(new ResetPoseAction(Constants.loadWallPose));
         runAction(new SetShooterSpeedAction(14500));
         runAction(new StowHanger(HangerState.STOW));
-        runAction(new SetBallHandoffState(BallHandoffState.INTAKING));
+        runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetBallIntakeSpeedAction(0.69));
         s.turretPositionState(200.0);
         runAction(new SetTrajectoryAction(trajectories.loadWallToEnemyTrench, 180.0, 1.0));
@@ -73,10 +73,10 @@ public class ThiefAndRendezvous extends AutoModeBase {
         s.firingVision();
         runAction(new SetHoodAngleAction(46.0));
         runAction(new WaitToFinishPathAction());
-        runAction(new SetBallHandoffState(BallHandoffState.SHOOTING));
+        runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new WaitAction(2.5));
         //rendezvous beyond
-        runAction(new SetBallHandoffState(BallHandoffState.INTAKING));
+        runAction(new SetFeederState(FeederState.INTAKING));
         s.turretPositionState(0.0);
         runAction(new SetShooterSpeedAction(12500));
         runAction(new SetTrajectoryAction(trajectories.toReverseRendezvousTwoBall, 180.0, 1.0));
@@ -92,7 +92,7 @@ public class ThiefAndRendezvous extends AutoModeBase {
         runAction(new SetTrajectoryAction(trajectories.threeToShoot, 0.0, 1.0));
         runAction(new WaitToFinishPathAction());
         s.firingVision();
-        runAction(new SetBallHandoffState(BallHandoffState.SHOOTING)); 
+        runAction(new SetFeederState(FeederState.SHOOTING)); 
         //rendezvous ^^
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");

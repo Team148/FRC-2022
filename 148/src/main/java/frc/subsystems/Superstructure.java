@@ -22,7 +22,6 @@ import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
 
 import frc.subsystems.BallIntake;
-import frc.subsystems.Hood;
 import frc.subsystems.Shooter;
 import frc.subsystems.Turret;
 

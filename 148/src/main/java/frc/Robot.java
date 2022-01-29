@@ -12,16 +12,16 @@ import frc.loops.Looper;
 import frc.loops.QuinticPathTransmitter;
 import frc.loops.RobotStateEstimator;
 import frc.subsystems.BallIntake;
+import frc.subsystems.IntakePivot;
 import frc.subsystems.Shooter;
 import frc.subsystems.Hanger;
-import frc.subsystems.BallHandoff;
+import frc.subsystems.Feeder;
 import frc.subsystems.SubsystemManager;
 import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
 import frc.subsystems.Turret;
 import frc.subsystems.Hanger.HangerState;
-import frc.subsystems.BallHandoff.BallHandoffState;
-// import frc.subsystems.Hood;
+import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.MotorizedHood;
 
 import com.team1323.io.Xbox;
@@ -46,10 +46,10 @@ public class Robot extends TimedRobot {
 	private Swerve swerve;
 	private Turret turret;
 	private BallIntake intake;
+	private IntakePivot pivot;
 	private Hanger hanger;
 	private Shooter shooter;
-	private static BallHandoff BallHandoff;
-	// private Hood hood;
+	private static Feeder feeder;
 	private MotorizedHood hood;
 
 	private LimelightProcessor limelight;
@@ -65,21 +65,20 @@ public class Robot extends TimedRobot {
 	public static Turret getTurret(){
 		return Turret.getInstance();
 	}
-	// public static Hood getHood(){
-	// 	return Hood.getInstance();
-	// }
-		public static MotorizedHood getHood(){
+	public static MotorizedHood getHood(){
 		return MotorizedHood.getInstance();
 	}
 	public static Shooter getShooter(){
 		return Shooter.getInstance();
 	}
-	public static BallHandoff getBallHandoff(){
-		return BallHandoff.getInstance();
+	public static Feeder getFeeder(){
+		return Feeder.getInstance();
 	}
-
 	public static Hanger getHanger() {
 		return Hanger.getInstance();
+	}
+	public static IntakePivot getIntakePivot() {
+		return IntakePivot.getInstance();
 	}
 
 	private Looper enabledLooper = new Looper();
@@ -107,11 +106,12 @@ public class Robot extends TimedRobot {
 		turret = Turret.getInstance();
 		shooter = Shooter.getInstance();
 		intake = BallIntake.getInstance();
+		pivot = IntakePivot.getInstance();
 		hanger = Hanger.getInstance();
-		BallHandoff = BallHandoff.getInstance();
+		feeder = Feeder.getInstance();
 		hood = frc.subsystems.MotorizedHood.getInstance();
 		subsystems = new SubsystemManager(
-				Arrays.asList(s, swerve, turret, shooter, intake, hanger, BallHandoff, hood)
+				Arrays.asList(s, swerve, turret, shooter, intake, pivot, hanger, feeder, hood)
 				);
 
 		limelight = LimelightProcessor.getInstance();
@@ -327,12 +327,12 @@ public class Robot extends TimedRobot {
 
 		if(driver.rightTrigger.isBeingPressed()) {
 			intakePercent = 0.69; //nice
-			BallHandoff.setState(BallHandoffState.INTAKING);
+			feeder.setState(FeederState.INTAKING);
 		}
 		else if(driver.leftTrigger.isBeingPressed()) {
 			intakePercent = -1.0;
 		}else if(driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased()){
-			BallHandoff.setState(BallHandoffState.OFF);
+			feeder.setState(FeederState.OFF);
 		}
 
 		
@@ -431,15 +431,15 @@ public class Robot extends TimedRobot {
 			
 		}
 		// if(operator.rightTrigger.isBeingPressed() || operator.rightTrigger.longPressed() && operator.leftTrigger.isBeingPressed() || operator.leftTrigger.longPressed()) {
-		// 	BallHandoff.setState(BallHandoffState.POOP);
+		// 	Feeder.setState(FeederState.POOP);
 		// }
 
 		if(operator.rightTrigger.isBeingPressed() || operator.rightTrigger.longPressed()) {
 			// feederPercent = 1.0;
-			BallHandoff.setState(BallHandoffState.SHOOTING);
+			feeder.setState(FeederState.SHOOTING);
         }
 		else if(operator.rightTrigger.shortReleased() || operator.rightTrigger.longReleased()) {
-			BallHandoff.setState(BallHandoffState.OFF);
+			feeder.setState(FeederState.OFF);
 		}
 		
 		if(operator.leftCenterClick.wasActivated()){
@@ -451,11 +451,11 @@ public class Robot extends TimedRobot {
 				hood.setAngle(Constants.MotorizedHood.R2FarAngle);
 			}
 			s.turretPositionState(205.0);
-			// BallHandoff.setState(BallHandoffState.POOP);
+			// Feeder.setState(FeederState.POOP);
 		}
 
 		if(operator.rightCenterClick.isBeingPressed()) {
-			BallHandoff.setState(BallHandoffState.WHEEL_OF_FORTUNE);
+			feeder.setState(FeederState.WHEEL_OF_FORTUNE);
 		}
 
 
@@ -491,14 +491,14 @@ public class Robot extends TimedRobot {
 		// }
 
 		if(operator.rightBumper.isBeingPressed()) {
-			BallHandoff.setState(BallHandoffState.UNJAM_HOPPER);
+			feeder.setState(FeederState.UNJAM_HOPPER);
 		}
 		else if(operator.leftBumper.isBeingPressed()) {
 			// hopperPercent = -0.80;
-			BallHandoff.setState(BallHandoffState.UNJAM_FEED);
+			feeder.setState(FeederState.UNJAM_FEED);
 		}
 		else if(operator.leftBumper.shortReleased() || operator.leftBumper.longReleased() || operator.rightBumper.shortReleased() || operator.rightBumper.longReleased() || operator.leftCenterClick.shortReleased() || operator.leftCenterClick.longReleased()) {
-			BallHandoff.setState(BallHandoffState.OFF);
+			feeder.setState(FeederState.OFF);
 		}
 
 		if (operator.rightCenterClick.shortReleased() || operator.rightCenterClick.longReleased()) {
