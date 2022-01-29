@@ -284,8 +284,8 @@ public class Robot extends TimedRobot {
 		// 	s.neutralState();
 		// }
 
-		double swerveYInput = driver.getLeftX();//getX(Hand.kLeft);
-		double swerveXInput = -driver.getLeftY();//getY(Hand.kLeft);
+		double swerveYInput = -driver.getLeftX();//getX(Hand.kLeft);
+		double swerveXInput = driver.getLeftY();//getY(Hand.kLeft);
 		double swerveRotationInput = (flickRotation ? 0.0 : driver.getRightX());//getX(Hand.kRight));
 
 		swerve.sendInput(swerveXInput, swerveYInput, swerveRotationInput, robotCentric, driver.leftBumper.isBeingPressed());

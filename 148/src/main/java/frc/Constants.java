@@ -19,7 +19,7 @@ public class Constants {
 	public static final double kEpsilon = 0.0001;
 	
 	//Settings
-	public static final boolean kIsUsingCompBot = false;
+	public static final boolean kIsUsingCompBot = true;
 	public static final boolean kIsUsingTractionWheels = true;
 	public static final boolean kDebuggingOutput = true;
 	public static final boolean kResetTalons = false;
