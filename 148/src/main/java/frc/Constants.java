@@ -188,6 +188,11 @@ public class Constants {
 		public static double SHOOTER_VELOCITY_TOLERANCE = 260;
 
 		public static double COMP_FAR_FLYWHEEL = 13500;
+		public static double AT_GOAL = 8100.0;
+		public static double BACK_LINE = 8500.0;
+		public static double LAUNCH_PAD = 10000.0;
+		public static double FAR_LAUNCH_PAD = 10200.0;
+		public static double HP_WALL = 12400.0;
 
 	}
 
