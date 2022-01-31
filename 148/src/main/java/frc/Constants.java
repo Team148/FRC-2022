@@ -38,8 +38,8 @@ public class Constants {
     public static final Translation2d kOuterPortToInnerPort = new Translation2d(29.25, 0.0);
 
 	//Swerve Calculations Constants (measurements are in inches)
-    public static final double kWheelbaseLength = 20.5; //16.5
-    public static final double kWheelbaseWidth  = 20.5; //16.5
+    public static final double kWheelbaseLength = 21.25;//20.5; //16.5
+    public static final double kWheelbaseWidth  = 21.25;//20.5; //16.5
     public static final double kSwerveDiagonal = Math.hypot(kWheelbaseLength, kWheelbaseWidth);
     
     //Camera Constants (X and Y are with respect to the turret's center)
@@ -97,10 +97,10 @@ public class Constants {
     * Enter angle read by the absolute encoder. Insert as degrees and subtract or add 90° to the value
     * based on where the bevel ended up.
     */
-	public static final double kFrontRightEncoderStartingPos = kIsUsingCompBot ? -350 : 0;//-176
-	public static final double kFrontLeftEncoderStartingPos = kIsUsingCompBot ? -31 : 0;//-343
-	public static final double kRearLeftEncoderStartingPos = kIsUsingCompBot ? -358 : 0;//-90
-	public static final double kRearRightEncoderStartingPos = kIsUsingCompBot ? -145 : 0;//-271 
+	public static final double kFrontRightEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-350 : 0;//-176
+	public static final double kFrontLeftEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-31 : 0;//-343
+	public static final double kRearLeftEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-358 : 0;//-90
+	public static final double kRearRightEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-145 : 0;//-271 
 	
 	//Swerve Module Positions (relative to the center of the drive base)
 	public static final Translation2d kVehicleToModuleZero = new Translation2d(kWheelbaseLength/2, kWheelbaseWidth/2);
@@ -130,9 +130,9 @@ public class Constants {
     public static final double kSwerveDriveEncoderResolution = 2048.0; //2048.0 for falcon 500
 	public static final double kSwerveRotationEncoderResolution = 2048.0;
 	  /** The number of rotations the swerve rotation motor undergoes for every rotation of the module. */
-	  public static final double kSwerveRotationReduction = 12.0;
+	  public static final double kSwerveRotationReduction = ((72.0 * 24.0) / (14.0 * 12.0));//12.0;
 	/** The number of rotations the swerve drive encoder undergoes for every rotation of the wheel. */
-	public static final double kSwerveEncoderToWheelRatio = 6.54;
+	public static final double kSwerveEncoderToWheelRatio = 6.55;//6.54;
 	public static final double kSwerveEncUnitsPerWheelRev = kSwerveDriveEncoderResolution * kSwerveEncoderToWheelRatio;
 	public static final double kSwerveEncUnitsPerInch = kSwerveEncUnitsPerWheelRev / (Math.PI * kSwerveWheelDiameter);
 
@@ -142,11 +142,6 @@ public class Constants {
 		public static final double FEEDER_SHOOTING_SPEED = 0.75;
 		public static final double FEEDER_UNJAM_SPEED = -0.5;
 		public static final double HOPPER_UNJAM_SPEED = 0.67;
-
-		//Hopper Constants
-		public static final double HOPPER_INTAKING_SPEED = 0.2;
-		public static final double HOPPER_SHOOTING_SPEED = -0.7;
-		public static final double HOPPER_WOF_SPEED = 1.0;
 
 	}
 

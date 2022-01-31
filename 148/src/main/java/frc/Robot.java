@@ -357,11 +357,19 @@ public class Robot extends TimedRobot {
 		//OPERATOR
 
 		double operatorRightX = operator.getRightX();//getX(Hand.kRight);
+		double operatorLeftY = operator.getLeftY();
 
 		if (Math.abs(operatorRightX) != 0) {
 			turret.setOpenLoop(operatorRightX);
+		}
+		// } else if (turret.isOpenLoop()) {
+		// 	turret.lockAngle();
+		// }
+
+		if (Math.abs(operatorLeftY) != 0) {
+			pivot.setOpenLoop(operatorLeftY);
 		} else if (turret.isOpenLoop()) {
-			turret.lockAngle();
+			pivot.lockAngle();
 		}
 
 
