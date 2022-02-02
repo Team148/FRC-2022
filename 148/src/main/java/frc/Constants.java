@@ -183,11 +183,11 @@ public class Constants {
 		public static double SHOOTER_VELOCITY_TOLERANCE = 260;
 
 		public static double COMP_FAR_FLYWHEEL = 13500;
-		public static double AT_GOAL = 8100.0;
-		public static double BACK_LINE = 8500.0;
-		public static double LAUNCH_PAD = 10000.0;
-		public static double FAR_LAUNCH_PAD = 10200.0;
-		public static double HP_WALL = 12400.0;
+		public static double AT_GOAL = 10100.0;
+		public static double BACK_LINE = 10500.0;
+		public static double LAUNCH_PAD = 13000.0;
+		public static double FAR_LAUNCH_PAD = 13200.0;
+		public static double HP_WALL = 13000.0;
 
 	}
 
@@ -268,10 +268,10 @@ public class Constants {
 		//IntakePivot Constants
 		public static final double INTAKEPIVOT_MAXSPEED = 22000.0;//22000.0;
 
-		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 210.0; //In both positive and negative directions | 220.0
-		public static final double INTAKEPIVOT_MINCONTROLANGLE = -35.0; // -25.0
-		public static final double INTAKEPIVOT_MAXINITIALANGLE = 220.0; // 220.0
-		public static final double INTAKEPIVOT_MININITIALLANGLE = -35.0; //-25.0
+		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 110.0;
+		public static final double INTAKEPIVOT_MINCONTROLANGLE = 0.0;
+		public static final double INTAKEPIVOT_MAXINITIALANGLE = 115.0;
+		public static final double INTAKEPIVOT_MININITIALLANGLE = -5.0;
 
 		//IntakePivot pose with respect to the robot's center
 		public static final double kXOffset = -7.50;//-4.25;
@@ -283,11 +283,6 @@ public class Constants {
 		//Ratios
 		public static final double kInternalEncToOutputRatio = ((42.0 * 64.0 *  44.0) / (9.0 * 14.0 * 16.0));//((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
 		public static final double kEncoderToOutputRatio = 14.0;//1.0;
-
-		public static final List<double[]> kVisionRanges = Arrays.asList(
-			new double[] {INTAKEPIVOT_MINCONTROLANGLE, 87.0},
-			new double[] {93.0, INTAKEPIVOT_MAXCONTROLANGLE}
-		);
 	}
 
 	public static class MotorizedHood {

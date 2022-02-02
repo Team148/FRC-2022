@@ -133,7 +133,7 @@ public class IntakePivot extends Subsystem {
     // }
 
     private void setAngle(double angle) {
-        targetAngle = boundTointakePivotRange(angle);
+        targetAngle = boundToIntakePivotRange(angle);
         /*if (ActuatingHood.getInstance().isStowed())
             targetAngle = closestPole();
             */
@@ -146,30 +146,18 @@ public class IntakePivot extends Subsystem {
         return min <= value && value <= max;
     }
 
-
-    public boolean inintakePivotRange(double angle) {
-        angle = Util.boundAngle0to360Degrees(angle);
+    public double boundToIntakePivotRange(double angle) {
+        
         if (!inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)) {
-            angle = (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE) ? (angle + 360.0) : (angle - 360.0);
-            return inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE);
+            if (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE) {
+                angle = Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE;
+            }
+            else if (angle > Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE) {
+                angle = Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE;
+            }
         }
-        return true;
-    }
-
-    /** 
-     * Takes an angle from any scope and finds the equivalent angle in the intakePivot's range of motion or,
-     * if one doesn't exist, returns the intakePivot soft limit closest to the desired angle.
-    */
-    public double boundTointakePivotRange(double angle) {
-        angle = Util.placeInAppropriate0To360Scope(getAngle(), angle);
-
-        if (!inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)) {
-            angle = (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE) ? (angle + 360.0) : (angle - 360.0);
-            if (inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE))
-                return angle;
-            return (Math.abs(Rotation2d.fromDegrees(angle).distance(Rotation2d.fromDegrees(Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE)))
-                < Math.abs(Rotation2d.fromDegrees(angle).distance(Rotation2d.fromDegrees(Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE))))
-                ? Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE : Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE;
+        else if (inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)) {
+            return angle;
         }
 
         return angle;
@@ -346,11 +334,11 @@ public class IntakePivot extends Subsystem {
     }
 
     public int intakePivotDegreesToInternalEncUnits(double intakePivotAngle) {
-        return (int) ((intakePivotAngle / 360.0) * Constants.IntakePivot.kInternalEncToOutputRatio * 2048.0);
+        return (int) ((intakePivotAngle) * Constants.IntakePivot.kInternalEncToOutputRatio * 2048.0);
     }
 
     public double internalEncUnitsToIntakePivotDegrees(double encUnits) {
-        return (encUnits / 2048.0) / Constants.IntakePivot.kInternalEncToOutputRatio * 360.0;
+        return (encUnits / 2048.0) / Constants.IntakePivot.kInternalEncToOutputRatio;
     }
 
     public synchronized void resetToAbsolute() {
@@ -358,7 +346,7 @@ public class IntakePivot extends Subsystem {
             //System.out.println("intakePivot Encoder Connected: " + isEncoderConnected());
             if (RobotBase.isReal()) {
                 //DriverStation.reportError("intakePivot WAS RESET TO ABSOLUTE WITH THE MAG ENCODER", false);
-                double absolutePosition = Util.boundAngle0to360Degrees(90.0);//getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle);
+                double absolutePosition = Util.boundAngle0to360Degrees(0.0);//getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle);
                 if (absolutePosition > Constants.IntakePivot.INTAKEPIVOT_MAXINITIALANGLE)
                     absolutePosition -= 360.0;
                 else if (absolutePosition < Constants.IntakePivot.INTAKEPIVOT_MININITIALLANGLE)

@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 	private Turret turret;
 	private BallIntake intake;
 	private IntakePivot pivot;
-	private Hanger hanger;
+	// private Hanger hanger;
 	private Shooter shooter;
 	private static Feeder feeder;
 	private MotorizedHood hood;
@@ -107,11 +107,11 @@ public class Robot extends TimedRobot {
 		shooter = Shooter.getInstance();
 		intake = BallIntake.getInstance();
 		pivot = IntakePivot.getInstance();
-		hanger = Hanger.getInstance();
+		// hanger = Hanger.getInstance();
 		feeder = Feeder.getInstance();
 		hood = frc.subsystems.MotorizedHood.getInstance();
 		subsystems = new SubsystemManager(
-				Arrays.asList(s, swerve, turret, shooter, intake, pivot, hanger, feeder, hood)
+				Arrays.asList(s, swerve, turret, shooter, intake, pivot, feeder, hood)
 				);
 
 		limelight = LimelightProcessor.getInstance();
@@ -210,7 +210,7 @@ public class Robot extends TimedRobot {
 			teleopConfig();
 			SmartDashboard.putBoolean("Auto", false);
 
-			hanger.setState(HangerState.OFF);
+			// hanger.setState(HangerState.OFF);
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
 			throw t;
@@ -344,46 +344,55 @@ public class Robot extends TimedRobot {
 			pivot.setPosition(5.0);
 		}
 
-		if(driver.backButton.isBeingPressed()) {
-			hanger.setState(HangerState.EXTEND);
-		}
-		else if(driver.startButton.isBeingPressed()) {
-			hanger.setState(HangerState.STOW);
-		}
-		else if(driver.backButton.longReleased() || driver.backButton.shortReleased() || driver.startButton.longReleased() || driver.startButton.shortReleased()) {
-			hanger.setState(HangerState.OFF);
-		}
+		// if(driver.backButton.isBeingPressed()) {
+		// 	hanger.setState(HangerState.EXTEND);
+		// }
+		// else if(driver.startButton.isBeingPressed()) {
+		// 	hanger.setState(HangerState.STOW);
+		// }
+		// else if(driver.backButton.longReleased() || driver.backButton.shortReleased() || driver.startButton.longReleased() || driver.startButton.shortReleased()) {
+		// 	hanger.setState(HangerState.OFF);
+		// }
 		
 		//OPERATOR
 
-		double operatorRightX = operator.getRightX();//getX(Hand.kRight);
+		double operatorRightX = operator.getRightX();
 		double operatorLeftY = operator.getLeftY();
 
 		if (Math.abs(operatorRightX) != 0) {
 			turret.setOpenLoop(operatorRightX);
 		}
-		// } else if (turret.isOpenLoop()) {
-		// 	turret.lockAngle();
-		// }
-
-		if (Math.abs(operatorLeftY) != 0) {
-			pivot.setOpenLoop(operatorLeftY);
-		} else if (turret.isOpenLoop()) {
-			pivot.lockAngle();
+		else if (turret.isOpenLoop()) {
+			turret.lockAngle();
 		}
 
+		// if (Math.abs(operatorLeftY) != 0) {
+		// 	pivot.setOpenLoop(operatorLeftY);
+		// } else if (turret.isOpenLoop()) {
+		// 	pivot.lockAngle();
+		// }
+
+		// if (Math.abs(operator.getLeftY()) != 0) {
+		// 	hanger.setOpenLoop(operator.getLeftY());
+		// }
+		// else
+		// 	hanger.setOpenLoop(0.0);
 
 		if(operator.aButton.wasActivated()){
            	shooterSpeed = Constants.Shooter.AT_GOAL;
+			hood.setServoPosition(0.0);
         }
         else if(operator.bButton.wasActivated()){
 			shooterSpeed = Constants.Shooter.BACK_LINE;
+			hood.setServoPosition(15.0);
         }
         else if(operator.xButton.wasActivated()){ 
 			shooterSpeed = Constants.Shooter.HP_WALL;
+			hood.setServoPosition(165.0);
 		}
 		else if(operator.yButton.wasActivated()){
 			shooterSpeed = Constants.Shooter.LAUNCH_PAD;
+			hood.setServoPosition(130.0);
 		}
 
 		if (operator.POV0.wasActivated()) {
@@ -436,10 +445,7 @@ public class Robot extends TimedRobot {
 					isTurret180Rotation = true;
 				}
 			}
-		}
-
-		
-		
+		}	
 
 		intake.setMotor(intakePercent);
 

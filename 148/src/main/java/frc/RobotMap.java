@@ -52,8 +52,8 @@ public class RobotMap {
 
 
     //Hood Servos
-    public static final int SERVO_1 = 1;
-    public static final int SERVO_2 = 0;
+    public static final int SERVO_1 = 8;
+    public static final int SERVO_2 = 9;
 
     //Hood Encoder
     // public static final int MA3_PORT = 0;
