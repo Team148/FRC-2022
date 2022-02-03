@@ -8,7 +8,7 @@
 package frc.subsystems;
 
 import java.util.Optional;
-
+import static java.lang.Math.*;
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -201,7 +201,26 @@ public class MotorizedHood extends Subsystem {
         public double demand = 0.0;
         public ControlMode controlMode = ControlMode.POSITION;
     }
-
+    
+    //Converts preferred hood angle to servo length using law of cosines
+    public double angleToLinear(double launchAngle) {
+        double launchAngleRad = Math.toRadians(launchAngle);
+        double topSide = 27.68;
+        double bottomSide = 28.22;
+        double bottomAngle = Math.toRadians(22.71);
+        double servoLength = Math.sqrt((topSide *topSide) + (bottomSide * bottomSide) - (2 * topSide * bottomSide * Math.cos(launchAngleRad + bottomAngle)));
+        double servoExtension = (servoLength - 20.79) * 10.0;
+        return servoExtension;
+    }
+    //converts servo length to hood angle using law of cosines
+    public double linearToAngle(double servoExtension) {
+        double servoLength = (servoExtension/10.0) + 20.79;
+        double topSide = 27.68;
+        double bottomSide = 28.22;
+        double bottomAngle = 22.71;
+        double launchAngle = (Math.toDegrees(Math.acos(((servoLength * servoLength) - ((topSide * topSide) + (bottomSide * bottomSide))) / (-2 * topSide * bottomSide)))) - bottomAngle;
+        return launchAngle;
+    }
 
 }
 

@@ -377,22 +377,26 @@ public class Robot extends TimedRobot {
 		// }
 		// else
 		// 	hanger.setOpenLoop(0.0);
-
+			//Hood angle limited to 21,62 degrees
 		if(operator.aButton.wasActivated()){
            	shooterSpeed = Constants.Shooter.AT_GOAL;
-			hood.setServoPosition(0.0);
+			// hood.setServoPosition(0.0);
+			hood.setServoPosition(hood.angleToLinear(30.0));
         }
         else if(operator.bButton.wasActivated()){
 			shooterSpeed = Constants.Shooter.BACK_LINE;
-			hood.setServoPosition(15.0);
+			// hood.setServoPosition(15.0);
+			hood.setServoPosition(hood.angleToLinear(24.0));
         }
         else if(operator.xButton.wasActivated()){ 
 			shooterSpeed = Constants.Shooter.HP_WALL;
-			hood.setServoPosition(165.0);
+			// hood.setServoPosition(165.0);
+			hood.setServoPosition(hood.angleToLinear(61.0));
 		}
 		else if(operator.yButton.wasActivated()){
 			shooterSpeed = Constants.Shooter.LAUNCH_PAD;
-			hood.setServoPosition(130.0);
+			// hood.setServoPosition(130.0);
+			hood.setServoPosition(hood.angleToLinear(52.0));
 		}
 
 		if (operator.POV0.wasActivated()) {
