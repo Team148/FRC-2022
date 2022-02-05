@@ -347,39 +347,22 @@ public class Robot extends TimedRobot {
 		}
 
 
-		if(operator.aButton.isBeingPressed()){
-            // shooterSpeed = 0;
-            // hood.setAngle(7.0); 	//12.0
-        }
-        else if(operator.bButton.isBeingPressed()){
-			shooterSpeed = 12000;   //12000
-			if(compBot) {
-				hood.setAngle(Constants.MotorizedHood.CompCloseAngle);
-			}
-			else {
-				hood.setAngle(Constants.MotorizedHood.R2CloseAngle);
-			}
-        }
-        else if(operator.xButton.isBeingPressed()){   //11500
-			if(compBot) {
-				shooterSpeed = Constants.Shooter.COMP_FAR_FLYWHEEL;
-				hood.setAngle(Constants.MotorizedHood.CompFarAngle);
-			}
-			else {
-				hood.setAngle(Constants.MotorizedHood.R2FarAngle);
-				shooterSpeed = 13500;
-			}
-		}
-		else if(operator.yButton.wasActivated()){
-			shooterSpeed = 14500;   //11500
-			if(compBot) {
-				hood.setAngle(Constants.MotorizedHood.CompFarAngle);
-			}
-			else {
-				hood.setAngle(Constants.MotorizedHood.R2FarAngle);
-			}
-			s.turretPositionState(-16.0);
-		}
+	// 	if(operator.aButton.wasActivated()){
+	// 		shooterSpeed = Constants.Shooter.AT_GOAL;
+	// 	 hood.setServoPosition(0.0);
+	//  }
+	//  else if(operator.bButton.wasActivated()){
+	// 	 shooterSpeed = Constants.Shooter.BACK_LINE;
+	// 	 hood.setServoPosition(15.0);
+	//  }
+	//  else if(operator.xButton.wasActivated()){ 
+	// 	 shooterSpeed = Constants.Shooter.HP_WALL;
+	// 	 hood.setServoPosition(165.0);
+	//  }
+	//  else if(operator.yButton.wasActivated()){
+	// 	 shooterSpeed = Constants.Shooter.LAUNCH_PAD;
+	// 	 hood.setServoPosition(130.0);
+	//  }
         // else if(operator.yButton.isBeingPressed()){
 		// 	shooterSpeed = 14500;   //12000
 		// 	s.turretPositionState(170.0);

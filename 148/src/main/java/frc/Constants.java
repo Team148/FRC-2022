@@ -189,6 +189,16 @@ public class Constants {
 
 		public static double COMP_FAR_FLYWHEEL = 13500;
 
+		public static double AT_GOAL = 10100.0;
+		
+		public static double BACK_LINE = 10500.0;
+		
+		public static double LAUNCH_PAD = 13000.0;
+		
+		public static double FAR_LAUNCH_PAD = 13200.0;
+
+		public static double HP_WALL = 13000.0;
+
 	}
 
 	public static class Hood {
