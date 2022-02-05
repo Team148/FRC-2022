@@ -90,18 +90,14 @@ public class Feeder extends Subsystem {
           stop();
           break;
       case INTAKING:
+          setMotors(Constants.Feeder.FEEDER_INTAKE_SPEED);
           // setMotors(0.0, Constants.Feeder.HOPPER_INTAKING_SPEED + 0.2);
           break;
       case SHOOTING:
-          // if(Math.abs(Robot.getHood().getAngle().getUnboundedDegrees() - Robot.getHood().getSetpoint()) < Constants.HOOD_SHOOTING_DEGREE_TOLERANCE){
-            // if(Robot.getShooter().atTargetVelocity()){
-              // TODO maybe check if vision on target
-              // setMotors(Constants.Feeder.FEEDER_SHOOTING_SPEED, Constants.Feeder.HOPPER_SHOOTING_SPEED + 0.05);
-            // }
-          // }
+          setMotors(Constants.Feeder.FEEDER_SHOOTING_SPEED);
           break;
       case UNJAM_FEED:
-          // setMotors(Constants.Feeder.FEEDER_UNJAM_SPEED, 0.0);
+          setMotors(Constants.Feeder.FEEDER_UNJAM_SPEED);
           break;
       case UNJAM_HOPPER:
           // setMotors(0.0, Constants.Feeder.HOPPER_UNJAM_SPEED);

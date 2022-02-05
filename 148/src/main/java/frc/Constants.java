@@ -140,7 +140,8 @@ public class Constants {
 
 		//Feeder Constants
 		public static final double FEEDER_SHOOTING_SPEED = 0.75;
-		public static final double FEEDER_UNJAM_SPEED = -0.5;
+		public static final double FEEDER_INTAKE_SPEED = 0.2;
+		public static final double FEEDER_UNJAM_SPEED = -0.2;
 		public static final double HOPPER_UNJAM_SPEED = 0.67;
 
 		//Hopper Constants
@@ -276,7 +277,10 @@ public class Constants {
 		public static int INTAKEPIVOT_ALLOWED_ERROR = 100;
 
 		//IntakePivot Constants
-		public static final double INTAKEPIVOT_MAXSPEED = 22000.0;//22000.0;
+		public static final double INTAKEPIVOT_MAXSPEED = 10000.0;//22000.0;
+
+		public static final double INTAKEPIVOT_UP = -5000.0;
+		public static final double INTAKEPIVOT_DOWN = -50000.0;
 
 		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 210.0; //In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = -35.0; // -25.0

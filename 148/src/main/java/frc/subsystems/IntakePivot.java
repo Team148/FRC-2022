@@ -99,13 +99,13 @@ public class IntakePivot extends Subsystem {
         intakePivot.configMotionAcceleration((int)(Constants.IntakePivot.INTAKEPIVOT_MAXSPEED * 3.0), Constants.kCANTimeoutMs);
         intakePivot.configMotionSCurveStrength(0);
 
-        intakePivot.configForwardSoftLimitThreshold(intakePivotDegreesToInternalEncUnits(Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE), Constants.kCANTimeoutMs);
-        intakePivot.configReverseSoftLimitThreshold(intakePivotDegreesToInternalEncUnits(Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE), Constants.kCANTimeoutMs);
+        intakePivot.configForwardSoftLimitThreshold(-5000.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE), Constants.kCANTimeoutMs);
+        intakePivot.configReverseSoftLimitThreshold(-52000.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE), Constants.kCANTimeoutMs);
         intakePivot.configForwardSoftLimitEnable(true, Constants.kCANTimeoutMs);
         intakePivot.configReverseSoftLimitEnable(true, Constants.kCANTimeoutMs);
 
-        System.out.println("intakePivot max soft limit: " + intakePivotDegreesToInternalEncUnits(Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE));
-        System.out.println("intakePivot min soft limit: " + intakePivotDegreesToInternalEncUnits(Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE));
+        // System.out.println("intakePivot max soft limit: " + intakePivotDegreesToInternalEncUnits(Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE));
+        // System.out.println("intakePivot min soft limit: " + intakePivotDegreesToInternalEncUnits(Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE));
 
         intakePivot.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 20);
         intakePivot.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 50);
@@ -120,90 +120,19 @@ public class IntakePivot extends Subsystem {
         isEncoderFlipped = phase;
     }
 
-    // private double getAbsoluteEncoderDegrees() {
-    //     return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getOutput() * 360.0;
-    // }
-
-    // private boolean isEncoderConnected() {
-    //     if (RobotBase.isReal()) {
-    //         //System.out.println("Robot Base: " + RobotBase.isReal() + " Encoder Freq: " + encoder.getFrequency());
-    //         return (encoder.getFrequency() != 0) ? true : false;
-    //     }
-    //     return true;
-    // }
-
-    private void setAngle(double angle) {
-        targetAngle = boundTointakePivotRange(angle);
-        /*if (ActuatingHood.getInstance().isStowed())
-            targetAngle = closestPole();
-            */
-        periodicIO.controlMode = ControlMode.MotionMagic;
-        periodicIO.demand = intakePivotDegreesToInternalEncUnits(targetAngle);
-        // System.out.println("Demand is: " + periodicIO.demand);
+    public void setPivotPosition(double setpoint) {
+        intakePivot.set(ControlMode.Position, setpoint);
     }
 
-    private boolean inRange(double value, double min, double max) {
-        return min <= value && value <= max;
-    }
-
-
-    public boolean inintakePivotRange(double angle) {
-        angle = Util.boundAngle0to360Degrees(angle);
-        if (!inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)) {
-            angle = (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE) ? (angle + 360.0) : (angle - 360.0);
-            return inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE);
-        }
-        return true;
-    }
-
-    /** 
-     * Takes an angle from any scope and finds the equivalent angle in the intakePivot's range of motion or,
-     * if one doesn't exist, returns the intakePivot soft limit closest to the desired angle.
-    */
-    public double boundTointakePivotRange(double angle) {
-        angle = Util.placeInAppropriate0To360Scope(getAngle(), angle);
-
-        if (!inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)) {
-            angle = (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE) ? (angle + 360.0) : (angle - 360.0);
-            if (inRange(angle, Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE))
-                return angle;
-            return (Math.abs(Rotation2d.fromDegrees(angle).distance(Rotation2d.fromDegrees(Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE)))
-                < Math.abs(Rotation2d.fromDegrees(angle).distance(Rotation2d.fromDegrees(Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE))))
-                ? Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE : Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE;
-        }
-
-        return angle;
-    }
-
-    public void setPosition(double angle) {
-        setState(State.POSITION);
-        setAngle(angle);
-    }
-
-    public Rotation2d getRotation() {
-        return Rotation2d.fromDegrees(getAngle());
-    }
-
-    public void lockAngle() {
-        setState(State.AWAITING_LOCK);
-    }
 
     public void setOpenLoop(double output) {
-        periodicIO.controlMode = ControlMode.PercentOutput;
-        periodicIO.demand = /*Hood.getInstance().isStowed() ? 0.0 : */Util.scaledDeadband(output, 1.0, 0.25) * 0.5;
-        setState(State.OPEN_LOOP);
+        // periodicIO.controlMode = ControlMode.PercentOutput;
+        double demand = /*Hood.getInstance().isStowed() ? 0.0 : */Util.scaledDeadband(output, 1.0, 0.25) * 0.5;
+        intakePivot.set(ControlMode.PercentOutput, demand);
     }
     
     public boolean isOpenLoop() {
         return currentState == State.OPEN_LOOP;
-    }
-    
-    public boolean hasReachedAngle() {
-        return Math.abs(getAngle() - targetAngle) < Constants.IntakePivot.kAngleTolerance;
-    }
-
-    public double getAngle() {
-        return internalEncUnitsToIntakePivotDegrees(periodicIO.position);
     }
 
     @Override
@@ -237,14 +166,7 @@ public class IntakePivot extends Subsystem {
                 case POSITION:
                   break;
                 case AWAITING_LOCK:
-                    if (stateChanged) {
-                        // System.out.println("Current state is OPENLOOP");
-                        periodicIO.controlMode = ControlMode.PercentOutput;
-                        periodicIO.demand = 0.0;
-                    }
-                    // System.out.println("Current state is POSITION");
-                    if (timestamp - stateChangeTimestamp > 0.25)
-                        setPosition(getAngle());
+                  break;
                 default:
                 // System.out.println("Never matched a case!!!");
                 break;
@@ -264,75 +186,26 @@ public class IntakePivot extends Subsystem {
 
     @Override
     public void outputTelemetry() {
-        SmartDashboard.putNumber("intakePivot Angle", getAngle());
-        //SmartDashboard.putNumber("intakePivot Current", periodicIO.current);
-        //SmartDashboard.putNumber("intakePivot Voltage", periodicIO.voltage);
-        //SmartDashboard.putBoolean("intakePivot Zeroed Absolutely", zeroedAbsolutely);
-        // SmartDashboard.putNumber("intakePivot Absolute Angle", getAbsoluteEncoderDegrees());
-        if (Settings.debugIntakePivot()) {
-            SmartDashboard.putString("intakePivot State", currentState.toString());
-            // SmartDashboard.putNumber("intakePivot Absolute Frequency", encoder.getFrequency());
-            SmartDashboard.putNumber("intakePivot Encoder", periodicIO.position);
-            SmartDashboard.putNumber("intakePivot Velocity", periodicIO.velocity);
-            SmartDashboard.putNumber("intakePivot Angle Error", internalEncUnitsToIntakePivotDegrees(intakePivot.getClosedLoopError(0)));
-            if (intakePivot.getControlMode() == ControlMode.MotionMagic) {
-                SmartDashboard.putNumber("intakePivot Setpoint", intakePivot.getClosedLoopTarget(0));
-            }
-        }
+        // SmartDashboard.putNumber("intakePivot Angle", getAngle());
+        // //SmartDashboard.putNumber("intakePivot Current", periodicIO.current);
+        // //SmartDashboard.putNumber("intakePivot Voltage", periodicIO.voltage);
+        // //SmartDashboard.putBoolean("intakePivot Zeroed Absolutely", zeroedAbsolutely);
+        // // SmartDashboard.putNumber("intakePivot Absolute Angle", getAbsoluteEncoderDegrees());
+        // if (Settings.debugIntakePivot()) {
+        //     SmartDashboard.putString("intakePivot State", currentState.toString());
+        //     // SmartDashboard.putNumber("intakePivot Absolute Frequency", encoder.getFrequency());
+        //     SmartDashboard.putNumber("intakePivot Encoder", periodicIO.position);
+        //     SmartDashboard.putNumber("intakePivot Velocity", periodicIO.velocity);
+        //     SmartDashboard.putNumber("intakePivot Angle Error", internalEncUnitsToIntakePivotDegrees(intakePivot.getClosedLoopError(0)));
+        //     if (intakePivot.getControlMode() == ControlMode.MotionMagic) {
+        //         SmartDashboard.putNumber("intakePivot Setpoint", intakePivot.getClosedLoopTarget(0));
+        //     }
+        // }
     }
 
     @Override
     public void stop() {
         setOpenLoop(0.0);
-    }
-
-    public Request angleRequest(double angle, double speedScalar, boolean waitForAngle) {
-        return new Request(){
-            
-            @Override
-            public void act() {
-                intakePivot.configMotionCruiseVelocity((int)(Constants.IntakePivot.INTAKEPIVOT_MAXSPEED * speedScalar), Constants.kCANTimeoutMs);
-                setPosition(angle);
-            }
-            
-            @Override
-            public boolean isFinished() {
-                if (waitForAngle) {
-                    return hasReachedAngle();
-                } else {
-                    return true;
-                }
-            }
-            
-        };
-    }
-    
-    public Request angleRequest(double angle) {
-        return angleRequest(angle, 1.0, true);
-    }
-    
-    public Request angleRequest(double angle, double speedScalar) {
-        return angleRequest(angle, speedScalar, true);
-    }
-
-    public Request safeLockAngleRequest() {
-        return new Request(){
-        
-            @Override
-            public void act() {
-                setOpenLoop(0.0);
-            }
-        };
-    }
-    
-    public Request lockAngleRequest() {
-        return new Request(){
-            
-            @Override
-            public void act() {
-                lockAngle();
-            }
-        };
     }
 
     public Request stateRequest(State desiredState) {
@@ -345,53 +218,29 @@ public class IntakePivot extends Subsystem {
         };
     }
 
-    public int intakePivotDegreesToInternalEncUnits(double intakePivotAngle) {
-        return (int) ((intakePivotAngle / 360.0) * Constants.IntakePivot.kInternalEncToOutputRatio * 2048.0);
-    }
-
-    public double internalEncUnitsToIntakePivotDegrees(double encUnits) {
-        return (encUnits / 2048.0) / Constants.IntakePivot.kInternalEncToOutputRatio * 360.0;
-    }
-
     public synchronized void resetToAbsolute() {
-        if (!zeroedAbsolutely) {
-            //System.out.println("intakePivot Encoder Connected: " + isEncoderConnected());
-            if (RobotBase.isReal()) {
-                //DriverStation.reportError("intakePivot WAS RESET TO ABSOLUTE WITH THE MAG ENCODER", false);
-                double absolutePosition = Util.boundAngle0to360Degrees(90.0);//getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle);
-                if (absolutePosition > Constants.IntakePivot.INTAKEPIVOT_MAXINITIALANGLE)
-                    absolutePosition -= 360.0;
-                else if (absolutePosition < Constants.IntakePivot.INTAKEPIVOT_MININITIALLANGLE)
-                    absolutePosition += 360.0;
-                if (!inRange(absolutePosition, Constants.IntakePivot.INTAKEPIVOT_MININITIALLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXINITIALANGLE)) {
-                    DriverStation.reportError("intakePivot angle is out of bounds", false);
-                    hasEmergency = true;
-                }
-                intakePivot.setSelectedSensorPosition(intakePivotDegreesToInternalEncUnits(absolutePosition));
-                // intakePivot.setSelectedSensorPosition(intakePivotDegreesToInternalEncUnits(absolutePosition), 0, Constants.kCANTimeoutMs);
-                //System.out.println("intakePivot Absolute angle: " + getAbsoluteEncoderDegrees() + ", encoder offset: " + Constants.intakePivot.kEncoderStartingAngle + ", difference: " + (getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle) + ", degreesToEncUnits: " + intakePivotDegreesToInternalEncUnits(getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle));
-            } else {
-                DriverStation.reportError("intakePivot encoder NOT DETECTED: CURRENT POSITION SET TO 0", false);
-                intakePivot.setSelectedSensorPosition(intakePivotDegreesToInternalEncUnits(90.0));
-                // intakePivot.setSelectedSensorPosition(0, 0, Constants.kCANTimeoutMs);
-            }
-        }
-    }
-
-    public synchronized boolean getCanFold() {
-        return inRange(getAngle(), -15.0, 15.0) || inRange(getAngle(), 165.0, 195.0);
-    }
-
-    public double closestPole() {
-        return (Math.abs(getAngle() - 180.0) < Math.abs(getAngle() - 0.0)) ? 180.0 : 0.0;
-    }
-
-    public void setNearestFoldAngle() {
-        setPosition(closestPole());
-    }
-
-    public boolean isGoingToPole() {
-        return Util.epsilonEquals(targetAngle, 0.0) || Util.epsilonEquals(targetAngle, 180.0);
+        // if (!zeroedAbsolutely) {
+        //     //System.out.println("intakePivot Encoder Connected: " + isEncoderConnected());
+        //     if (RobotBase.isReal()) {
+        //         //DriverStation.reportError("intakePivot WAS RESET TO ABSOLUTE WITH THE MAG ENCODER", false);
+        //         double absolutePosition = Util.boundAngle0to360Degrees(90.0);//getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle);
+        //         if (absolutePosition > Constants.IntakePivot.INTAKEPIVOT_MAXINITIALANGLE)
+        //             absolutePosition -= 360.0;
+        //         else if (absolutePosition < Constants.IntakePivot.INTAKEPIVOT_MININITIALLANGLE)
+        //             absolutePosition += 360.0;
+        //         if (!inRange(absolutePosition, Constants.IntakePivot.INTAKEPIVOT_MININITIALLANGLE, Constants.IntakePivot.INTAKEPIVOT_MAXINITIALANGLE)) {
+        //             DriverStation.reportError("intakePivot angle is out of bounds", false);
+        //             hasEmergency = true;
+        //         }
+        //         intakePivot.setSelectedSensorPosition(intakePivotDegreesToInternalEncUnits(absolutePosition));
+        //         // intakePivot.setSelectedSensorPosition(intakePivotDegreesToInternalEncUnits(absolutePosition), 0, Constants.kCANTimeoutMs);
+        //         //System.out.println("intakePivot Absolute angle: " + getAbsoluteEncoderDegrees() + ", encoder offset: " + Constants.intakePivot.kEncoderStartingAngle + ", difference: " + (getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle) + ", degreesToEncUnits: " + intakePivotDegreesToInternalEncUnits(getAbsoluteEncoderDegrees() - Constants.intakePivot.kEncoderStartingAngle));
+        //     } else {
+        //         DriverStation.reportError("intakePivot encoder NOT DETECTED: CURRENT POSITION SET TO 0", false);
+        //         intakePivot.setSelectedSensorPosition(intakePivotDegreesToInternalEncUnits(90.0));
+        //         // intakePivot.setSelectedSensorPosition(0, 0, Constants.kCANTimeoutMs);
+        //     }
+        // }
     }
 
     public synchronized void zeroedintakePivot() {
