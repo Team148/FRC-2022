@@ -342,6 +342,14 @@ public class Constants {
 
 	//Field Positions
 	// 135.0 inches from full field to start line pose
+	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(297.0, -51.0), Rotation2d.fromDegrees(250.0));
+	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(287.0, -135.0), Rotation2d.fromDegrees(270.0));
+	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(195.0, -92.0), Rotation2d.fromDegrees(173.0));
+	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(37.0, -103.0), Rotation2d.fromDegrees(225.0));
+
+	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(260.0, 15.0), Rotation2d.fromDegrees(158.0));
+	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(189.0, 78.0), Rotation2d.fromDegrees(150.0));
+
 	public static final Pose2d testTrenchBallOne = new Pose2d(new Translation2d(kFieldLength - (135.0 + 109.0), 133.0), Rotation2d.fromDegrees(180.0));
 	public static final Pose2d testTrenchBallThree = new Pose2d(new Translation2d(kFieldLength - (135.0 + 182.0), 133.0), Rotation2d.fromDegrees(180.0));
 	public static final Pose2d testTrenchBallFourAndFive = new Pose2d(new Translation2d(kFieldLength - (135.0 + 247.0), 133.0), Rotation2d.fromDegrees(180.0));

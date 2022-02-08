@@ -99,6 +99,7 @@ public class Robot extends TimedRobot {
 	private boolean isTurret180Rotation = false;
 
 	private double shooterSpeed = 0.0;
+	private double hoodAngle = 0.0;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -348,7 +349,15 @@ public class Robot extends TimedRobot {
 			feeder.setState(FeederState.OFF);
 		}
 
-		
+		//Controls for hood testing + (X) - 
+		if (driver.backButton.wasActivated()) {
+			hoodAngle += 0.5;
+			System.out.println("Hood angle set to  " + hoodAngle + " degrees.");
+		}
+		else if (driver.startButton.wasActivated()) {
+			hoodAngle -= 0.5;
+			System.out.println("Hood angle set to " + hoodAngle + " degrees.");
+		}
 		//OPERATOR
 
 		double operatorRightX = operator.getRightX();//getX(Hand.kRight);
@@ -373,25 +382,29 @@ public class Robot extends TimedRobot {
 			pivot.setOpenLoop(0.0);
 		}
 
-
+		
 		if(operator.aButton.wasActivated()){
-			shooterSpeed = Constants.Shooter.AT_GOAL;
-			newHood.setLinearPosition(0.0);
+			shooterSpeed = Constants.Shooter.AT_GOAL; 
+			hoodAngle = 20.1;
+			// newHood.setLinearPosition(newHood.angleToLinear(20.1 + hoodAdjust));
 		//  hood.setServoPosition(0.0);
 	 }
 	 else if(operator.bButton.wasActivated()){
 		 shooterSpeed = Constants.Shooter.BACK_LINE;
-		newHood.setLinearPosition(35.0);
+		 hoodAngle = 24.0;
+		// newHood.setLinearPosition(newHood.angleToLinear(24.3 + hoodAdjust));
 		//  hood.setServoPosition(15.0);
 	 }
 	 else if(operator.xButton.wasActivated()){ 
 		 shooterSpeed = Constants.Shooter.HP_WALL;
-		 newHood.setLinearPosition(165.0);
+		 hoodAngle = 62.0;
+		//  newHood.setLinearPosition(newHood.angleToLinear(61 + hoodAdjust));
 		//  hood.setServoPosition(165.0);
 	 }
 	 else if(operator.yButton.wasActivated()){
 		 shooterSpeed = Constants.Shooter.LAUNCH_PAD;
-		 newHood.setLinearPosition(130.0);
+		 hoodAngle = 51.5;
+		//  newHood.setLinearPosition(newHood.angleToLinear(51.66 + hoodAdjust));
 		//  hood.setServoPosition(130.0);
 	 }
 
@@ -399,6 +412,7 @@ public class Robot extends TimedRobot {
 		 shooterSpeed = 0.0;
 	 }
 
+	 // Shooter speed adjustment + (X) - 
 	 if (operator.backButton.wasActivated()) {
 		 shooterSpeed += 100;
 		 System.out.println("Shooter speed is " + shooterSpeed);
@@ -545,6 +559,8 @@ public class Robot extends TimedRobot {
 		}
 		else{
 			shooter.setVelocity(shooterSpeed);
+			newHood.setLinearPosition(newHood.angleToLinear(hoodAngle));
+
 		}
 	}
 

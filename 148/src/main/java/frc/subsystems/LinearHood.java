@@ -81,7 +81,7 @@ public class LinearHood extends Subsystem {
         return (leftPosition / rightPosition);
     }
 
-    public static double angleToLinear(double launchAngle) {
+    public double angleToLinear(double launchAngle) {
         double launchAngleRad = Math.toRadians(launchAngle);
         double topSide = 27.68;
         double bottomSide = 28.22;
@@ -91,7 +91,7 @@ public class LinearHood extends Subsystem {
         return servoExtension;
     }
     //converts servo length to hood angle using law of cosines
-    public static double linearToAngle(double servoExtension) {
+    public double linearToAngle(double servoExtension) {
         double servoLength = (servoExtension/10.0) + 20.79;
         double topSide = 27.68;
         double bottomSide = 28.22;
