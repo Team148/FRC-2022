@@ -69,6 +69,37 @@ public class LinearHood extends Subsystem {
 
     }
 
+    public void setLinearPosition(double setpoint) {
+        left_servo.linearsetPosition(setpoint);
+        right_servo.linearsetPosition(setpoint);
+    }
+
+    public double getLinearPosition() {
+        double leftPosition = left_servo.getPosition();
+        double rightPosition = right_servo.getPosition();
+
+        return (leftPosition / rightPosition);
+    }
+
+    public static double angleToLinear(double launchAngle) {
+        double launchAngleRad = Math.toRadians(launchAngle);
+        double topSide = 27.68;
+        double bottomSide = 28.22;
+        double bottomAngle = Math.toRadians(22.71);
+        double servoLength = Math.sqrt((topSide *topSide) + (bottomSide * bottomSide) - (2 * topSide * bottomSide * Math.cos(launchAngleRad + bottomAngle)));
+        double servoExtension = (servoLength - 20.79) * 10.0;
+        return servoExtension;
+    }
+    //converts servo length to hood angle using law of cosines
+    public static double linearToAngle(double servoExtension) {
+        double servoLength = (servoExtension/10.0) + 20.79;
+        double topSide = 27.68;
+        double bottomSide = 28.22;
+        double bottomAngle = 22.71;
+        double launchAngle = (Math.toDegrees(Math.acos(((servoLength * servoLength) - ((topSide * topSide) + (bottomSide * bottomSide))) / (-2 * topSide * bottomSide)))) - bottomAngle;
+        return launchAngle;
+    }
+
     public void setAngle(double angle) {
         periodicIO.controlMode = ControlMode.POSITION;
         desiredAngle = Util.limit(angle, Constants.MotorizedHood.kMinControlAngle, Constants.MotorizedHood.kMaxControlAngle);
@@ -105,8 +136,8 @@ public class LinearHood extends Subsystem {
     @Override
     public void writePeriodicOutputs() {
         // hood.set(periodicIO.controlMode, periodicIO.demand);
-        left_servo.setSpeed(-periodicIO.demand);
-        right_servo.setSpeed(periodicIO.demand);
+        // left_servo.setSpeed(-periodicIO.demand);
+        // right_servo.setSpeed(periodicIO.demand);
         // left_servo.setSpeed(-1);
         // right_servo.setSpeed(1);
 

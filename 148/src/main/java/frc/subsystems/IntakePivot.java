@@ -83,7 +83,7 @@ public class IntakePivot extends Subsystem {
         // Config TalonFX
         intakePivot.configVoltageCompSaturation(12.0, Constants.kCANTimeoutMs);
         intakePivot.enableVoltageCompensation(true);
-        intakePivot.setInverted(TalonFXInvertType.Clockwise);        
+        intakePivot.setInverted(TalonFXInvertType.CounterClockwise);        
         intakePivot.configNominalOutputForward(0.0 / 12.0, Constants.kCANTimeoutMs);
 
         SupplyCurrentLimitConfiguration currentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 25, 30, Constants.kCANTimeoutMs);
@@ -99,8 +99,8 @@ public class IntakePivot extends Subsystem {
         intakePivot.configMotionAcceleration((int)(Constants.IntakePivot.INTAKEPIVOT_MAXSPEED * 3.0), Constants.kCANTimeoutMs);
         intakePivot.configMotionSCurveStrength(0);
 
-        intakePivot.configForwardSoftLimitThreshold(-5000.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE), Constants.kCANTimeoutMs);
-        intakePivot.configReverseSoftLimitThreshold(-52000.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE), Constants.kCANTimeoutMs);
+        // intakePivot.configForwardSoftLimitThreshold(0.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE), Constants.kCANTimeoutMs);
+        // intakePivot.configReverseSoftLimitThreshold(-50000.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE), Constants.kCANTimeoutMs);
         intakePivot.configForwardSoftLimitEnable(true, Constants.kCANTimeoutMs);
         intakePivot.configReverseSoftLimitEnable(true, Constants.kCANTimeoutMs);
 

@@ -430,7 +430,7 @@ public class Turret extends Subsystem {
             //System.out.println("Turret Encoder Connected: " + isEncoderConnected());
             if (RobotBase.isReal()) {
                 //DriverStation.reportError("TURRET WAS RESET TO ABSOLUTE WITH THE MAG ENCODER", false);
-                double absolutePosition = Util.boundAngle0to360Degrees(90.0);//getAbsoluteEncoderDegrees() - Constants.Turret.kEncoderStartingAngle);
+                double absolutePosition = Util.boundAngle0to360Degrees(Constants.Turret.kEncoderStartingAngle);
                 if (absolutePosition > Constants.Turret.TURRET_MAXINITIALANGLE)
                     absolutePosition -= 360.0;
                 else if (absolutePosition < Constants.Turret.TURRET_MININITIALLANGLE)
@@ -444,7 +444,7 @@ public class Turret extends Subsystem {
                 //System.out.println("Turret Absolute angle: " + getAbsoluteEncoderDegrees() + ", encoder offset: " + Constants.Turret.kEncoderStartingAngle + ", difference: " + (getAbsoluteEncoderDegrees() - Constants.Turret.kEncoderStartingAngle) + ", degreesToEncUnits: " + turretDegreesToInternalEncUnits(getAbsoluteEncoderDegrees() - Constants.Turret.kEncoderStartingAngle));
             } else {
                 DriverStation.reportError("Turret encoder NOT DETECTED: CURRENT POSITION SET TO 0", false);
-                turret.setSelectedSensorPosition(turretDegreesToInternalEncUnits(90.0));
+                turret.setSelectedSensorPosition(turretDegreesToInternalEncUnits(180.0));
                 // turret.setSelectedSensorPosition(0, 0, Constants.kCANTimeoutMs);
             }
         }

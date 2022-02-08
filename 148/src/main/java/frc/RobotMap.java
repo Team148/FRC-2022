@@ -51,9 +51,13 @@ public class RobotMap {
     public static final int CANIFIER = 23;
 
 
-    //Hood Servos
+    //Linear Hood Servos
     public static final int SERVO_1 = 8;
     public static final int SERVO_2 = 9;
+
+    //Motorized Servos
+    public static final int MOTORIZED_SERVO_1 = 0;
+    public static final int MOTORIZED_SERVO_2 = 1;
 
     //Hood Encoder
     // public static final int MA3_PORT = 0;

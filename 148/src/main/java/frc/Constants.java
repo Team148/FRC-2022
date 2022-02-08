@@ -97,10 +97,10 @@ public class Constants {
     * Enter angle read by the absolute encoder. Insert as degrees and subtract or add 90° to the value
     * based on where the bevel ended up.
     */
-	public static final double kFrontRightEncoderStartingPos = kIsUsingCompBot ? -350 : 0;//-176
-	public static final double kFrontLeftEncoderStartingPos = kIsUsingCompBot ? -31 : 0;//-343
-	public static final double kRearLeftEncoderStartingPos = kIsUsingCompBot ? -358 : 0;//-90
-	public static final double kRearRightEncoderStartingPos = kIsUsingCompBot ? -145 : 0;//-271 
+	public static final double kFrontRightEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-350 : 0;//-176
+	public static final double kFrontLeftEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-31 : 0;//-343
+	public static final double kRearLeftEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-358 : 0;//-90
+	public static final double kRearRightEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-145 : 0;//-271 
 	
 	//Swerve Module Positions (relative to the center of the drive base)
 	public static final Translation2d kVehicleToModuleZero = new Translation2d(kWheelbaseLength/2, kWheelbaseWidth/2);
@@ -130,7 +130,7 @@ public class Constants {
     public static final double kSwerveDriveEncoderResolution = 2048.0; //2048.0 for falcon 500
 	public static final double kSwerveRotationEncoderResolution = 2048.0;
 	  /** The number of rotations the swerve rotation motor undergoes for every rotation of the module. */
-	  public static final double kSwerveRotationReduction = 12.0;
+	  public static final double kSwerveRotationReduction = (72.0 * 24.0) / (14.0 * 12.0 );//12.0;
 	/** The number of rotations the swerve drive encoder undergoes for every rotation of the wheel. */
 	public static final double kSwerveEncoderToWheelRatio = 6.54;
 	public static final double kSwerveEncUnitsPerWheelRev = kSwerveDriveEncoderResolution * kSwerveEncoderToWheelRatio;
@@ -139,7 +139,7 @@ public class Constants {
 	public static class Feeder {
 
 		//Feeder Constants
-		public static final double FEEDER_SHOOTING_SPEED = 0.75;
+		public static final double FEEDER_SHOOTING_SPEED = 1.0;
 		public static final double FEEDER_INTAKE_SPEED = 0.2;
 		public static final double FEEDER_UNJAM_SPEED = -0.2;
 		public static final double HOPPER_UNJAM_SPEED = 0.67;
@@ -191,13 +191,9 @@ public class Constants {
 		public static double COMP_FAR_FLYWHEEL = 13500;
 
 		public static double AT_GOAL = 10100.0;
-		
 		public static double BACK_LINE = 10500.0;
-		
 		public static double LAUNCH_PAD = 13000.0;
-		
 		public static double FAR_LAUNCH_PAD = 13200.0;
-
 		public static double HP_WALL = 13000.0;
 
 	}
@@ -243,16 +239,16 @@ public class Constants {
 		//Turret Constants
 		public static final double TURRET_MAXSPEED = 22000.0;//22000.0;
 
-		public static final double TURRET_MAXCONTROLANGLE = 210.0; //In both positive and negative directions | 220.0
-		public static final double TURRET_MINCONTROLANGLE = -35.0; // -25.0
-		public static final double TURRET_MAXINITIALANGLE = 220.0; // 220.0
-		public static final double TURRET_MININITIALLANGLE = -35.0; //-25.0
+		public static final double TURRET_MAXCONTROLANGLE = 405.0; //In both positive and negative directions | 220.0
+		public static final double TURRET_MINCONTROLANGLE = 135.0; // -25.0
+		public static final double TURRET_MAXINITIALANGLE = 395.0; // 220.0
+		public static final double TURRET_MININITIALLANGLE = 125.0; //-25.0
 
 		//Turret pose with respect to the robot's center
 		public static final double kXOffset = -7.50;//-4.25;
 		public static final double kYOffset = 0.0;
 
-		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
+		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 180 : 180;//90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
 		public static final double kAngleTolerance = 1.0;
 
 		//Ratios
@@ -279,8 +275,8 @@ public class Constants {
 		//IntakePivot Constants
 		public static final double INTAKEPIVOT_MAXSPEED = 10000.0;//22000.0;
 
-		public static final double INTAKEPIVOT_UP = -5000.0;
-		public static final double INTAKEPIVOT_DOWN = -50000.0;
+		public static final double INTAKEPIVOT_UP = -30700.0;
+		public static final double INTAKEPIVOT_DOWN = -47800.0;
 
 		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 210.0; //In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = -35.0; // -25.0
@@ -295,7 +291,7 @@ public class Constants {
 		public static final double kAngleTolerance = 1.0;
 
 		//Ratios
-		public static final double kInternalEncToOutputRatio = ((42.0 * 64.0 *  44.0) / (9.0 * 14.0 * 16.0));//((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
+		public static final double kInternalEncToOutputRatio = ((42.0 * 64.0 *  44.0) / (8.0 * 14.0 * 16.0));//((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
 		public static final double kEncoderToOutputRatio = 14.0;//1.0;
 
 		public static final List<double[]> kVisionRanges = Arrays.asList(
@@ -360,7 +356,7 @@ public class Constants {
 	public static final Pose2d goalCenterPose = new Pose2d(new Translation2d(kFieldLength - (135.0), (kFieldHalfWidth - 91.0)), Rotation2d.fromDegrees(180.0));
 	public static final Pose2d goalWallPose = new Pose2d(new Translation2d(kFieldLength - (135.0), (kFieldHalfWidth - 19.0)), Rotation2d.fromDegrees(180.0));
 	public static final Pose2d loadWallPose = new Pose2d(new Translation2d(kFieldLength - (135.0), -(kFieldHalfWidth - 19.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d goalWallResetPose = new Pose2d(new Translation2d(495.0, 142.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d goalWallResetPose = new Pose2d(new Translation2d(495.0, 142.0), Rotation2d.fromDegrees(180.0));
 	public static final Pose2d goalCenterOffsetLeftPose = new Pose2d(new Translation2d(kFieldLength - (135.0 + 44.0), (kFieldHalfWidth - 126.0)), Rotation2d.fromDegrees(180.0));
 	
 
