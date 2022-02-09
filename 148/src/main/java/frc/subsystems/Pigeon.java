@@ -5,6 +5,8 @@ import frc.RobotMap;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.PigeonState;
 
+import com.ctre.phoenix.sensors.Pigeon2;
+
 import com.team254.lib.geometry.Rotation2d;
 
 import edu.wpi.first.wpilibj.RobotBase;
@@ -20,20 +22,20 @@ public class Pigeon {
 		return instance;
 	}
 	
-	private PigeonIMU pigeon;
+	private Pigeon2 pigeon;
 	private Rotation2d lastYaw = new Rotation2d();
     
 	private Pigeon(){
 		try{
-			pigeon = new PigeonIMU(RobotMap.PIGEON);
+			pigeon = new Pigeon2(RobotMap.PIGEON);
 		}catch(Exception e){
 			System.out.println(e);
 		}
 	}
 	
-	public boolean isGood(PigeonIMU imu){
-		return imu.getState() == PigeonState.Ready;
-	}
+	// public boolean isGood(PigeonIMU imu){
+	// 	return imu.getState() == PigeonState.Ready;
+	// }
 	
 	public Rotation2d getYaw(){
 		if(RobotBase.isReal()){
@@ -53,7 +55,7 @@ public class Pigeon {
 				//System.out.println("DIDN'T GET ANY PIGEON");
 				return lastYaw;
 			}*/
-			return Rotation2d.fromDegrees(pigeon.getFusedHeading());
+			return Rotation2d.fromDegrees(pigeon.getYaw());
 		}
 		return new Rotation2d();
 	}
@@ -77,13 +79,14 @@ public class Pigeon {
 	}
 	
 	public void setAngle(double angle){
-		pigeon.setFusedHeading(angle * 64.0, 10);
+		// pigeon.setFusedHeading(angle * 64.0, 10);
+		// pigeon.setYawToCompass(10);
 		pigeon.setYaw(angle, 10);
 		System.out.println("Pigeon angle set to: " + angle);
 	}
 	
 	public void outputToSmartDashboard(){
-		SmartDashboard.putString("Pigeon Good", pigeon.getState().toString());
+		// SmartDashboard.putString("Pigeon Good", pigeon.getState().toString());
 		/*SmartDashboard.putBoolean("Pigeon 1 Good", isGood(pigeon));
 		SmartDashboard.putBoolean("Pigeon 2 Good", isGood(secondPigeon));
 		SmartDashboard.putNumber("Pigeon 1 Yaw", pigeon.getFusedHeading());
