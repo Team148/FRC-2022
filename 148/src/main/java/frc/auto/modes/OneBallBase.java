@@ -29,6 +29,7 @@ import frc.auto.actions.WaitToPassXCoordinateAction;
 import frc.auto.actions.WaitToPassYCoordinateAction;
 import frc.loops.LimelightProcessor;
 import frc.loops.LimelightProcessor.Pipeline;
+import frc.subsystems.Feeder;
 import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
 import frc.subsystems.Hanger.HangerState;
@@ -64,7 +65,10 @@ public class OneBallBase extends AutoModeBase {
         runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 150.0, 1.0));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetBallIntakeSpeedAction(1.0));
+        runAction(new SetShooterSpeedAction(11200.0));
         runAction(new SetTurretAngleAction(180.0));
+        runAction(new WaitAction(2.0));
+        runAction(new SetFeederState(FeederState.SHOOTING));
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");
 	}

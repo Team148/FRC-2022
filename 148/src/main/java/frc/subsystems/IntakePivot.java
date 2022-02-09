@@ -51,12 +51,12 @@ public class IntakePivot extends Subsystem {
         return instance;
     }
 
-    private State currentState = State.OPEN_LOOP;
-    public enum State {
-        OPEN_LOOP, POSITION, AWAITING_LOCK;
+    private PivotState currentState = PivotState.OPEN_LOOP;
+    public enum PivotState {
+        OPEN_LOOP, POSITION, AWAITING_LOCK, UP, DOWN;
     }
 
-    public State getState() {
+    public PivotState getState() {
         return currentState;
     }
 
@@ -65,7 +65,7 @@ public class IntakePivot extends Subsystem {
 
     private boolean aimInnerPort = false;
 
-    public void setState(State newState) {
+    public void setState(PivotState newState) {
         if (newState != currentState) {
             currentState = newState;
             stateChanged = true;
@@ -132,7 +132,7 @@ public class IntakePivot extends Subsystem {
     }
     
     public boolean isOpenLoop() {
-        return currentState == State.OPEN_LOOP;
+        return currentState == PivotState.OPEN_LOOP;
     }
 
     @Override
@@ -167,6 +167,12 @@ public class IntakePivot extends Subsystem {
                   break;
                 case AWAITING_LOCK:
                   break;
+                case UP:
+                    // setPivotPosition(setpoint);
+                    break;
+                case DOWN:
+                    // setPivotPosition(setpoint);
+                    break;
                 default:
                 // System.out.println("Never matched a case!!!");
                 break;
@@ -208,7 +214,7 @@ public class IntakePivot extends Subsystem {
         setOpenLoop(0.0);
     }
 
-    public Request stateRequest(State desiredState) {
+    public Request stateRequest(PivotState desiredState) {
         return new Request(){
         
             @Override

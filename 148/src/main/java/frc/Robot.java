@@ -5,7 +5,7 @@ import java.util.Arrays;
 // import frc.Constants.MotorizedHood;
 import frc.auto.AutoModeBase;
 import frc.auto.AutoModeExecuter;
-import frc.auto.modes.ThiefAndRendezvous;
+import frc.auto.modes.TwoBallAndTerminal;
 import frc.auto.SmartDashboardInteractions;
 import frc.loops.LimelightProcessor;
 import frc.loops.Looper;
@@ -23,6 +23,7 @@ import frc.subsystems.Turret;
 import frc.subsystems.Hanger.HangerState;
 import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.MotorizedHood;
+import frc.subsystems.Pigeon;
 import frc.subsystems.LinearHood;
 
 import com.team1323.io.Xbox;
@@ -149,7 +150,7 @@ public class Robot extends TimedRobot {
 
 		generator.generateTrajectories();
 
-		AutoModeBase auto = new ThiefAndRendezvous();
+		AutoModeBase auto = new TwoBallAndTerminal();
 		qTransmitter.addPaths(auto.getPaths());
 		System.out.println("Total path time: " + qTransmitter.getTotalPathTime(auto.getPaths()));
 	}
@@ -340,7 +341,7 @@ public class Robot extends TimedRobot {
 		}
 
 		if(driver.rightTrigger.isBeingPressed()) {
-			intakePercent = -1.0; //nice
+			intakePercent = -1.0;
 			feeder.setState(FeederState.INTAKING);
 		}
 		else if(driver.leftTrigger.isBeingPressed()) {
@@ -391,7 +392,7 @@ public class Robot extends TimedRobot {
 	 }
 	 else if(operator.bButton.wasActivated()){
 		 shooterSpeed = Constants.Shooter.BACK_LINE;
-		 hoodAngle = 24.0;
+		 hoodAngle = 38.5;
 		// newHood.setLinearPosition(newHood.angleToLinear(24.3 + hoodAdjust));
 		//  hood.setServoPosition(15.0);
 	 }
@@ -403,7 +404,7 @@ public class Robot extends TimedRobot {
 	 }
 	 else if(operator.yButton.wasActivated()){
 		 shooterSpeed = Constants.Shooter.LAUNCH_PAD;
-		 hoodAngle = 51.5;
+		 hoodAngle = 45.5;
 		//  newHood.setLinearPosition(newHood.angleToLinear(51.66 + hoodAdjust));
 		//  hood.setServoPosition(130.0);
 	 }
@@ -456,7 +457,9 @@ public class Robot extends TimedRobot {
 
 		if(operator.rightTrigger.isBeingPressed() || operator.rightTrigger.longPressed()) {
 			// feederPercent = 1.0;
+			intakePercent = -1.0;
 			feeder.setState(FeederState.SHOOTING);
+			
         }
 		if(operator.rightTrigger.shortReleased() || operator.rightTrigger.longReleased()) {
 			feeder.setState(FeederState.OFF);

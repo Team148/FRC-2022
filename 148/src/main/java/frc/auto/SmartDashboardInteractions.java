@@ -1,6 +1,5 @@
 package frc.auto;
 
-import frc.auto.modes.ThiefAndRendezvous;
 import frc.auto.modes.TwoBallAndTerminal;
 import frc.auto.modes.OneBallAndDefend;
 import frc.auto.modes.OneBallAndTerminal;
@@ -10,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SmartDashboardInteractions {
     private static final String SELECTED_AUTO_MODE = "selected_auto_mode";
     
-    private static final AutoOption DEFAULT_MODE = AutoOption.THIEF_AND_RENDEZVOUS;
+    private static final AutoOption DEFAULT_MODE = AutoOption.TWO_BALL_AND_TERMINAL;
 
     private SendableChooser<AutoOption> modeChooser;
 
@@ -18,7 +17,6 @@ public class SmartDashboardInteractions {
     public void initWithDefaults(){
     	modeChooser = new SendableChooser<AutoOption>();
         modeChooser.setDefaultOption(DEFAULT_MODE.name, DEFAULT_MODE);
-        modeChooser.addOption(AutoOption.THIEF_AND_RENDEZVOUS.name, AutoOption.THIEF_AND_RENDEZVOUS);
         modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL.name, AutoOption.TWO_BALL_AND_TERMINAL);
         modeChooser.addOption(AutoOption.ONE_BALL_AND_DEFEND.name, AutoOption.ONE_BALL_AND_DEFEND);
         modeChooser.addOption(AutoOption.ONE_BALL_AND_TERMINAL.name, AutoOption.ONE_BALL_AND_TERMINAL);
@@ -38,7 +36,6 @@ public class SmartDashboardInteractions {
     }
 
     enum AutoOption{
-        THIEF_AND_RENDEZVOUS("Opponent Trench and 5 RZone Balls"),
         TWO_BALL_AND_TERMINAL("Two Balls and Terminal Shot"),
         ONE_BALL_AND_DEFEND("One ball and defend"),
         ONE_BALL_AND_TERMINAL("One ball and Terminal Shot");
@@ -57,11 +54,9 @@ public class SmartDashboardInteractions {
                 return new OneBallAndDefend();
             case TWO_BALL_AND_TERMINAL:
                 return new TwoBallAndTerminal();
-            case THIEF_AND_RENDEZVOUS:
-                return new ThiefAndRendezvous();
             default:
                 System.out.println("ERROR: unexpected auto mode: " + option);
-                return new ThiefAndRendezvous();
+                return new TwoBallAndTerminal();
     	}
     }
     
