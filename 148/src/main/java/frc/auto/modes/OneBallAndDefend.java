@@ -60,6 +60,9 @@ public class OneBallAndDefend extends AutoModeBase {
     protected void routine() throws AutoModeEndedException {
         super.startTime = Timer.getFPGATimestamp();
         //LimelightProcessor.getInstance().ledOn(true);
+        runAction(new ResetPoseAction(Constants.oneBallStart));
+        runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 0.0, 1.0));
+        runAction(new SetTrajectoryAction(trajectories.oneBallOneToDefend, 180.0, 1.0));
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");
 	}

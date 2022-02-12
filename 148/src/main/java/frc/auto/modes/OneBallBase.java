@@ -62,13 +62,13 @@ public class OneBallBase extends AutoModeBase {
         super.startTime = Timer.getFPGATimestamp();
         //LimelightProcessor.getInstance().ledOn(true);
         runAction(new ResetPoseAction(Constants.oneBallStart));
-        runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 150.0, 1.0));
-        runAction(new SetFeederState(FeederState.INTAKING));
-        runAction(new SetBallIntakeSpeedAction(1.0));
-        runAction(new SetShooterSpeedAction(11200.0));
-        runAction(new SetTurretAngleAction(180.0));
-        runAction(new WaitAction(2.0));
-        runAction(new SetFeederState(FeederState.SHOOTING));
+        runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 0.0, 1.0));
+        // runAction(new SetFeederState(FeederState.INTAKING));
+        // runAction(new SetBallIntakeSpeedAction(1.0));
+        // runAction(new SetShooterSpeedAction(11200.0));
+        // runAction(new SetTurretAngleAction(180.0));
+        // runAction(new WaitAction(2.0));
+        // runAction(new SetFeederState(FeederState.SHOOTING));
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");
 	}

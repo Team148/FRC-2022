@@ -25,7 +25,9 @@ public class RobotMap {
 
     //Map Flywheel CAN IDs
     public static final int FLYWHEEL_MASTER = 10;
-    public static final int FLYWHEEL_FOLLOWER = 11;
+
+    //Map Hood CAN IDs
+    public static final int HOOD_MASTER = 11;
 
     //Map Feeder CAN IDs
     public static final int FEEDER_MASTER = 12;

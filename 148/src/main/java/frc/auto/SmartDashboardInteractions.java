@@ -3,6 +3,7 @@ package frc.auto;
 import frc.auto.modes.TwoBallAndTerminal;
 import frc.auto.modes.OneBallAndDefend;
 import frc.auto.modes.OneBallAndTerminal;
+import frc.auto.modes.OneBallBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,6 +21,7 @@ public class SmartDashboardInteractions {
         modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL.name, AutoOption.TWO_BALL_AND_TERMINAL);
         modeChooser.addOption(AutoOption.ONE_BALL_AND_DEFEND.name, AutoOption.ONE_BALL_AND_DEFEND);
         modeChooser.addOption(AutoOption.ONE_BALL_AND_TERMINAL.name, AutoOption.ONE_BALL_AND_TERMINAL);
+        modeChooser.addOption(AutoOption.ONE_BALL_BASE.name, AutoOption.ONE_BALL_BASE);
 
         SmartDashboard.putData("Mode Chooser", modeChooser);
     	SmartDashboard.putString(SELECTED_AUTO_MODE, DEFAULT_MODE.name);
@@ -38,7 +40,8 @@ public class SmartDashboardInteractions {
     enum AutoOption{
         TWO_BALL_AND_TERMINAL("Two Balls and Terminal Shot"),
         ONE_BALL_AND_DEFEND("One ball and defend"),
-        ONE_BALL_AND_TERMINAL("One ball and Terminal Shot");
+        ONE_BALL_AND_TERMINAL("One ball and Terminal Shot"),
+        ONE_BALL_BASE("One ball");
     	public final String name;
     	
     	AutoOption(String name){
@@ -48,6 +51,8 @@ public class SmartDashboardInteractions {
 
     private AutoModeBase createAutoMode(AutoOption option){
     	switch(option){
+            case ONE_BALL_BASE:
+                return new OneBallBase();
             case ONE_BALL_AND_TERMINAL:
                 return new OneBallAndTerminal();
             case ONE_BALL_AND_DEFEND:

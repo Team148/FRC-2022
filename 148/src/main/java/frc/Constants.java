@@ -336,93 +336,38 @@ public class Constants {
 		
 	}
 
+	public static class FalconHood{
+
+		public static double kP = 0.01;
+		public static double kI = 0.0;
+		public static double kD = 0.0;
+
+		public static final double kEncoderRatio = (8 * 14) / (52 * 460); //no longer pending
+
+		public static final double kMinControlAngle = 9.0;
+		public static final double kMaxControlAngle = 54.0;
+
+		public static final double kAngleTolerance = 2.0;
+	}
+
 	//Field Landmarks
-	public static final double kFieldLength = 629.25;
-	public static final double kFieldHalfWidth = 161.6;
+	public static final double kFieldLength = 625.0;
+	public static final double kFieldHalfWidth = 163.0;
 
 	//Field Positions
 	// 135.0 inches from full field to start line pose
-	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(297.0, -51.0), Rotation2d.fromDegrees(250.0));
-	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(287.0, -135.0), Rotation2d.fromDegrees(270.0));
-	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(195.0, -92.0), Rotation2d.fromDegrees(173.0));
-	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(37.0, -103.0), Rotation2d.fromDegrees(225.0));
+	// public static final Pose2d twoBallStart = new Pose2d(new Translation2d(297.0, -51.0), Rotation2d.fromDegrees(0.0)); //250.0
+	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(kFieldLength - 290.0, -90.0), Rotation2d.fromDegrees(270.0)); //250.0
+	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(kFieldLength - 290.0, -135.0), Rotation2d.fromDegrees(270.0));  //270.0
+	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -135.0), Rotation2d.fromDegrees(35.0));
+	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -85.0), Rotation2d.fromDegrees(35.0)); //173.0
+	public static final Pose2d twoBallTutu = new Pose2d(new Translation2d(kFieldLength - 195.0, -85.0), Rotation2d.fromDegrees(-8.0));
+	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 55.0, -105.0), Rotation2d.fromDegrees(-8.0)); //225.0
+	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 55.0, -105.0), Rotation2d.fromDegrees(184.0)); 
+	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -130.0), Rotation2d.fromDegrees(184.0));
 
-	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(260.0, 15.0), Rotation2d.fromDegrees(158.0));
-	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(189.0, 78.0), Rotation2d.fromDegrees(150.0));
-
-	public static final Pose2d testTrenchBallOne = new Pose2d(new Translation2d(kFieldLength - (135.0 + 109.0), 133.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testTrenchBallThree = new Pose2d(new Translation2d(kFieldLength - (135.0 + 182.0), 133.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testTrenchBallFourAndFive = new Pose2d(new Translation2d(kFieldLength - (135.0 + 247.0), 133.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testEnemyTrenchBallFourAndFive = new Pose2d(new Translation2d(kFieldLength - (135.0 + 118.0), -130.0), Rotation2d.fromDegrees(180.0));
-
-	public static final Pose2d testRZoneBall1 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 109.0), (kFieldHalfWidth - 137.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall2 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 126.0), (kFieldHalfWidth - 130.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall3 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 144.0), (kFieldHalfWidth - 127.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall4 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 120.0), -(kFieldHalfWidth - 155.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall5 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 138.0), (kFieldHalfWidth - 159.0)), Rotation2d.fromDegrees(180.0));
-		
-	public static final Pose2d goalCenterPose = new Pose2d(new Translation2d(kFieldLength - (135.0), (kFieldHalfWidth - 91.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d goalWallPose = new Pose2d(new Translation2d(kFieldLength - (135.0), (kFieldHalfWidth - 19.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d loadWallPose = new Pose2d(new Translation2d(kFieldLength - (135.0), -(kFieldHalfWidth - 19.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d goalWallResetPose = new Pose2d(new Translation2d(495.0, 142.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d goalCenterOffsetLeftPose = new Pose2d(new Translation2d(kFieldLength - (135.0 + 44.0), (kFieldHalfWidth - 126.0)), Rotation2d.fromDegrees(180.0));
-	
-
-	public static final Pose2d goalCenterBackwardPose = new Pose2d(new Translation2d(130.0, -70.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d goalWallBackwardPose = new Pose2d(new Translation2d(130.0, -142.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d loadWallBackwardPose = new Pose2d(new Translation2d(135.0, 142.0), Rotation2d.fromDegrees(0.0));
-	
-	public static final Pose2d goalCenterOffsetPose = new Pose2d(new Translation2d(455.0, 80.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d goalCenterOffsetBackwardPose = new Pose2d(new Translation2d(170.0, -80.0), Rotation2d.fromDegrees(0.0));
-
-	public static final Pose2d goalCenterOffsetLeft180Pose = new Pose2d(new Translation2d(495.0, 25.0), Rotation2d.fromDegrees(180.0));
-
-    // public static final Pose2d goalCenterOffsetLeftPose = new Pose2d(new Translation2d(450.0, 25.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d goalCenterOffsetLeftBackwardPose = new Pose2d(new Translation2d(175.0, -25.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d goalCenterOffsetResetPose = new Pose2d(new Translation2d(495.0, 25.0), Rotation2d.fromDegrees(180.0));
-
-	public static final Pose2d outsideRZoneLeftPose = new Pose2d(new Translation2d(370.0, -50.0), Rotation2d.fromDegrees(70.0));
-    public static final Pose2d rZoneBallOneAnglePose = new Pose2d(new Translation2d(400.0, 20.0), Rotation2d.fromDegrees(70.0));
-    public static final Pose2d rZoneInsidePose = new Pose2d(new Translation2d(360.0, 20.0), Rotation2d.fromDegrees(70.0));
-
-    public static final Pose2d trenchBallOnePoseActual = new Pose2d(new Translation2d(385.0, 134.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallTwoPoseActual = new Pose2d(new Translation2d(350.0, 134.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallThreePoseActual = new Pose2d(new Translation2d(313.0, 134.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallFourPoseActual = new Pose2d(new Translation2d(248.0, 134.0), Rotation2d.fromDegrees(0.0));
-    
-    public static final Pose2d trenchBallOnePose = new Pose2d(new Translation2d(385.0, 128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallTwoPose = new Pose2d(new Translation2d(350.0, 128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallThreePose = new Pose2d(new Translation2d(313.0, 128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallFourPose = new Pose2d(new Translation2d(248.0, 128.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d trenchBallOneBackwardPose = new Pose2d(new Translation2d(240.0, -128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallTwoBackwardPose = new Pose2d(new Translation2d(275.0, -128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallThreeBackwardPose = new Pose2d(new Translation2d(312.0, -128.0), Rotation2d.fromDegrees(180.0));
-    public static final Pose2d trenchBallFourBackwardPose = new Pose2d(new Translation2d(377.0, -128.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d enemyTrenchPose = new Pose2d(new Translation2d(390.0, -135.0), Rotation2d.fromDegrees(180.0));
-    public static final Pose2d enemyTrenchBackwardPose = new Pose2d(new Translation2d(235.0, 135.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rZoneBallOnePose = new Pose2d(new Translation2d(387.0, 24.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallTwoPose = new Pose2d(new Translation2d(369.0, 31.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallThreePose = new Pose2d(new Translation2d(350.0, 40.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFourPose = new Pose2d(new Translation2d(376.0, 6.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFivePose = new Pose2d(new Translation2d(357.0, 2.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rendezvousFourBallCenter = new Pose2d(new Translation2d(362.0, 20.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rendezvousFourBallOffset = new Pose2d(new Translation2d(370.0, -40.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rZoneBallOneBackwardPose = new Pose2d(new Translation2d(235.0, -63.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallTwoBackwardPose = new Pose2d(new Translation2d(233.0, -42.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallThreeBackwardPose = new Pose2d(new Translation2d(226.0, -18.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFourBackwardPose = new Pose2d(new Translation2d(232.0, 0.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFiveBackwardPose = new Pose2d(new Translation2d(239.0, 13.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rZoneBallOne110Pose = new Pose2d(new Translation2d(390.0, 60.0), Rotation2d.fromDegrees(-110.0));
-
-    public static final Pose2d enemyRZoneBallOnePose = new Pose2d(new Translation2d(237.0, -25.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallTwoPose = new Pose2d(new Translation2d(257.0, -32.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallThreePose = new Pose2d(new Translation2d(275.0, -39.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallFourPose = new Pose2d(new Translation2d(250.0, 5.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallFivePose = new Pose2d(new Translation2d(268.0, -2.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(180.0));
+	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(180.0));
 }

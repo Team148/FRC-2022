@@ -137,7 +137,7 @@ public class Swerve extends Subsystem{
 	public void alwaysConfigureModules(){
 		alwaysConfigureModules = true;
 	}
-	Pose2d startingPose = Constants.goalWallPose;
+	Pose2d startingPose = Constants.twoBallStart;
 	public void setStartingPose(Pose2d newPose){
 		startingPose = newPose;
 	}
@@ -1216,7 +1216,7 @@ public class Swerve extends Subsystem{
 
 	@Override
 	public synchronized void zeroSensors() {
-		zeroSensors(Constants.goalWallPose);
+		zeroSensors(Constants.postTerminalShot);
 	}
 	
 	/** Zeroes the drive motors, and sets the robot's internal position and heading to match that of the fed pose */

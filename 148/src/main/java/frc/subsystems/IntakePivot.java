@@ -63,8 +63,6 @@ public class IntakePivot extends Subsystem {
     private boolean stateChanged = false;
     private double stateChangeTimestamp = Double.POSITIVE_INFINITY;
 
-    private boolean aimInnerPort = false;
-
     public void setState(PivotState newState) {
         if (newState != currentState) {
             currentState = newState;
