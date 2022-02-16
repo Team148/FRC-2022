@@ -133,6 +133,10 @@ public class IntakePivot extends Subsystem {
         return currentState == PivotState.OPEN_LOOP;
     }
 
+    public synchronized void zeroSensors() {
+        intakePivot.setSelectedSensorPosition(angleToEncoderUnits(Constants.IntakePivot.INTAKEPIVOT_ZEROEDANGLE));
+    }
+
     public void setIntakePivotPosition(double angle) {
         if (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE)
             angle = Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE;
@@ -180,10 +184,10 @@ public class IntakePivot extends Subsystem {
                 case AWAITING_LOCK:
                   break;
                 case UP:
-                    // setPivotPosition(setpoint);
+                    setPivotPosition(angleToEncoderUnits(45.0));
                     break;
                 case DOWN:
-                    // setPivotPosition(setpoint);
+                    setPivotPosition(angleToEncoderUnits(92.6));
                     break;
                 default:
                 // System.out.println("Never matched a case!!!");

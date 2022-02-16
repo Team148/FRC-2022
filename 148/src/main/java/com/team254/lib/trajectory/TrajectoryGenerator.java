@@ -146,7 +146,7 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.twoBallStart);//250
             waypoints.add(Constants.twoBallOne);//.transformBy(new Pose2d(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(270.0)))
 
-            return generateTrajectory(false, waypoints, Arrays.asList(), 100.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 150.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getTwoBallToBallTwo(){
@@ -154,7 +154,7 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.twoBallOne2);
             waypoints.add(Constants.twoBallTwo);
 
-            return generateTrajectory(false, waypoints, Arrays.asList(), 100.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 150.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getTwoBallsToTheWall(){
@@ -162,7 +162,7 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.twoBallTutu);
             waypoints.add(Constants.twoBallTerminal);
             
-            return generateTrajectory(false, waypoints, Arrays.asList(), 100.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 150.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getTerminalToShot(){
@@ -170,7 +170,7 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.twoBallTerminal2);
             waypoints.add(Constants.postTerminalShot);
 
-            return generateTrajectory(false, waypoints, Arrays.asList(), 100.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 150.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallStartToBallOne(){

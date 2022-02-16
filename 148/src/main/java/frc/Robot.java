@@ -21,11 +21,13 @@ import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
 import frc.subsystems.Turret;
 import frc.subsystems.Hanger.HangerState;
+import frc.subsystems.IntakePivot.PivotState;
 import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.MotorizedHood;
 import frc.subsystems.Pigeon;
 import frc.subsystems.LinearHood;
 import frc.subsystems.FalconHood;
+import frc.subsystems.LEDs;
 
 import com.team1323.io.Xbox;
 import com.team1323.lib.util.CrashTracker;
@@ -57,6 +59,7 @@ public class Robot extends TimedRobot {
 	private LinearHood newHood;
 	private FalconHood falconHood;
 
+	private LEDs lightShow;
 	private LimelightProcessor limelight;
 
 	private AutoModeExecuter autoModeExecuter = null;
@@ -93,6 +96,10 @@ public class Robot extends TimedRobot {
 		return FalconHood.getInstance();
 	}
 
+	public static LEDs getLEDs() {
+		return LEDs.getInstance();
+	}
+
 	private Looper enabledLooper = new Looper();
 	private Looper disabledLooper = new Looper();
 
@@ -125,8 +132,9 @@ public class Robot extends TimedRobot {
 		hood = frc.subsystems.MotorizedHood.getInstance();
 		newHood = LinearHood.getInstance();
 		falconHood = FalconHood.getInstance();
+		lightShow = LEDs.getInstance();
 		subsystems = new SubsystemManager(
-				Arrays.asList(s, swerve, turret, shooter, intake, pivot, hanger, feeder, hood, newHood, falconHood)
+				Arrays.asList(s, swerve, turret, shooter, intake, pivot, hanger, feeder, hood, newHood, falconHood, lightShow)
 				);
 
 		limelight = LimelightProcessor.getInstance();
@@ -150,6 +158,7 @@ public class Robot extends TimedRobot {
 		swerve.zeroSensors();
 		turret.zeroSensors();
 		falconHood.zeroSensors();
+		pivot.zeroSensors();
 		swerve.stop();
 
 		autoSelected.initWithDefaults();
@@ -227,6 +236,8 @@ public class Robot extends TimedRobot {
 			SmartDashboard.putBoolean("Auto", false);
 
 			hanger.setState(HangerState.OFF);
+
+			// lightShow.conformToState(LEDs.State.BREATHING_RED);
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
 			throw t;
@@ -276,6 +287,8 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		try {
 			turret.resetToAbsolute();
+
+			// lightShow.conformToState(LEDs.State.RED);
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
 			throw t;
@@ -342,21 +355,24 @@ public class Robot extends TimedRobot {
 		}
 
 		if(driver.leftBumper.wasActivated()) {
-			pivot.setPivotPosition(-15000.0);
+			pivot.setState(PivotState.UP);
 		}
 		else if(driver.rightBumper.wasActivated()) {
-			pivot.setPivotPosition(-40000.0);
+			pivot.setState(PivotState.DOWN);
 		}
 
 		if(driver.rightTrigger.isBeingPressed()) {
 			intakePercent = -1.0;
 			feeder.setState(FeederState.INTAKING);
+			// lightShow.conformToState(LEDs.State.RAPID_FLASHING_YELLOW);//quiero más Ball
 		}
 		else if(driver.leftTrigger.isBeingPressed()) {
 			intakePercent = 1.0;
 		}else if(driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased()){
 			feeder.setState(FeederState.OFF);
 		}
+
+
 
 		// //Controls for hood testing + (X) - 
 		// if (driver.backButton.wasActivated()) {
@@ -475,9 +491,6 @@ public class Robot extends TimedRobot {
 			}
 			
 		}
-		// if(operator.rightTrigger.isBeingPressed() || operator.rightTrigger.longPressed() && operator.leftTrigger.isBeingPressed() || operator.leftTrigger.longPressed()) {
-		// 	Feeder.setState(FeederState.POOP);
-		// }
 
 		if(operator.rightTrigger.isBeingPressed() || operator.rightTrigger.longPressed()) {
 			// feederPercent = 1.0;
@@ -488,60 +501,11 @@ public class Robot extends TimedRobot {
 		if(operator.rightTrigger.shortReleased() || operator.rightTrigger.longReleased()) {
 			feeder.setState(FeederState.OFF);
 		}
-		
-		// if(operator.leftCenterClick.wasActivated()){
-		// 	shooterSpeed = 6500;   //11500
-		// 	if(compBot) {
-		// 		hood.setAngle(Constants.MotorizedHood.CompFarAngle + 10.0);
-		// 	}
-		// 	else {
-		// 		hood.setAngle(Constants.MotorizedHood.R2FarAngle);
-		// 	}
-		// 	s.turretPositionState(205.0);
-		// 	// Feeder.setState(FeederState.POOP);
-		// }
-
-		// if(operator.rightCenterClick.isBeingPressed()) {
-		// 	feeder.setState(FeederState.WHEEL_OF_FORTUNE);
-		// }
-
-
-		// if(operator.rightTrigger.isBeingPressed() || operator.rightTrigger.longPressed() ||
-		// operator.leftTrigger.isBeingPressed() || operator.leftTrigger.longPressed()) {
-		// 	shooterSpeed = 4000;
-		// 	s.turretPositionState(200.0);
-		// 	hood.setAngle(50.0);
-		// }
-
-		// if (operator.rightTrigger.isBeingPressed()) {
-		// 	if (operator.aButton.wasActivated()) {
-		// 		System.out.println("Calling Close");
-		// 		s.closeShot();
-		// 	} else if (operator.xButton.wasActivated()) {
-		// 		System.out.println("Calling Mid");
-		// 		s.midShot();
-		// 	} else if (operator.yButton.wasActivated()) {
-		// 		System.out.println("Calling Far");
-		// 		s.farShot();
-		// 	}
-		// } else if (!operator.rightTrigger.isBeingPressed()) {
-		// 	if (operator.aButton.longPressed()) {
-		// 		System.out.println("Calling Close MOVE AND FIRE");
-		// 		s.closeProtectedMoveAndFireState();
-		// 	} else if (operator.xButton.longPressed()) {
-		// 		System.out.println("Calling Mid MOVE AND FIRE");
-		// 		s.midVisionMoveAndFireState();
-		// 	} else if (operator.yButton.longPressed()) {
-		// 		System.out.println("Calling Far MOVE AND FIRE");
-		// 		s.farVisionMoveAndFireState();
-		// 	}
-		// }
 
 		if(operator.rightBumper.isBeingPressed()) {
 			feeder.setState(FeederState.UNJAM_HOPPER);
 		}
 		else if(operator.leftBumper.isBeingPressed()) {
-			// hopperPercent = -0.80;
 			feeder.setState(FeederState.UNJAM_FEED);
 		}
 		else if(operator.leftBumper.shortReleased() || operator.leftBumper.longReleased() || operator.rightBumper.shortReleased() || operator.rightBumper.longReleased() || operator.leftCenterClick.shortReleased() || operator.leftCenterClick.longReleased()) {
@@ -567,16 +531,6 @@ public class Robot extends TimedRobot {
 				}
 			}
 		}
-
-		// if(operator.backButton.isBeingPressed()) {
-		// 	hanger.setState(HangerState.EXTEND);
-		// }
-		// else if(operator.startButton.isBeingPressed()) {
-		// 	hanger.setState(HangerState.STOW);
-		// }
-		// else if(operator.backButton.longReleased() || operator.backButton.shortReleased() || operator.startButton.longReleased() || operator.startButton.shortReleased()) {
-		// 	hanger.setState(HangerState.OFF);
-		// }
 
 		intake.setMotor(intakePercent);
 
