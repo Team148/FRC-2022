@@ -378,18 +378,44 @@ public class Robot extends TimedRobot {
 			turret.lockAngle();
 		}
 
-		if (Math.abs(operatorLeftY) != 0) {
-			pivot.setOpenLoop(operatorLeftY * 0.5);
-		} 
-		// if(driver.leftBumper.wasActivated()) {
-		// 	pivot.setPivotPosition(-15000.0);
+		// if (Math.abs(operatorLeftY) != 0) {
+		// 	pivot.setOpenLoop(operatorLeftY * 0.5);
+		// } 
+		// // if(driver.leftBumper.wasActivated()) {
+		// // 	pivot.setPivotPosition(-15000.0);
+		// // }
+		// // else if(driver.rightBumper.wasActivated()) {
+		// // 	pivot.setPivotPosition(-40000.0);
+		// // }
+		// else if ((Math.abs(operatorLeftY) == 0)) {
+		// 	pivot.setOpenLoop(0.0);
 		// }
-		// else if(driver.rightBumper.wasActivated()) {
-		// 	pivot.setPivotPosition(-40000.0);
-		// }
-		else if ((Math.abs(operatorLeftY) == 0)) {
-			pivot.setOpenLoop(0.0);
+
+		if(operator.backButton.isBeingPressed()) {
+			hanger.setMotor(1.0);
 		}
+		else if (operator.startButton.isBeingPressed()) {
+			hanger.setMotor(-1.0);
+		}
+		else if (operator.backButton.longReleased() || operator.backButton.shortReleased() || operator.startButton.longReleased() || operator.startButton.shortReleased()) {
+			hanger.setMotor(0.0);
+		}
+
+		// // Shooter speed adjustment + (X) - 
+		// if (operator.backButton.wasActivated()) {
+		// 	// hanger.setMotor(1.0);
+		// 	hanger.setOneClawServo(1.0);
+		// }
+		// else if (operator.startButton.wasActivated()) {
+		// 	// hanger.setMotor(-1.0);
+		// 	hanger.setTwoClawServo(1.0);
+		// }
+		// else if (operator.backButton.wasReleased()) {
+		// 	hanger.setOneClawServo(0.0);
+		// }
+		// else if (operator.startButton.wasReleased()) {
+		// 	hanger.setTwoClawServo(0.0);
+		// }
 
 		
 		if(operator.aButton.wasActivated()){
@@ -419,14 +445,6 @@ public class Robot extends TimedRobot {
 
 		else if (operator.leftCenterClick.wasActivated()) {
 			shooterSpeed = 0.0;
-		}
-
-		// Shooter speed adjustment + (X) - 
-		if (operator.backButton.wasActivated()) {
-			hanger.setMotor(1.0);
-		}
-		else if (operator.startButton.wasActivated()) {
-			hanger.setMotor(-1.0);
 		}
 
 		if (operator.POV0.wasActivated()) {

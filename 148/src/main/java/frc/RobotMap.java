@@ -57,6 +57,10 @@ public class RobotMap {
     public static final int SERVO_1 = 8;
     public static final int SERVO_2 = 9;
 
+    //Hanger Servos
+    public static final int ONE_CLAW_SERVO = 6;
+    public static final int TWO_CLAW_SERVO = 7;
+
     //Motorized Servos
     public static final int MOTORIZED_SERVO_1 = 0;
     public static final int MOTORIZED_SERVO_2 = 1;

@@ -133,6 +133,20 @@ public class IntakePivot extends Subsystem {
         return currentState == PivotState.OPEN_LOOP;
     }
 
+    public void setIntakePivotPosition(double angle) {
+        if (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE)
+            angle = Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE;
+        else if (angle > Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)
+            angle = Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE;
+        double setpoint = angleToEncoderUnits(angle);
+        intakePivot.set(ControlMode.Position, setpoint);
+    }
+
+    public double angleToEncoderUnits(double angle) {
+        double setpoint = angle * (Constants.IntakePivot.kInternalEncToOutputRatio * 2048.0);
+        return setpoint;
+    }
+
     @Override
     public synchronized void readPeriodicInputs() {
         periodicIO.position = (int)intakePivot.getSelectedSensorPosition(0);

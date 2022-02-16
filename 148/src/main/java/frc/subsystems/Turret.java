@@ -418,7 +418,7 @@ public class Turret extends Subsystem {
     }
 
     public int turretDegreesToInternalEncUnits(double turretAngle) {
-        return (int) ((turretAngle / 360.0) * Constants.Turret.kInternalEncToOutputRatio * 2048.0);
+        return (int) ((turretAngle / 360.0) * Constants.Turret.kInternalEncToOutputRatio * 2048.0 );
     }
 
     public double internalEncUnitsToTurretDegrees(double encUnits) {
