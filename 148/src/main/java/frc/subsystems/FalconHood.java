@@ -38,7 +38,7 @@ public class FalconHood extends Subsystem{
      private double stateEnteredTimestamp = 0.0;
      private double lastTrackWhileShooting = Double.POSITIVE_INFINITY;
      private boolean isEncoderFlipped = false;
-     private boolean zeroedAbsolutely = false;
+     private boolean zeroedAbsolutely = true;
  
      public double getTargetAngle() {
          return targetAngle;
@@ -91,8 +91,8 @@ public class FalconHood extends Subsystem{
          hoodFalcon.config_kI(0, Constants.FalconHood.kI, Constants.kCANTimeoutMs);
          hoodFalcon.config_kD(0, Constants.FalconHood.kD, Constants.kCANTimeoutMs);
  
-         hoodFalcon.configForwardSoftLimitEnable(true, Constants.kCANTimeoutMs);
-         hoodFalcon.configReverseSoftLimitEnable(true, Constants.kCANTimeoutMs);
+        //  hoodFalcon.configForwardSoftLimitEnable(true, Constants.kCANTimeoutMs);
+        //  hoodFalcon.configReverseSoftLimitEnable(true, Constants.kCANTimeoutMs);
  
         
          hoodFalcon.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 20);
@@ -124,15 +124,25 @@ public class FalconHood extends Subsystem{
      }
  
      public void setHoodPosition(double angle) {
+
+        setState(HoodState.POSITION);
          if (angle < Constants.FalconHood.kMinControlAngle) angle = Constants.FalconHood.kMinControlAngle;
-         else if (angle > Constants.FalconHood.kMaxControlAngle) angle = Constants.FalconHood.kMaxControlAngle;
-         double setpoint = angleToEncoderUnits(angle);
-         hoodFalcon.set(ControlMode.Position, setpoint);
+         if (angle > Constants.FalconHood.kMaxControlAngle) angle = Constants.FalconHood.kMaxControlAngle;
+
+        //  hoodFalcon.set(ControlMode.Position, setpoint);
+        System.out.println("Setting hood position");
+
+        int setpoint = angleToEncoderUnits(angle);
+        periodicIO.controlMode = ControlMode.Position;
+        periodicIO.demand = setpoint;
+
+        writePeriodicOutputs();
      }
  
-     public double angleToEncoderUnits(double angle) {
-        double setpoint = angle * (Constants.FalconHood.kEncoderRatio * 2048.0);
-        return setpoint;
+     public int angleToEncoderUnits(double angle) {
+        double setpoint = (angle / 360.0) * (Constants.FalconHood.kEncoderRatio * 2048.0);
+        System.out.println("Setting position to " + setpoint);
+        return (int) setpoint;
      }
  
      public void setOpenLoop(double output) {
@@ -142,6 +152,7 @@ public class FalconHood extends Subsystem{
      }
      
      public boolean isOpenLoop() {
+        setState(HoodState.OPEN_LOOP);
          return currentState == HoodState.OPEN_LOOP;
      }
 
@@ -162,9 +173,7 @@ public class FalconHood extends Subsystem{
      
      @Override
      public void writePeriodicOutputs() {
-         if (zeroedAbsolutely) {
             hoodFalcon.set(periodicIO.controlMode, periodicIO.demand);
-         }
      }
  
      private final Loop loop = new Loop() {

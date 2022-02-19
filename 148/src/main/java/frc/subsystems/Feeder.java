@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import frc.Constants;
 import frc.RobotMap;
 import frc.loops.ILooper;
@@ -33,6 +34,8 @@ public class Feeder extends Subsystem {
     feederMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
     feederMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
     feederMaster.setInverted(false);
+
+    feederMaster.overrideLimitSwitchesEnable(false);
   }
 
   public static Feeder getInstance() {
@@ -90,7 +93,12 @@ public class Feeder extends Subsystem {
           stop();
           break;
       case INTAKING:
-          setMotors(Constants.Feeder.FEEDER_INTAKE_SPEED);
+          if (feederMaster.getSensorCollection().isRevLimitSwitchClosed()) {
+            setMotors(0.0);
+          }
+          else {
+            setMotors(Constants.Feeder.FEEDER_INTAKE_SPEED);
+          }
           // setMotors(0.0, Constants.Feeder.HOPPER_INTAKING_SPEED + 0.2);
           break;
       case SHOOTING:

@@ -20,6 +20,7 @@ import frc.subsystems.SubsystemManager;
 import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
 import frc.subsystems.Turret;
+import frc.subsystems.FalconHood.HoodState;
 import frc.subsystems.Hanger.HangerState;
 import frc.subsystems.IntakePivot.PivotState;
 import frc.subsystems.Feeder.FeederState;
@@ -434,32 +435,25 @@ public class Robot extends TimedRobot {
 		// }
 
 		
-		if(operator.aButton.wasActivated()){
+		if(operator.aButton.isBeingPressed()){
 			shooterSpeed = Constants.Shooter.AT_GOAL; 
-			falconHood.setHoodPosition(11.0);
-			// newHood.setLinearPosition(newHood.angleToLinear(20.1 + hoodAdjust));
-		//  hood.setServoPosition(0.0);
+			falconHood.setHoodPosition(2.0);
 		}
-		else if(operator.bButton.wasActivated()){
+		else if(operator.bButton.isBeingPressed()){
 			shooterSpeed = Constants.Shooter.BACK_LINE;
-			falconHood.setHoodPosition(28.0);
-			// newHood.setLinearPosition(newHood.angleToLinear(24.3 + hoodAdjust));
-			//  hood.setServoPosition(15.0);
+			falconHood.setHoodPosition(19.0);
 		}
-		else if(operator.xButton.wasActivated()){ 
+		else if(operator.xButton.isBeingPressed()){ 
 			shooterSpeed = Constants.Shooter.HP_WALL;
-			falconHood.setHoodPosition(52.0);
-			//  newHood.setLinearPosition(newHood.angleToLinear(61 + hoodAdjust));
-			//  hood.setServoPosition(165.0);
+			falconHood.setHoodPosition(43.0);
 		}
-		else if(operator.yButton.wasActivated()){
+		else if(operator.yButton.isBeingPressed()){
 			shooterSpeed = Constants.Shooter.LAUNCH_PAD;
-			falconHood.setHoodPosition(35.0);
-			//  newHood.setLinearPosition(newHood.angleToLinear(51.66 + hoodAdjust));
-			//  hood.setServoPosition(130.0);
+			falconHood.setHoodPosition(24.0);
 		}
 
 		else if (operator.leftCenterClick.wasActivated()) {
+			falconHood.setHoodPosition(0.0);
 			shooterSpeed = 0.0;
 		}
 

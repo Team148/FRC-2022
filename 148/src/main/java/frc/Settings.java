@@ -15,7 +15,7 @@ public class Settings {
 	public static final boolean kIsUsingTractionWheels = true;
 
     public static final boolean kSimulate = false;
-	public static final boolean kResetTalons = false;
+	public static final boolean kResetTalons = true;//false;
     
     // Separate debugging output into the different subsystems so as to not 
     // overload the NetworkTables

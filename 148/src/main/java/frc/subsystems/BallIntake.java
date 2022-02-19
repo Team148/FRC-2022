@@ -30,7 +30,7 @@ public class BallIntake extends Subsystem {
     ballIntakeMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
     ballIntakeMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
     ballIntakeMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 60, 100, 1.5));
-    ballIntakeMaster.setInverted(true);
+    ballIntakeMaster.setInverted(false);
   }
 
   public static BallIntake getInstance() {

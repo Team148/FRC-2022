@@ -28,7 +28,7 @@ public class Shooter extends Subsystem {
     ShooterMaster.configVoltageCompSaturation(10.0);
     // ShooterFollower.configVoltageCompSaturation(10.0);
     
-    ShooterMaster.setInverted(false);
+    ShooterMaster.setInverted(true);
     // ShooterFollower.setInverted(true);
 
     ShooterMaster.config_kP(0, 0.15);

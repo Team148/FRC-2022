@@ -140,8 +140,8 @@ public class Constants {
 
 		//Feeder Constants
 		public static final double FEEDER_SHOOTING_SPEED = 1.0;
-		public static final double FEEDER_INTAKE_SPEED = 0.2;
-		public static final double FEEDER_UNJAM_SPEED = -0.2;
+		public static final double FEEDER_INTAKE_SPEED = 0.5;
+		public static final double FEEDER_UNJAM_SPEED = -0.5;
 		public static final double HOPPER_UNJAM_SPEED = 0.67;
 
 		//Hopper Constants
@@ -264,7 +264,7 @@ public class Constants {
 	public static class IntakePivot {
 
 		//IntakePivot Gains
-		public static double INTAKEPIVOT_KP = 0.3; // 0.7;
+		public static double INTAKEPIVOT_KP = 0.0375; // 0.7;
 		public static double INTAKEPIVOT_KI = 0.0;
 		public static double INTAKEPIVOT_KD = 0.0;// 0.0;
 		public static double INTAKEPIVOT_KF = 0.0;
@@ -279,7 +279,7 @@ public class Constants {
 		public static final double INTAKEPIVOT_DOWN = -47800.0;
 
 		public static final double INTAKEPIVOT_ZEROEDANGLE = 0.0;
-		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 92.6; //In both positive and negative directions | 220.0
+		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 100.0; //92.6; //In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = 45.0; // -25.0
 
 		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0;
@@ -327,14 +327,14 @@ public class Constants {
 
 	public static class FalconHood{
 
-		public static double kP = 0.01;
+		public static double kP = 0.2;
 		public static double kI = 0.0;
 		public static double kD = 0.0;
 
-		public static final double kEncoderRatio = (8 * 14) / (52 * 460); //no longer pending
+		public static final double kEncoderRatio =  (52 * 460) / (8 * 14); //no longer pending
 
-		public static final double kMinControlAngle = 9.0;
-		public static final double kMaxControlAngle = 54.0;
+		public static final double kMinControlAngle = 0.0;
+		public static final double kMaxControlAngle = 45.0;
 
 		public static final double kAngleTolerance = 2.0;
 	}
