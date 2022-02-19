@@ -64,7 +64,7 @@ public class SwerveDriveModule extends Subsystem{
 		configureMotors();
 		this.moduleID = moduleID;
 
-		System.out.println("encoderOffsetConstructor " + encoderOffset);
+		// System.out.println("encoderOffsetConstructor " + encoderOffset);
 		previousEncDistance = 0;
 		position = startingPose;
 		this.startingPosition = startingPose;

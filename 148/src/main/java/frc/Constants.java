@@ -190,11 +190,13 @@ public class Constants {
 
 		public static double COMP_FAR_FLYWHEEL = 13500;
 
-		public static double AT_GOAL = 10100.0;//incorrect
-		public static double BACK_LINE = 11200.0;
-		public static double LAUNCH_PAD = 12200.0;
+		public static double MINIMUM_SHOOTER_SPEED = 0;
+
+		public static double AT_GOAL = 11500.0;//incorrect
+		public static double BACK_LINE = 12500.0;//11200.0;
+		public static double LAUNCH_PAD = 14500.0;
 		public static double FAR_LAUNCH_PAD = 13200.0;//incorrect
-		public static double HP_WALL = 13000.0;//incorrect
+		public static double HP_WALL = 16250.0;//13000.0;//incorrect
 
 	}
 
@@ -239,16 +241,16 @@ public class Constants {
 		//Turret Constants
 		public static final double TURRET_MAXSPEED = 22000.0;//22000.0;
 
-		public static final double TURRET_MAXCONTROLANGLE = 405.0; //In both positive and negative directions | 220.0
-		public static final double TURRET_MINCONTROLANGLE = 135.0; // -25.0
-		public static final double TURRET_MAXINITIALANGLE = 395.0; // 220.0
-		public static final double TURRET_MININITIALLANGLE = 125.0; //-25.0
+		public static final double TURRET_MAXCONTROLANGLE = 305.0;//405.0; //In both positive and negative directions | 220.0
+		public static final double TURRET_MINCONTROLANGLE = 35.0;//135.0; // -25.0
+		public static final double TURRET_MAXINITIALANGLE = 305.0;//395.0; // 220.0
+		public static final double TURRET_MININITIALLANGLE = 35.0;//125.0; //-25.0
 
 		//Turret pose with respect to the robot's center
 		public static final double kXOffset = -7.50;//-4.25;
 		public static final double kYOffset = 0.0;
 
-		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 180 : 180;//90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
+		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 90 : 90;//90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
 		public static final double kAngleTolerance = 1.0;
 
 		//Ratios
@@ -256,8 +258,8 @@ public class Constants {
 		public static final double kEncoderToOutputRatio = 14.0;//1.0;
 
 		public static final List<double[]> kVisionRanges = Arrays.asList(
-			new double[] {TURRET_MINCONTROLANGLE, 87.0},
-			new double[] {93.0, TURRET_MAXCONTROLANGLE}
+			new double[] {TURRET_MINCONTROLANGLE, TURRET_MAXCONTROLANGLE},
+			new double[] {TURRET_MAXCONTROLANGLE, TURRET_MAXCONTROLANGLE}
 		);
 	}
 
@@ -334,7 +336,7 @@ public class Constants {
 		public static final double kEncoderRatio =  (52 * 460) / (8 * 14); //no longer pending
 
 		public static final double kMinControlAngle = 0.0;
-		public static final double kMaxControlAngle = 45.0;
+		public static final double kMaxControlAngle = 48.0;
 
 		public static final double kAngleTolerance = 2.0;
 	}

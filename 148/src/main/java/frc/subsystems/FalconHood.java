@@ -130,7 +130,7 @@ public class FalconHood extends Subsystem{
          if (angle > Constants.FalconHood.kMaxControlAngle) angle = Constants.FalconHood.kMaxControlAngle;
 
         //  hoodFalcon.set(ControlMode.Position, setpoint);
-        System.out.println("Setting hood position");
+        // System.out.println("Setting hood position");
 
         int setpoint = angleToEncoderUnits(angle);
         periodicIO.controlMode = ControlMode.Position;
@@ -141,7 +141,7 @@ public class FalconHood extends Subsystem{
  
      public int angleToEncoderUnits(double angle) {
         double setpoint = (angle / 360.0) * (Constants.FalconHood.kEncoderRatio * 2048.0);
-        System.out.println("Setting position to " + setpoint);
+        // System.out.println("Setting position to " + setpoint);
         return (int) setpoint;
      }
  

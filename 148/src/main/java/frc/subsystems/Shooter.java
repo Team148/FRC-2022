@@ -41,9 +41,9 @@ public class Shooter extends Subsystem {
     // ShooterFollower.config_kD(0, 0.0);
     // ShooterFollower.config_kF(0, 0.0570);
 
-    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
+    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
-    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20);
+    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 500);
     ShooterMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
@@ -74,8 +74,14 @@ public class Shooter extends Subsystem {
     return instance;
   }
 
-  public void setMotor(final double speed) {
-    ShooterMaster.set(speed);
+  public void setMotor(double speed) {
+    if(speed <= Constants.Shooter.MINIMUM_SHOOTER_SPEED) {
+      speed = Constants.Shooter.MINIMUM_SHOOTER_SPEED;
+      ShooterMaster.set(speed);
+    }
+    else {
+      ShooterMaster.set(speed);
+    }
   }
 
   public void setOpenLoop(final double speed) {
