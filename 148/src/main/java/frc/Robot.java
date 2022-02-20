@@ -399,11 +399,11 @@ public class Robot extends TimedRobot {
 		}
 
 		if(operator.leftBumper.wasActivated()) {
-			shooterSpeed -= 250.0;
+			shooterSpeed += 250.0;
 			System.out.println("Shooter Speed Set to: " + shooterSpeed);
 		}
 		else if(operator.rightBumper.wasActivated()) {
-			shooterSpeed += 250.0;
+			shooterSpeed -= 250.0;
 			System.out.println("Shooter Speed Set to: " + shooterSpeed);
 		}
 
@@ -424,13 +424,13 @@ public class Robot extends TimedRobot {
 		// }
 		
 		if(operator.aButton.isBeingPressed()){
-			hoodAngle = 9.0;
+			hoodAngle = 5.0;
 			shooterSpeed = Constants.Shooter.AT_GOAL; 
 			// System.out.println("Set Hood to: " + hoodAngle + " and shooter to: " + shooterSpeed);
 		}
 		else if(operator.bButton.isBeingPressed()){
 			shooterSpeed = Constants.Shooter.BACK_LINE;
-			hoodAngle = 23.0;
+			hoodAngle = 30.0;
 			// falconHood.setHoodPosition(23.0);
 		}
 		else if(operator.xButton.isBeingPressed()){ 
@@ -441,7 +441,7 @@ public class Robot extends TimedRobot {
 		}
 		else if(operator.yButton.isBeingPressed()){
 			shooterSpeed = Constants.Shooter.LAUNCH_PAD;
-			hoodAngle = 27.0;
+			hoodAngle = 42.0;
 			// falconHood.setHoodPosition(27.0);
 		}
 

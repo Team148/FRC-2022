@@ -193,8 +193,8 @@ public class Constants {
 		public static double MINIMUM_SHOOTER_SPEED = 0;
 
 		public static double AT_GOAL = 11500.0;//incorrect
-		public static double BACK_LINE = 12500.0;//11200.0;
-		public static double LAUNCH_PAD = 14500.0;
+		public static double BACK_LINE = 11500.0;//11200.0;
+		public static double LAUNCH_PAD = 12500.0;
 		public static double FAR_LAUNCH_PAD = 13200.0;//incorrect
 		public static double HP_WALL = 16250.0;//13000.0;//incorrect
 
