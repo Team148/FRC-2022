@@ -18,7 +18,6 @@ import frc.auto.actions.SetShooterSpeedAction;
 import frc.auto.actions.SetTrajectoryAction;
 import frc.auto.actions.SetTurretAngleAction;
 import frc.auto.actions.SetTurretState;
-import frc.auto.actions.StowHanger;
 import frc.auto.actions.WaitAction;
 import frc.auto.actions.WaitForDistanceAction;
 import frc.auto.actions.WaitForHeadingAction;

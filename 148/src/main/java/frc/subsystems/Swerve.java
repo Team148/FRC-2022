@@ -437,6 +437,14 @@ public class Swerve extends Subsystem{
 		isDriveLocked = false;
 		//modules.forEach((m) -> m.setDrivePositionTarget(0.0));
 	}
+	public void lazyReset() {
+		setState(ControlState.POSITION);
+		modules.get(0).setModuleAngle(0.0);
+		modules.get(1).setModuleAngle(0.0);
+		modules.get(2).setModuleAngle(0.0);
+		modules.get(3).setModuleAngle(0.0);
+		isDriveLocked = false;
+	}
 
 	/** Puts drive motors into closed-loop velocity mode */
 	public void setVelocity(Rotation2d direction, double velocityInchesPerSecond){

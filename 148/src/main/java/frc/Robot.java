@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
 	private Turret turret;
 	private BallIntake intake;
 	private IntakePivot pivot;
-	private Hanger hanger;
+	// private Hanger hanger;
 	private Shooter shooter;
 	private static Feeder feeder;
 	private MotorizedHood hood;
@@ -83,9 +83,9 @@ public class Robot extends TimedRobot {
 	public static Feeder getFeeder(){
 		return Feeder.getInstance();
 	}
-	public static Hanger getHanger() {
-		return Hanger.getInstance();
-	}
+	// public static Hanger getHanger() {
+	// 	return Hanger.getInstance();
+	// }
 	public static IntakePivot getIntakePivot() {
 		return IntakePivot.getInstance();
 	}
@@ -128,14 +128,14 @@ public class Robot extends TimedRobot {
 		shooter = Shooter.getInstance();
 		intake = BallIntake.getInstance();
 		pivot = IntakePivot.getInstance();
-		hanger = Hanger.getInstance();
+		// hanger = Hanger.getInstance();
 		feeder = Feeder.getInstance();
 		hood = frc.subsystems.MotorizedHood.getInstance();
 		newHood = LinearHood.getInstance();
 		falconHood = FalconHood.getInstance();
 		// lightShow = LEDs.getInstance();
 		subsystems = new SubsystemManager(
-				Arrays.asList(s, swerve, turret, shooter, intake, pivot, hanger, feeder, hood, newHood, falconHood)
+				Arrays.asList(s, swerve, turret, shooter, intake, pivot, feeder, hood, newHood, falconHood)
 				);
 
 		limelight = LimelightProcessor.getInstance();
@@ -236,7 +236,7 @@ public class Robot extends TimedRobot {
 			teleopConfig();
 			SmartDashboard.putBoolean("Auto", false);
 
-			hanger.setState(HangerState.OFF);
+			// hanger.setState(HangerState.OFF);
 
 			// lightShow.conformToState(LEDs.State.BREATHING_RED);
 		} catch (Throwable t) {
@@ -332,8 +332,16 @@ public class Robot extends TimedRobot {
 
 		if (driver.backButton.shortReleased() || driver.backButton.longPressed()) {
 			swerve.temporarilyDisableHeadingController();
-			swerve.zeroSensors(Constants.postTerminalShot);
+			swerve.zeroSensors(Constants.swerveReset);
 			swerve.resetAveragedDirection();
+		}
+
+		if (driver.startButton.longPressed()) {
+			swerve.lazyReset();
+			s.turretPositionState(90.0);
+			hoodAngle = 0.0;
+			shooterSpeed = 0.0;
+			pivot.setState(PivotState.RESET);
 		}
 
 		//STATE CONTROLS
@@ -373,39 +381,30 @@ public class Robot extends TimedRobot {
 			feeder.setState(FeederState.OFF);
 		}
 
-
-
-		// //Controls for hood testing + (X) - 
-		// if (driver.backButton.wasActivated()) {
-		// 	hoodAngle += 0.5;
-		// 	System.out.println("Hood angle set to  " + hoodAngle + " degrees.");
-		// }
-		// else if (driver.startButton.wasActivated()) {
-		// 	hoodAngle -= 0.5;
-		// 	System.out.println("Hood angle set to " + hoodAngle + " degrees.");
-		// }
 		//OPERATOR
 
 		double operatorRightX = operator.getRightX();//getX(Hand.kRight);
 		double operatorLeftY = operator.getLeftY();
 
-		if(operator.backButton.wasActivated()) {
-			hoodAngle += 1.0;
-			System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
-		}
-		else if(operator.startButton.wasActivated()) {
-			hoodAngle -= 1.0;
-			System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
-		}
+		//optional manual shooter controls
+				// + (X) -
+		// if(operator.backButton.wasActivated()) {
+		// 	hoodAngle += 1.0;
+		// 	System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
+		// }
+		// else if(operator.startButton.wasActivated()) {
+		// 	hoodAngle -= 1.0;
+		// 	System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
+		// }
 
-		if(operator.leftBumper.wasActivated()) {
-			shooterSpeed += 250.0;
-			System.out.println("Shooter Speed Set to: " + shooterSpeed);
-		}
-		else if(operator.rightBumper.wasActivated()) {
-			shooterSpeed -= 250.0;
-			System.out.println("Shooter Speed Set to: " + shooterSpeed);
-		}
+		// if(operator.leftBumper.wasActivated()) {
+		// 	shooterSpeed += 250.0;
+		// 	System.out.println("Shooter Speed Set to: " + shooterSpeed);
+		// }
+		// else if(operator.rightBumper.wasActivated()) {
+		// 	shooterSpeed -= 250.0;
+		// 	System.out.println("Shooter Speed Set to: " + shooterSpeed);
+		// }
 
 		if (Math.abs(operatorRightX) != 0) {
 			turret.setOpenLoop(operatorRightX);
@@ -424,13 +423,12 @@ public class Robot extends TimedRobot {
 		// }
 		
 		if(operator.aButton.isBeingPressed()){
-			hoodAngle = 5.0;
+			hoodAngle = 7.0;
 			shooterSpeed = Constants.Shooter.AT_GOAL; 
-			// System.out.println("Set Hood to: " + hoodAngle + " and shooter to: " + shooterSpeed);
 		}
 		else if(operator.bButton.isBeingPressed()){
-			shooterSpeed = Constants.Shooter.BACK_LINE;
-			hoodAngle = 30.0;
+			shooterSpeed = Constants.Shooter.BACK_LINE - 500;
+			hoodAngle = 28.0; //30.0; 
 			// falconHood.setHoodPosition(23.0);
 		}
 		else if(operator.xButton.isBeingPressed()){ 
@@ -440,27 +438,28 @@ public class Robot extends TimedRobot {
 			// falconHood.setHoodPosition(48.0);
 		}
 		else if(operator.yButton.isBeingPressed()){
-			shooterSpeed = Constants.Shooter.LAUNCH_PAD;
-			hoodAngle = 42.0;
+			shooterSpeed = Constants.Shooter.LAUNCH_PAD + 250;
+			hoodAngle = 41.0; //42.0;
 			// falconHood.setHoodPosition(27.0);
 		}
 
 		else if (operator.leftCenterClick.wasActivated()) {
-			falconHood.setHoodPosition(0.0);
+			hoodAngle = 0.0;
+			// falconHood.setHoodPosition(0.0);
 			shooterSpeed = 0.0;
 		}
 
 		if (operator.POV0.wasActivated()) {
-			s.turretPositionState(90.0);
+			s.turretPositionState(90.0); //90
 			// System.out.println("Setting turret to 0.0");
 		} else if (operator.POV90.wasActivated()) {
-			s.turretPositionState(180.0);
+			s.turretPositionState(180.0); //180
 			// System.out.println("Setting turret to 90.0");
 		} else if (operator.POV180.wasActivated()) {
-			s.turretPositionState(305.0);
+			s.turretPositionState(270.0); //305
 			// System.out.println("Setting turret to 180.0");
 		} else if (operator.POV270.wasActivated()) {
-			s.turretPositionState(35.0);
+			s.turretPositionState(305.0); //35
 			// System.out.println("Setting turret to -20.0");
 		}
 

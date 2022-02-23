@@ -139,8 +139,8 @@ public class Constants {
 	public static class Feeder {
 
 		//Feeder Constants
-		public static final double FEEDER_SHOOTING_SPEED = 1.0;
-		public static final double FEEDER_INTAKE_SPEED = 0.5;
+		public static final double FEEDER_SHOOTING_SPEED = 0.75;
+		public static final double FEEDER_INTAKE_SPEED = 0.3;
 		public static final double FEEDER_UNJAM_SPEED = -0.5;
 		public static final double HOPPER_UNJAM_SPEED = 0.67;
 
@@ -192,7 +192,7 @@ public class Constants {
 
 		public static double MINIMUM_SHOOTER_SPEED = 0;
 
-		public static double AT_GOAL = 11500.0;//incorrect
+		public static double AT_GOAL = 10750;//11500.0;//incorrect
 		public static double BACK_LINE = 11500.0;//11200.0;
 		public static double LAUNCH_PAD = 12500.0;
 		public static double FAR_LAUNCH_PAD = 13200.0;//incorrect
@@ -281,7 +281,7 @@ public class Constants {
 		public static final double INTAKEPIVOT_DOWN = -47800.0;
 
 		public static final double INTAKEPIVOT_ZEROEDANGLE = 0.0;
-		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 100.0; //92.6; //In both positive and negative directions | 220.0
+		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 92.6; //In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = 45.0; // -25.0
 
 		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0;
@@ -361,4 +361,7 @@ public class Constants {
 	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(0.0));
 	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(180.0));
 	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(180.0));
+
+	public static final Pose2d swerveReset = new Pose2d(new Translation2d(0.0 , 0.0), Rotation2d.fromDegrees(180.0));
+
 }
