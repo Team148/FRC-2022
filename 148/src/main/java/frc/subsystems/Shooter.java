@@ -41,6 +41,9 @@ public class Shooter extends Subsystem {
     // ShooterFollower.config_kD(0, 0.0);
     // ShooterFollower.config_kF(0, 0.0570);
 
+    // ShooterMaster.configVelocityMeasurementPeriod(10, 10);    	
+    // ShooterMaster.configVelocityMeasurementWindow(32, 10);
+
     ShooterMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
     ShooterMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);

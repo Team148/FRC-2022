@@ -281,7 +281,7 @@ public class Constants {
 		public static final double INTAKEPIVOT_DOWN = -47800.0;
 
 		public static final double INTAKEPIVOT_ZEROEDANGLE = 0.0;
-		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 92.6; //In both positive and negative directions | 220.0
+		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 103.0; //In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = 45.0; // -25.0
 
 		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0;

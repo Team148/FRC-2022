@@ -92,7 +92,7 @@ public class IntakePivot extends Subsystem {
         intakePivot.config_kI(0, Constants.IntakePivot.INTAKEPIVOT_KI, Constants.kCANTimeoutMs);
         intakePivot.config_kD(0, Constants.IntakePivot.INTAKEPIVOT_KD, Constants.kCANTimeoutMs);
         intakePivot.config_kF(0, Constants.IntakePivot.INTAKEPIVOT_KF, Constants.kCANTimeoutMs);
-        intakePivot.configAllowableClosedloopError(0 , 5000.0, Constants.kCANTimeoutMs);
+        // intakePivot.configAllowableClosedloopError(0 , 5000.0, Constants.kCANTimeoutMs);
 
         intakePivot.configMotionCruiseVelocity((int)(Constants.IntakePivot.INTAKEPIVOT_MAXSPEED), Constants.kCANTimeoutMs);
         intakePivot.configMotionAcceleration((int)(Constants.IntakePivot.INTAKEPIVOT_MAXSPEED * 3.0), Constants.kCANTimeoutMs);

@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
 	private Turret turret;
 	private BallIntake intake;
 	private IntakePivot pivot;
-	// private Hanger hanger;
+	private Hanger hanger;
 	private Shooter shooter;
 	private static Feeder feeder;
 	private MotorizedHood hood;
@@ -83,9 +83,9 @@ public class Robot extends TimedRobot {
 	public static Feeder getFeeder(){
 		return Feeder.getInstance();
 	}
-	// public static Hanger getHanger() {
-	// 	return Hanger.getInstance();
-	// }
+	public static Hanger getHanger() {
+		return Hanger.getInstance();
+	}
 	public static IntakePivot getIntakePivot() {
 		return IntakePivot.getInstance();
 	}
@@ -113,6 +113,8 @@ public class Robot extends TimedRobot {
 	private boolean robotCentric = false;
 	private boolean isTurret180Rotation = false;
 
+	private boolean climbModeActivated = false;
+
 	private double shooterSpeed = 0.0;
 	private double hoodAngle = 0.0;
 
@@ -128,14 +130,14 @@ public class Robot extends TimedRobot {
 		shooter = Shooter.getInstance();
 		intake = BallIntake.getInstance();
 		pivot = IntakePivot.getInstance();
-		// hanger = Hanger.getInstance();
+		hanger = Hanger.getInstance();
 		feeder = Feeder.getInstance();
 		hood = frc.subsystems.MotorizedHood.getInstance();
 		newHood = LinearHood.getInstance();
 		falconHood = FalconHood.getInstance();
 		// lightShow = LEDs.getInstance();
 		subsystems = new SubsystemManager(
-				Arrays.asList(s, swerve, turret, shooter, intake, pivot, feeder, hood, newHood, falconHood)
+				Arrays.asList(s, swerve, turret, shooter, intake, pivot, feeder, hood, newHood, falconHood, hanger)
 				);
 
 		limelight = LimelightProcessor.getInstance();
@@ -421,42 +423,61 @@ public class Robot extends TimedRobot {
 		// else if (operator.backButton.longReleased() || operator.backButton.shortReleased() || operator.startButton.longReleased() || operator.startButton.shortReleased()) {
 		// 	hanger.setMotor(0.0);
 		// }
-		
-		if(operator.aButton.isBeingPressed()){
-			hoodAngle = 7.0;
-			shooterSpeed = Constants.Shooter.AT_GOAL; 
-		}
-		else if(operator.bButton.isBeingPressed()){
-			shooterSpeed = Constants.Shooter.BACK_LINE - 500;
-			hoodAngle = 28.0; //30.0; 
-			// falconHood.setHoodPosition(23.0);
-		}
-		else if(operator.xButton.isBeingPressed()){ 
-			shooterSpeed = Constants.Shooter.HP_WALL;
-			hoodAngle = 48.0;
-			// // falconHood.setHoodPosition(0.0);
-			// falconHood.setHoodPosition(48.0);
-		}
-		else if(operator.yButton.isBeingPressed()){
-			shooterSpeed = Constants.Shooter.LAUNCH_PAD + 250;
-			hoodAngle = 41.0; //42.0;
-			// falconHood.setHoodPosition(27.0);
+
+		if(operator.backButton.isBeingPressed() && operator.startButton.isBeingPressed()) {
+			climbModeActivated = true;
 		}
 
-		else if (operator.leftCenterClick.wasActivated()) {
-			hoodAngle = 0.0;
-			// falconHood.setHoodPosition(0.0);
-			shooterSpeed = 0.0;
+		if(climbModeActivated) {
+			if(operator.aButton.isBeingPressed()){
+				hanger.setMotor(1.0);
+			}
+			else if(operator.bButton.isBeingPressed()) {
+				hanger.setMotor(-1.0);
+			}
+			else if(operator.xButton.isBeingPressed()) {
+				hanger.setOneClawServo(1.0);
+			}
+			else if(operator.yButton.isBeingPressed()) {
+				hanger.setTwoClawServo(1.0);
+			}
+		}
+		else {
+			if(operator.aButton.isBeingPressed()){
+				hoodAngle = 7.0;
+				shooterSpeed = Constants.Shooter.AT_GOAL; 
+			}
+			else if(operator.bButton.isBeingPressed()){
+				shooterSpeed = Constants.Shooter.BACK_LINE;
+				hoodAngle = 28.0; //30.0; 
+				// falconHood.setHoodPosition(23.0);
+			}
+			else if(operator.xButton.isBeingPressed()){ 
+				shooterSpeed = Constants.Shooter.HP_WALL;
+				hoodAngle = 48.0;
+				// // falconHood.setHoodPosition(0.0);
+				// falconHood.setHoodPosition(48.0);
+			}
+			else if(operator.yButton.isBeingPressed()){
+				shooterSpeed = Constants.Shooter.LAUNCH_PAD + 250;
+				hoodAngle = 41.0; //42.0;
+				// falconHood.setHoodPosition(27.0);
+			}
+			else if (operator.leftCenterClick.wasActivated()) {
+				hoodAngle = 0.0;
+				// falconHood.setHoodPosition(0.0);
+				shooterSpeed = 0.0;
+			}
 		}
 
 		if (operator.POV0.wasActivated()) {
-			s.turretPositionState(90.0); //90
+			s.turretPositionState(270.0); //90
 			// System.out.println("Setting turret to 0.0");
 		} else if (operator.POV90.wasActivated()) {
 			s.turretPositionState(180.0); //180
 			// System.out.println("Setting turret to 90.0");
 		} else if (operator.POV180.wasActivated()) {
-			s.turretPositionState(270.0); //305
+			s.turretPositionState(90.0); //305
 			// System.out.println("Setting turret to 180.0");
 		} else if (operator.POV270.wasActivated()) {
 			s.turretPositionState(305.0); //35
@@ -476,15 +497,12 @@ public class Robot extends TimedRobot {
 			feeder.setState(FeederState.OFF);
 		}
 
-		// if(operator.rightBumper.isBeingPressed()) {
-		// 	feeder.setState(FeederState.UNJAM_HOPPER);
-		// }
-		// else if(operator.leftBumper.isBeingPressed()) {
-		// 	feeder.setState(FeederState.UNJAM_FEED);
-		// }
-		// else if(operator.leftBumper.shortReleased() || operator.leftBumper.longReleased() || operator.rightBumper.shortReleased() || operator.rightBumper.longReleased() || operator.leftCenterClick.shortReleased() || operator.leftCenterClick.longReleased()) {
-		// 	feeder.setState(FeederState.OFF);
-		// }
+		if(operator.leftBumper.isBeingPressed()) {
+			feeder.setState(FeederState.UNJAM_FEED);
+		}
+		else if(operator.leftBumper.shortReleased() || operator.leftBumper.longReleased()) {
+			feeder.setState(FeederState.OFF);
+		}
 
 		if (operator.rightCenterClick.shortReleased() || operator.rightCenterClick.longReleased()) {
 			if (!turret.isGoingToPole()) {
