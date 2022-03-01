@@ -429,17 +429,26 @@ public class Robot extends TimedRobot {
 		}
 
 		if(climbModeActivated) {
-			if(operator.aButton.isBeingPressed()){
+			if(operator.aButton.isBeingPressed() || operator.aButton.longPressed()){
 				hanger.setMotor(1.0);
 			}
-			else if(operator.bButton.isBeingPressed()) {
+			else if(operator.bButton.isBeingPressed() || operator.bButton.longPressed()) {
 				hanger.setMotor(-1.0);
 			}
-			else if(operator.xButton.isBeingPressed()) {
-				hanger.setOneClawServo(1.0);
+			else if(operator.xButton.isBeingPressed() || operator.xButton.longPressed()) {
+				hanger.setOneClawServo(0.6);
 			}
-			else if(operator.yButton.isBeingPressed()) {
-				hanger.setTwoClawServo(1.0);
+			else if(operator.yButton.isBeingPressed() || operator.yButton.longPressed()) {
+				hanger.setTwoClawServo(0.6);
+			}
+			else if(operator.aButton.shortReleased() || operator.aButton.longReleased() || operator.bButton.shortReleased() || operator.bButton.longReleased()){
+				hanger.setMotor(0.0);
+			}
+			else if(operator.xButton.shortReleased() || operator.xButton.longReleased()){
+				hanger.setOneClawServo(0.5);
+			}
+			else if(operator.yButton.shortReleased() || operator.yButton.longReleased()){
+				hanger.setTwoClawServo(0.5);
 			}
 		}
 		else {

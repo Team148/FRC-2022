@@ -54,7 +54,7 @@ public class Hanger extends Subsystem {
     hangerMaster.set(ControlMode.PercentOutput, speed);
   }
 
-  synchronized void setOpenLoop(double speed) {
+  public void setOpenLoop(double speed) {
     hangerMaster.set(ControlMode.PercentOutput, speed);
   }
 
@@ -138,7 +138,6 @@ public void onStart(double timestamp) {
 public void onLoop(double timestamp) {
     switch (currentState) {
     case OFF:
-        stop();
         break;
     case STOW:
         if(getHangerPosition() < Constants.Hanger.HANGER_DOWN_SLOW)

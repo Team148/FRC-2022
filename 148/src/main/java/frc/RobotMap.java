@@ -58,12 +58,12 @@ public class RobotMap {
     public static final int SERVO_2 = 9;
 
     //Hanger Servos
-    public static final int ONE_CLAW_SERVO = 6;
-    public static final int TWO_CLAW_SERVO = 7;
+    public static final int ONE_CLAW_SERVO = 0;
+    public static final int TWO_CLAW_SERVO = 1;
 
     //Motorized Servos
-    public static final int MOTORIZED_SERVO_1 = 0;
-    public static final int MOTORIZED_SERVO_2 = 1;
+    public static final int MOTORIZED_SERVO_1 = 6;
+    public static final int MOTORIZED_SERVO_2 = 7;
 
     //Hood Encoder
     // public static final int MA3_PORT = 0;
