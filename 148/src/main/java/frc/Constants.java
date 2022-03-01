@@ -241,10 +241,10 @@ public class Constants {
 		//Turret Constants
 		public static final double TURRET_MAXSPEED = 22000.0;//22000.0;
 
-		public static final double TURRET_MAXCONTROLANGLE = 305.0;//405.0; //In both positive and negative directions | 220.0
-		public static final double TURRET_MINCONTROLANGLE = 35.0;//135.0; // -25.0
-		public static final double TURRET_MAXINITIALANGLE = 305.0;//395.0; // 220.0
-		public static final double TURRET_MININITIALLANGLE = 35.0;//125.0; //-25.0
+		public static final double TURRET_MAXCONTROLANGLE = 325.0;//305.0;
+		public static final double TURRET_MINCONTROLANGLE = 15.0;//35.0;
+		public static final double TURRET_MAXINITIALANGLE = 325.0;//305.0;
+		public static final double TURRET_MININITIALLANGLE = 15.0;//35.0;
 
 		//Turret pose with respect to the robot's center
 		public static final double kXOffset = -7.50;//-4.25;
@@ -348,19 +348,19 @@ public class Constants {
 	//Field Positions
 	// 135.0 inches from full field to start line pose
 	// public static final Pose2d twoBallStart = new Pose2d(new Translation2d(297.0, -51.0), Rotation2d.fromDegrees(0.0)); //250.0
-	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(kFieldLength - 290.0, -90.0), Rotation2d.fromDegrees(270.0)); //250.0
-	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(kFieldLength - 290.0, -135.0), Rotation2d.fromDegrees(270.0));  //270.0
-	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -135.0), Rotation2d.fromDegrees(35.0));
+	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(kFieldLength - 290.0, -90.0), Rotation2d.fromDegrees(0.0)); //250.0
+	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(-90.0));  //270.0
+	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(35.0));
 	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -85.0), Rotation2d.fromDegrees(35.0)); //173.0
 	public static final Pose2d twoBallTutu = new Pose2d(new Translation2d(kFieldLength - 195.0, -85.0), Rotation2d.fromDegrees(-8.0));
-	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 55.0, -105.0), Rotation2d.fromDegrees(-8.0)); //225.0
-	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 55.0, -105.0), Rotation2d.fromDegrees(184.0)); 
-	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -130.0), Rotation2d.fromDegrees(184.0));
+	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 47.0, -98.0), Rotation2d.fromDegrees(-45.0)); //225.0
+	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 47.0, -98.0), Rotation2d.fromDegrees(184.0)); 
+	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -120.0), Rotation2d.fromDegrees(184.0));
 
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
 	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(180.0));
+	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(0.0));
 
 	public static final Pose2d swerveReset = new Pose2d(new Translation2d(0.0 , 0.0), Rotation2d.fromDegrees(180.0));
 

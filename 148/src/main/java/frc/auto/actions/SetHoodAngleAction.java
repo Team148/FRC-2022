@@ -1,19 +1,19 @@
 package frc.auto.actions;
 
-import frc.subsystems.MotorizedHood;
+import frc.subsystems.FalconHood;
 
 public class SetHoodAngleAction extends RunOnceAction{
 	double angle;
-	MotorizedHood hood;
+	FalconHood hood;
 	
 	public SetHoodAngleAction(double angle){
 		this.angle = angle;
-		hood = MotorizedHood.getInstance();
+		hood = FalconHood.getInstance();
 	}
 	
 	@Override
 	public void runOnce() {
 		// System.out.println("Setting Hood Angle NOW!!!!!" + angle.getUnboundedDegrees());
-		hood.setAngle(angle);
+		hood.setHoodPosition(angle);
 	}
 }

@@ -65,8 +65,9 @@ public class OneBallBase extends AutoModeBase {
         runAction(new ResetPoseAction(Constants.oneBallStart));
         runAction(new SetPivotState(PivotState.DOWN));
         runAction(new SetFeederState(FeederState.INTAKING));
-        runAction(new SetBallIntakeSpeedAction(1.0));
-        runAction(new SetShooterSpeedAction(11000.0));
+        runAction(new SetBallIntakeSpeedAction(-1.0));
+        runAction(new SetShooterSpeedAction(11500.0));
+        runAction(new SetHoodAngleAction(28.0));
         runAction(new SetTurretAngleAction(90.0));
         s.firingVision();
         runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 0.0, 1.0));

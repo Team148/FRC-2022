@@ -154,7 +154,7 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.twoBallOne2);
             waypoints.add(Constants.twoBallTwo);
 
-            return generateTrajectory(false, waypoints, Arrays.asList(), 150.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 100.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getTwoBallsToTheWall(){
