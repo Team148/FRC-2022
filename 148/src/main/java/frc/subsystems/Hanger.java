@@ -10,15 +10,16 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.Servo;
+// import edu.wpi.first.wpilibj.Servo;
+import com.team1323.lib.util.LinearServo;
 
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 public class Hanger extends Subsystem {
   private WPI_TalonFX hangerMaster = new WPI_TalonFX(RobotMap.HANGER_MASTER);
 
-  private Servo oneClawServo;
-  private Servo twoClawServo;
+  private LinearServo oneClawServo;
+  private LinearServo twoClawServo;
 
   private static Hanger instance = null;
 
@@ -40,8 +41,8 @@ public class Hanger extends Subsystem {
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
     hangerMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 55, 65, 1.5));
 
-    oneClawServo = new Servo(RobotMap.ONE_CLAW_SERVO);
-    twoClawServo = new Servo(RobotMap.TWO_CLAW_SERVO);
+    oneClawServo = new LinearServo(RobotMap.ONE_CLAW_SERVO, 100, 24);
+    twoClawServo = new LinearServo(RobotMap.TWO_CLAW_SERVO, 100, 24);
   }
 
   public static Hanger getInstance() {

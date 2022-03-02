@@ -426,29 +426,30 @@ public class Robot extends TimedRobot {
 
 		if(operator.backButton.isBeingPressed() && operator.startButton.isBeingPressed()) {
 			climbModeActivated = true;
+			pivot.setState(PivotState.RESET);
 		}
 
 		if(climbModeActivated) {
 			if(operator.aButton.isBeingPressed() || operator.aButton.longPressed()){
-				hanger.setMotor(1.0);
+				hanger.setMotor(0.90);
 			}
 			else if(operator.bButton.isBeingPressed() || operator.bButton.longPressed()) {
-				hanger.setMotor(-1.0);
+				hanger.setMotor(-0.90);
 			}
 			else if(operator.xButton.isBeingPressed() || operator.xButton.longPressed()) {
-				hanger.setOneClawServo(0.6);
+				hanger.setOneClawServo(0.0);
 			}
 			else if(operator.yButton.isBeingPressed() || operator.yButton.longPressed()) {
-				hanger.setTwoClawServo(0.6);
+				hanger.setTwoClawServo(0.0);
 			}
 			else if(operator.aButton.shortReleased() || operator.aButton.longReleased() || operator.bButton.shortReleased() || operator.bButton.longReleased()){
 				hanger.setMotor(0.0);
 			}
 			else if(operator.xButton.shortReleased() || operator.xButton.longReleased()){
-				hanger.setOneClawServo(0.5);
+				hanger.setOneClawServo(0.18);
 			}
 			else if(operator.yButton.shortReleased() || operator.yButton.longReleased()){
-				hanger.setTwoClawServo(0.5);
+				hanger.setTwoClawServo(0.18);
 			}
 		}
 		else {
