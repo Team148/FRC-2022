@@ -70,28 +70,28 @@ public class TwoBallAndTerminal extends AutoModeBase {
         runAction(new SetBallIntakeSpeedAction(-1.0));
         runAction(new SetTrajectoryAction(trajectories.twoStartToBall, -90.0, 1.5));
         s.turretPositionState(90.0);
-        s.firingVision();
         runAction(new SetShooterSpeedAction(11750.0));
         runAction(new SetHoodAngleAction(28.0));
         runAction(new RemainingProgressAction(0.05));
+        s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
-        runAction(new WaitAction(2.0));
+        runAction(new WaitAction(1.75));
         runAction(new SetFeederState(FeederState.INTAKING));
-        runAction(new SetTrajectoryAction(trajectories.twoBallToBallTwo, 35.0, 1.2)); //154
+        runAction(new SetTrajectoryAction(trajectories.twoBallToBallTwo, 35.0, 0.75));
             runAction(new SetShooterSpeedAction(12250.0));
             runAction(new SetHoodAngleAction(32.0));
-        runAction(new SetTurretAngleAction(20.0)); //dunno
+        runAction(new SetTurretAngleAction(20.0));
         s.firingVision();
         runAction(new RemainingProgressAction(0.05));
         runAction(new SetFeederState(FeederState.SHOOTING));
-        runAction(new WaitAction(1.5));
-        runAction(new SetTrajectoryAction(trajectories.twoBallsToTheWall, -45.0, 1.0));
+        runAction(new WaitAction(1.25));
+        runAction(new SetTrajectoryAction(trajectories.twoBallsToTheWall, -45.0, 0.6));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new RemainingProgressAction(0.01));
-        runAction(new WaitAction(3.0));
-        runAction(new SetTrajectoryAction(trajectories.terminalToShot, 184.0, 1.0));
+        runAction(new WaitAction(0.5));
+        runAction(new SetTrajectoryAction(trajectories.terminalToShot, 184.0, 0.5));
         runAction(new SetTurretAngleAction(180.0));
-        runAction(new SetShooterSpeedAction(11750));
+        runAction(new SetShooterSpeedAction(11500));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
