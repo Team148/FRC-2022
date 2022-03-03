@@ -63,26 +63,32 @@ public class TwoBallAndTerminal extends AutoModeBase {
     @Override
     protected void routine() throws AutoModeEndedException {
         super.startTime = Timer.getFPGATimestamp();
-        runAction(new ResetPoseAction(Constants.twoBallStart));//.transformBy(new Pose2d(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(270.0)))
-        runAction(new SetPivotState(PivotState.DOWN));
+        runAction(new ResetPoseAction(Constants.twoBallStart));
         LimelightProcessor.getInstance().ledOn(true);
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetBallIntakeSpeedAction(-1.0));
         runAction(new SetTrajectoryAction(trajectories.twoStartToBall, -90.0, 1.5));
+            // runAction(new ParallelAction(
+            //     Arrays.asList(
+            //     new WaitAction(0.3),
+            //     new SetPivotState(PivotState.DOWN)
+            // )
+            // ));
         s.turretPositionState(90.0);
         runAction(new SetShooterSpeedAction(11750.0));
         runAction(new SetHoodAngleAction(28.0));
         runAction(new RemainingProgressAction(0.05));
+            runAction(new SetPivotState(PivotState.DOWN));
         s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new WaitAction(1.75));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetTrajectoryAction(trajectories.twoBallToBallTwo, 35.0, 0.75));
             runAction(new SetShooterSpeedAction(12250.0));
-            runAction(new SetHoodAngleAction(32.0));
+            runAction(new SetHoodAngleAction(30.0));
         runAction(new SetTurretAngleAction(20.0));
-        s.firingVision();
         runAction(new RemainingProgressAction(0.05));
+        s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new WaitAction(1.25));
         runAction(new SetTrajectoryAction(trajectories.twoBallsToTheWall, -45.0, 0.6));
@@ -90,8 +96,9 @@ public class TwoBallAndTerminal extends AutoModeBase {
         runAction(new RemainingProgressAction(0.01));
         runAction(new WaitAction(0.5));
         runAction(new SetTrajectoryAction(trajectories.terminalToShot, 184.0, 0.5));
-        runAction(new SetTurretAngleAction(180.0));
-        runAction(new SetShooterSpeedAction(11500));
+        runAction(new SetTurretAngleAction(180.0));        
+        runAction(new SetHoodAngleAction(28.0));
+        runAction(new SetShooterSpeedAction(11000));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
