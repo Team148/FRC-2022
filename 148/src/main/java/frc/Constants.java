@@ -348,13 +348,13 @@ public class Constants {
 	//Field Positions
 	// 135.0 inches from full field to start line pose
 	// public static final Pose2d twoBallStart = new Pose2d(new Translation2d(297.0, -51.0), Rotation2d.fromDegrees(0.0)); //250.0
-	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(kFieldLength - 290.0, -90.0), Rotation2d.fromDegrees(0.0)); //250.0
-	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(-90.0));  //270.0
+	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(kFieldLength - 290.0, -90.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(-90.0));
 	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(35.0));
-	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -95.0), Rotation2d.fromDegrees(35.0)); //173.0
-	public static final Pose2d twoBallTutu = new Pose2d(new Translation2d(kFieldLength - 195.0, -95.0), Rotation2d.fromDegrees(-8.0));
-	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 47.0, -110.0), Rotation2d.fromDegrees(-45.0)); //225.0
-	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 47.0, -110.0), Rotation2d.fromDegrees(184.0)); 
+	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(35.0));
+	public static final Pose2d twoBallTutu = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(-8.0));
+	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
+	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(184.0)); 
 	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -120.0), Rotation2d.fromDegrees(184.0));
 
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));

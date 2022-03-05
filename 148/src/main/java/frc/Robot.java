@@ -290,7 +290,6 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		try {
 			turret.resetToAbsolute();
-
 			// lightShow.conformToState(LEDs.State.RED);
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
@@ -464,7 +463,7 @@ public class Robot extends TimedRobot {
 			}
 			else if(operator.xButton.isBeingPressed()){ 
 				shooterSpeed = Constants.Shooter.HP_WALL;
-				hoodAngle = 48.0;
+				hoodAngle = 46.0;
 				// // falconHood.setHoodPosition(0.0);
 				// falconHood.setHoodPosition(48.0);
 			}
