@@ -25,29 +25,29 @@ public class Constants {
 	public static final boolean kResetTalons = false;
 
 	//Physical Robot Dimensions (including bumpers)
-	public static final double kRobotWidth = 34.5;//36.5;
-	public static final double kRobotLength = 34.5;//36.5;
+	public static final double kRobotWidth = 33.16; // Waco 34.5;
+	public static final double kRobotLength = 33.16;  // Waco 34.5;
 	public static final double kRobotHalfWidth = kRobotWidth / 2.0;
 	public static final double kRobotHalfLength = kRobotLength / 2.0;
 
 	/**
     * Target Specifications
     */
-    public static final double kVisionTargetHeight = 98.25; //81.0 to bottom
+    public static final double kVisionTargetHeight = 102.5; //Tweaked for 2022 Rapid React 
     public static final Rotation2d kPortTargetOrientation = Rotation2d.fromDegrees(0.0);
     public static final Translation2d kOuterPortToInnerPort = new Translation2d(29.25, 0.0);
 
 	//Swerve Calculations Constants (measurements are in inches)
-    public static final double kWheelbaseLength = 20.5; //16.5
-    public static final double kWheelbaseWidth  = 20.5; //16.5
+    public static final double kWheelbaseLength = 21.25; //Tweaked for Quickdraw //was 20.5 for Waco
+    public static final double kWheelbaseWidth  = 21.25; //Tweaked for Quickdraw //was 20.5 for Waco
     public static final double kSwerveDiagonal = Math.hypot(kWheelbaseLength, kWheelbaseWidth);
     
     //Camera Constants (X and Y are with respect to the turret's center)
-    public static final double kCameraYOffset = 0.0;//0.25
-    public static final double kCameraXOffset = 9.13;//8.216; //8.5
-    public static final double kCameraZOffset = 26.48;//25.0; //26.776 24.524
-    public static final double kCameraYawAngleDegrees = -2.25;//-12.7
-    public static final double kCameraPitchAngleDegrees = Settings.kIsUsingCompBot ? 30.0 : 30.0; //21.75 for bottom 34.3 37.0604
+    public static final double kCameraYOffset = 0.0; //Tweaked for Quickdraw
+    public static final double kCameraXOffset = -6.5; // Tweaked for Quickdraw
+    public static final double kCameraZOffset = 36.67; // Tweaked for Quickdraw
+    public static final double kCameraYawAngleDegrees = 0; //-2.25;//-12.7
+    public static final double kCameraPitchAngleDegrees = Settings.kIsUsingCompBot ? 32.0 : 32.0; //Tweaked for Quickdraw
 
     //Limelight
     public static final double kHorizontalFOV = 59.6; // degrees
@@ -247,8 +247,8 @@ public class Constants {
 		public static final double TURRET_MININITIALLANGLE = 15.0;//35.0;
 
 		//Turret pose with respect to the robot's center
-		public static final double kXOffset = -7.50;//-4.25;
-		public static final double kYOffset = 0.0;
+		public static final double kXOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
+		public static final double kYOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
 
 		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 90 : 90;//90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
 		public static final double kAngleTolerance = 1.0;
