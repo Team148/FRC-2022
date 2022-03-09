@@ -24,6 +24,7 @@ import com.team254.lib.geometry.Translation2d;
 import frc.subsystems.BallIntake;
 import frc.subsystems.Shooter;
 import frc.subsystems.Turret;
+import frc.subsystems.FalconHood;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
@@ -32,12 +33,16 @@ public class Superstructure extends Subsystem {
 	
 	public Swerve swerve;
 	public Turret turret;
+	public Shooter shooter;
+	public FalconHood falconhood;
 
 	private RobotState robotState;
 	
 	public Superstructure(){
 		swerve = Swerve.getInstance();
 		turret = Turret.getInstance();
+		shooter = Shooter.getInstance();
+		falconhood = FalconHood.getInstance();
 
 		robotState = RobotState.getInstance();
 		
@@ -123,6 +128,9 @@ public class Superstructure extends Subsystem {
 							&& !swerve.isGoingToPole()) {
 							//swerve.rotate(swerve.closestPole());
 						}
+						double temp_range = aim.get().getRange();
+						falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+						shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 					}
 				}
 

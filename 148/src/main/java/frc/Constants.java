@@ -74,11 +74,28 @@ public class Constants {
 	//Vision Speed Constraint Treemap
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
 	static{
-		kVisionSpeedTreemap.put(new InterpolatingDouble(-6.0), new InterpolatingDouble(24.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(60.0), new InterpolatingDouble(48.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(300.0), new InterpolatingDouble(48.0));
+		kVisionSpeedTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(10500.0));
+		// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
+		kVisionSpeedTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(11250.0));
+		kVisionSpeedTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(11750.0));
+		kVisionSpeedTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(12750.0));
+		kVisionSpeedTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(13500.0));
+		kVisionSpeedTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(14500.0));
+		kVisionSpeedTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(16250.0));
 	}
+
+		//Vision Angle Constraint Treemap
+	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
+		static{
+			kVisionAngleTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(19.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(27.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(33.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(36.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(38.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(44.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(44.0));
+
+		}
     
     //Path following constants
     public static final double kPathLookaheadTime = 0.25;  // seconds to look ahead along the path for steering 0.4
@@ -177,10 +194,10 @@ public class Constants {
 	public static class Shooter {
 
 		//Shooter Gains
-		public static double FLYWHEEL_KP = 0.12;
-		public static double FLYWHEEL_KI = 0.0;
-		public static double FLYWHEEL_KD = 0.5;
-		public static double FLYWHEEL_KF = 0.014;
+		public static double FLYWHEEL_KP = 0.06;//0.12;
+		public static double FLYWHEEL_KI = 0.0; //0.0
+		public static double FLYWHEEL_KD = 0.2;//0.5;
+		public static double FLYWHEEL_KF = 0.057;//0.014;
 		public static int FLYWHEEL_IZONE = (int) (1023.0 / FLYWHEEL_KP);
 		public static double FLYWHEEL_RAMPRATE = 0;
 		public static int FLYWHEEL_ALLOWED_ERROR = 0;

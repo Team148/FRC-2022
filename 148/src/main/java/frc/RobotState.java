@@ -378,7 +378,8 @@ public class RobotState {
 
             SmartDashboard.putNumber("Swerve Degrees Rotated", degrees_rotated_);*/
             
-            if(Settings.debugVision()){
+            // if(Settings.debugVision()){
+            if(true){
                 List<Pose2d> poses = getCaptureTimeFieldToGoal();
                 for (Pose2d pose : poses) {
                     // Only output first goal

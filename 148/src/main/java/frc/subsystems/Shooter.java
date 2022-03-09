@@ -31,10 +31,10 @@ public class Shooter extends Subsystem {
     ShooterMaster.setInverted(true);
     // ShooterFollower.setInverted(true);
 
-    ShooterMaster.config_kP(0, 0.15);
-    ShooterMaster.config_kI(0, 0.0);
-    ShooterMaster.config_kD(0, 0.0);
-    ShooterMaster.config_kF(0, 0.0570);
+    ShooterMaster.config_kP(0, Constants.Shooter.FLYWHEEL_KP);
+    ShooterMaster.config_kI(0, Constants.Shooter.FLYWHEEL_KI);
+    ShooterMaster.config_kD(0, Constants.Shooter.FLYWHEEL_KD);
+    ShooterMaster.config_kF(0, Constants.Shooter.FLYWHEEL_KF);
 
     // ShooterFollower.config_kP(0, 0.15);
     // ShooterFollower.config_kI(0, 0.0);
@@ -46,7 +46,7 @@ public class Shooter extends Subsystem {
 
     ShooterMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
-    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);
+    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 500);
     ShooterMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
