@@ -69,9 +69,11 @@ public class OneBallBase extends AutoModeBase {
         runAction(new SetShooterSpeedAction(12000.0));
         runAction(new SetHoodAngleAction(29.0));
         runAction(new SetTurretAngleAction(83.0));
-        runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 45.0, 1.0));
+        runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 30.0, 1.0));
         runAction(new RemainingProgressAction(0.05));
+        runAction(new SetFeederState(FeederState.OFF));
         s.firingVision();
+        runAction(new WaitAction(1.5));
         runAction(new SetFeederState(FeederState.SHOOTING));
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");

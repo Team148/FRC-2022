@@ -358,7 +358,7 @@ public class Constants {
 	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -120.0), Rotation2d.fromDegrees(184.0));
 
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
+	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 195.0, 95.0), Rotation2d.fromDegrees(45.0));//88x 45 degrees
 	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
 	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(0.0));
 
