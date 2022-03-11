@@ -169,7 +169,10 @@ public class RobotState {
         
         // find intersection with the goal
         double scaling = differential_height_ / zr;
-        double distance = Math.hypot(xr, yr) * scaling;
+        
+        //James BS
+        double camera_distance = (Math.hypot(xr, yr) * scaling);
+        double distance = Constants.kVisionDistanceTreemap.getInterpolated(new InterpolatingDouble(camera_distance)).value + (Constants.kGoalTargetDiameter/2.0);
         Rotation2d angle = new Rotation2d(xr, yr, true);
 
         return field_to_camera.transformBy(Pose2d
@@ -371,12 +374,14 @@ public class RobotState {
         public void outputToSmartDashboard(){
             SmartDashboard.putBoolean("Sees Target", seesTarget);
 
-            /*Twist2d velocity = vehicle_velocity_averaged_.getAverage();
+            Twist2d velocity = vehicle_velocity_averaged_.getAverage();
             SmartDashboard.putNumber("Swerve Velocity dx", velocity.dx);
             SmartDashboard.putNumber("Swerve Velocity dy", velocity.dy);
             SmartDashboard.putNumber("Swerve Velocity dtheta", Math.toDegrees(velocity.dtheta));
 
-            SmartDashboard.putNumber("Swerve Degrees Rotated", degrees_rotated_);*/
+            
+
+            SmartDashboard.putNumber("Swerve Degrees Rotated", degrees_rotated_);
             
             // if(Settings.debugVision()){
             if(true){

@@ -46,7 +46,7 @@ public class Shooter extends Subsystem {
 
     ShooterMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 40);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
-    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
+    ShooterMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 60);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 500);
     ShooterMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
     // ShooterFollower.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);

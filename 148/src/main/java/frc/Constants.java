@@ -36,6 +36,7 @@ public class Constants {
     public static final double kVisionTargetHeight = 102.5; //Tweaked for 2022 Rapid React 
     public static final Rotation2d kPortTargetOrientation = Rotation2d.fromDegrees(0.0);
     public static final Translation2d kOuterPortToInnerPort = new Translation2d(29.25, 0.0);
+	public static final double kGoalTargetDiameter = 53.0;
 
 	//Swerve Calculations Constants (measurements are in inches)
     public static final double kWheelbaseLength = 21.25; //Tweaked for Quickdraw //was 20.5 for Waco
@@ -66,7 +67,7 @@ public class Constants {
 	public static final double kClosestVisionDistance = 26.0;//36.0
 
 	public static final double kVisionPIDOutputPercent = 0.5;
-    public static final double kPosePredictionTime = 0.125; // seconds 0.25
+    public static final double kPosePredictionTime = 0.75;//0.125; // seconds 0.25
 	
 	public static final double kDistanceToTargetTolerance = 1.0;
     public static final double kGyroDriftPerRotation = -0.25; // degrees
@@ -100,13 +101,13 @@ public class Constants {
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionAngleTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(64.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(95.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(132.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(167.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(195.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(228.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(287.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(100.0), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(175.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(220.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(250.0), new InterpolatingDouble(195.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(312.0), new InterpolatingDouble(228.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(385.0), new InterpolatingDouble(287.0));
 
 		}
     
@@ -285,7 +286,7 @@ public class Constants {
 		public static final double kXOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
 		public static final double kYOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
 
-		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 90 : 90;//90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
+		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? -180 : -180;//90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
 		public static final double kAngleTolerance = 1.0;
 
 		//Ratios

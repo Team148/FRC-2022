@@ -1266,7 +1266,8 @@ public class Swerve extends Subsystem{
 		// testing the wpi odometry
 		if(outputWpiPose)
 		SmartDashboard.putNumberArray("Path Pose", new double[]{wpiPose.getTranslation().x(), wpiPose.getTranslation().y(), wpiPose.getRotation().getUnboundedDegrees()});
-		if(Settings.debugSwerve()){
+		// if(Settings.debugSwerve()){
+		if(true){
 			SmartDashboard.putNumber("Robot X", pose.getTranslation().x());
 			SmartDashboard.putNumber("Robot Y", pose.getTranslation().y());
 			SmartDashboard.putNumber("Robot Heading", pose.getRotation().getUnboundedDegrees());
