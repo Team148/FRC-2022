@@ -73,18 +73,18 @@ public class Constants {
 
 	//Vision Speed Constraint Treemap
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
-	static{
-		kVisionSpeedTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(10500.0));
-		// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(11250.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(11750.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(12750.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(13500.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(14500.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(16250.0));
-	}
+		static{
+			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(10500.0));
+			// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(11250.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(11750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(12750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(13500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(14500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(16250.0));
+		}
 
-		//Vision Angle Constraint Treemap
+	//Vision Angle Constraint Treemap
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
 		static{
 			kVisionAngleTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(19.0));
@@ -94,6 +94,19 @@ public class Constants {
 			kVisionAngleTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(38.0));
 			kVisionAngleTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(44.0));
 			kVisionAngleTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(44.0));
+
+		}
+
+	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
+	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
+		static{
+			kVisionAngleTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(64.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(95.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(132.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(167.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(195.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(228.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(287.0));
 
 		}
     
@@ -258,10 +271,15 @@ public class Constants {
 		//Turret Constants
 		public static final double TURRET_MAXSPEED = 22000.0;//22000.0;
 
-		public static final double TURRET_MAXCONTROLANGLE = 325.0;//305.0;
-		public static final double TURRET_MINCONTROLANGLE = 15.0;//35.0;
-		public static final double TURRET_MAXINITIALANGLE = 325.0;//305.0;
-		public static final double TURRET_MININITIALLANGLE = 15.0;//35.0;
+		// public static final double TURRET_MAXCONTROLANGLE = 325.0;//305.0;
+		// public static final double TURRET_MINCONTROLANGLE = 15.0;//35.0;
+		// public static final double TURRET_MAXINITIALANGLE = 325.0;//305.0;
+		// public static final double TURRET_MININITIALLANGLE = 15.0;//35.0;
+
+		public static final double TURRET_MAXCONTROLANGLE = 55.0;//305.0;
+		public static final double TURRET_MINCONTROLANGLE = -255.0;//35.0;
+		public static final double TURRET_MAXINITIALANGLE = 55.0;//305.0;
+		public static final double TURRET_MININITIALLANGLE = -255.0;//35.0;
 
 		//Turret pose with respect to the robot's center
 		public static final double kXOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
