@@ -75,51 +75,51 @@ public class Constants {
 	//Vision Speed Constraint Treemap -- Units are inches to center of goal, then ticks per 100ms (Falcon Units)
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(10500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(10500.0));
 			// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(11250.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(11750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(12750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(13500.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(14500.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(16250.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(11250.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(11750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(12750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(13500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(14500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0));
 		}
 
 	//Vision Angle Constraint Treemap - Units are inches to center of goal / hood angle in degrees
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionAngleTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(19.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(27.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(33.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(36.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(38.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(44.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(44.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(17.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(27.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(33.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(36.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(38.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(44.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(44.0));
 
 		}
 
 	//Vision Time of Flight Map -- Units are inches to center of goal / seconds; currently based off video from lab
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionToFTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionToFTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(1.0));
-			kVisionToFTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(1.0));
-			kVisionToFTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(1.25));
+			kVisionToFTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(1.0));
+			kVisionToFTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(1.0));
+			kVisionToFTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(1.25));
 			// kVisionToFTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(1.3)); //made up
 			// kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.35)); //made up
-			kVisionToFTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(1.4));
+			kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
 			// kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.5)); //made up
 		}
 
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionDistanceTreemap.put(new InterpolatingDouble(100.0), new InterpolatingDouble(64.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(95.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(175.0), new InterpolatingDouble(132.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(220.0), new InterpolatingDouble(167.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(250.0), new InterpolatingDouble(195.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(312.0), new InterpolatingDouble(228.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(385.0), new InterpolatingDouble(287.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(108.0), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(144.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(187.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(195.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(288.0), new InterpolatingDouble(228.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(375.0), new InterpolatingDouble(287.0));
 		}
     
     //Path following constants
@@ -288,10 +288,10 @@ public class Constants {
 		// public static final double TURRET_MAXINITIALANGLE = 325.0;//305.0;
 		// public static final double TURRET_MININITIALLANGLE = 15.0;//35.0;
 
-		public static final double TURRET_MAXCONTROLANGLE = 55.0;//305.0;
-		public static final double TURRET_MINCONTROLANGLE = -255.0;//35.0;
-		public static final double TURRET_MAXINITIALANGLE = 55.0;//305.0;
-		public static final double TURRET_MININITIALLANGLE = -255.0;//35.0;
+		public static final double TURRET_MAXCONTROLANGLE = 35.0;//55.0;//305.0;
+		public static final double TURRET_MINCONTROLANGLE = -235.0;//-255.0;//35.0;
+		public static final double TURRET_MAXINITIALANGLE = 35.0;//55.0;//305.0;
+		public static final double TURRET_MININITIALLANGLE = -235.0;//-255.0;//35.0;
 
 		//Turret pose with respect to the robot's center
 		public static final double kXOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw

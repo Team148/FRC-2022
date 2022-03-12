@@ -492,13 +492,13 @@ public class Robot extends TimedRobot {
 		}
 
 		if (operator.POV0.wasActivated()) {
-			s.turretPositionState(0.0); //270.0//90
+			s.turretPositionState(-180.0); //270.0//90
 			// System.out.println("Setting turret to 0.0");
 		} else if (operator.POV90.wasActivated()) {
 			s.turretPositionState(-90.0);//180 //180
 			// System.out.println("Setting turret to 90.0");
 		} else if (operator.POV180.wasActivated()) {
-			s.turretPositionState(-180.0);//90 //305
+			s.turretPositionState(0.0);//90 //305
 			// System.out.println("Setting turret to 180.0");
 		} else if (operator.POV270.wasActivated()) {
 			s.turretPositionState(55.0);//305 //35

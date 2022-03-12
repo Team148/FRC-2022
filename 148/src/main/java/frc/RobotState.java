@@ -172,6 +172,7 @@ public class RobotState {
         
         //James BS
         double camera_distance = (Math.hypot(xr, yr) * scaling);
+        SmartDashboard.putNumber("Camera Distance", camera_distance);
         double distance = Constants.kVisionDistanceTreemap.getInterpolated(new InterpolatingDouble(camera_distance)).value + (Constants.kGoalTargetDiameter/2.0);
         Rotation2d angle = new Rotation2d(xr, yr, true);
 
@@ -287,7 +288,7 @@ public class RobotState {
                 TrackReport report = reports.get(0);
                 
                 //Assume stationary for iteration zero
-                Pose2d vehicle_pose = getPredictedFieldToVehicle(0.0);
+                Pose2d vehicle_pose = getPredictedFieldToVehicle(Constants.kPosePredictionTime);
                 //Rotation2d orientation = Rotation2d.fromDegrees(target_orientation.getAverage());
 
                 Translation2d goalPosition = lastKnownTargetPosition = report.field_to_goal;
@@ -295,14 +296,14 @@ public class RobotState {
                 Translation2d turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
                     .getTranslation().inverse().translateBy(goalPosition);
 
-                //Iteration one
-                double temp_range = turret_to_goal.norm();
-                double time_of_flight = Constants.kVisionToFTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value;
+                // //Iteration one
+                // double temp_range = turret_to_goal.norm();
+                // double time_of_flight = Constants.kVisionToFTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value;
 
-                vehicle_pose = getPredictedFieldToVehicle(time_of_flight);
+                // vehicle_pose = getPredictedFieldToVehicle(time_of_flight);
 
-                turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
-                    .getTranslation().inverse().translateBy(goalPosition);
+                // turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                //     .getTranslation().inverse().translateBy(goalPosition);
 
                 Pose2d turret_to_goal_robot_centric = vehicle_pose.transformBy(kVehicleToTurretFixed)
                     .inverse().transformBy(Pose2d.fromTranslation(goalPosition));
