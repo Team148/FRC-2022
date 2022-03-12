@@ -6,7 +6,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+// import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -115,29 +116,29 @@ public class SwerveDriveModule extends Subsystem{
 		rotationMotor.configFactoryDefault();
 		driveMotor.configFactoryDefault();
 
-		rotationMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 10);
+		rotationMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kLongCANTimeoutMs);
 		/*
 		rotationMotor.setSensorPhase(true);
 		rotationMotor.setInverted(false);
 		*/
-    	rotationMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
+    	rotationMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, Constants.kLongCANTimeoutMs);
 		rotationMotor.setNeutralMode(NeutralMode.Brake);
-		rotationMotor.configVoltageCompSaturation(7.0, 10);
+		rotationMotor.configVoltageCompSaturation(7.0, Constants.kLongCANTimeoutMs);
 		rotationMotor.enableVoltageCompensation(true);
-		rotationMotor.configAllowableClosedloopError(0, 0, 10);
-		rotationMotor.configMotionAcceleration((int)(Constants.kSwerveRotationMaxSpeed*12.5), 10);
-		rotationMotor.configMotionCruiseVelocity((int)(Constants.kSwerveRotationMaxSpeed), 10);
+		rotationMotor.configAllowableClosedloopError(0, 0, Constants.kLongCANTimeoutMs);
+		rotationMotor.configMotionAcceleration((int)(Constants.kSwerveRotationMaxSpeed*12.5), Constants.kLongCANTimeoutMs);
+		rotationMotor.configMotionCruiseVelocity((int)(Constants.kSwerveRotationMaxSpeed), Constants.kLongCANTimeoutMs);
 		rotationMotor.selectProfileSlot(0, 0);
 		//Slot 1 is for normal use
 		rotationMotor.config_kP(0, 1.55, 10); //1.55 | Start with 0.1 and work up from there
 		rotationMotor.config_kI(0, 0.0, 10);
 		rotationMotor.config_kD(0, 5.0, 10); //5.0
-		rotationMotor.config_kF(0, 1023.0/Constants.kSwerveRotationMaxSpeed, 10);
+		rotationMotor.config_kF(0, 1023.0/Constants.kSwerveRotationMaxSpeed, Constants.kLongCANTimeoutMs);
 		//Slot 2 is reserved for the beginning of auto
 		rotationMotor.config_kP(1, 8.0, 10);
 		rotationMotor.config_kI(1, 0.0, 10);
 		rotationMotor.config_kD(1, 200.0, 10);
-		rotationMotor.config_kF(1, 1023.0/Constants.kSwerveRotation10VoltMaxSpeed, 10);
+		rotationMotor.config_kF(1, 1023.0/Constants.kSwerveRotation10VoltMaxSpeed, Constants.kLongCANTimeoutMs);
 		rotationMotor.configAllowableClosedloopError(0, 50, Constants.kCANTimeoutMs);
 		rotationMotor.set(ControlMode.MotionMagic, rotationMotor.getSelectedSensorPosition(0));
 		// if(!isRotationSensorConnected()){
@@ -147,18 +148,19 @@ public class SwerveDriveModule extends Subsystem{
 
 		resetRotationToAbsolute();
 
-		driveMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 10);
-    	driveMotor.setSelectedSensorPosition(0, 0, 10);
-    	driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
-    	driveMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, 10);
-    	driveMotor.configVelocityMeasurementWindow(32, 10);
-    	driveMotor.configNominalOutputForward(0.0/12.0, 10);
-    	driveMotor.configNominalOutputReverse(0.0/12.0, 10);
-    	driveMotor.configVoltageCompSaturation(12.0, 10);
+		driveMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.kLongCANTimeoutMs);
+    	driveMotor.setSelectedSensorPosition(0, 0, Constants.kLongCANTimeoutMs);
+    	driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, Constants.kLongCANTimeoutMs);
+    	// driveMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, 10);
+		driveMotor.configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_10Ms, Constants.kLongCANTimeoutMs); //replace the method above because of deprecation
+    	driveMotor.configVelocityMeasurementWindow(32, Constants.kLongCANTimeoutMs);
+    	driveMotor.configNominalOutputForward(0.0/12.0, Constants.kLongCANTimeoutMs);
+    	driveMotor.configNominalOutputReverse(0.0/12.0, Constants.kLongCANTimeoutMs);
+    	driveMotor.configVoltageCompSaturation(12.0, Constants.kLongCANTimeoutMs);
     	driveMotor.enableVoltageCompensation(true);
-		driveMotor.configOpenloopRamp(0.25, 10);
+		driveMotor.configOpenloopRamp(0.25, Constants.kLongCANTimeoutMs);
 		driveMotor.configClosedloopRamp(0.0);
-    	driveMotor.configAllowableClosedloopError(0, 0, 10);
+    	driveMotor.configAllowableClosedloopError(0, 0, Constants.kLongCANTimeoutMs);
 		/*
 		driveMotor.setInverted(true);
 		driveMotor.setSensorPhase(true);
@@ -166,17 +168,19 @@ public class SwerveDriveModule extends Subsystem{
 		driveMotor.setNeutralMode(NeutralMode.Brake);
 		// Slot 0 is reserved for MotionMagic
 		driveMotor.selectProfileSlot(0, 0);
-		driveMotor.config_kP(0, 0.18, 10);
-		driveMotor.config_kI(0, 0.0, 10);
-		driveMotor.config_kD(0, 3.6, 10);
-		driveMotor.config_kF(0, 1023.0/Constants.kSwerveDriveMaxSpeed, 10);
-		driveMotor.configMotionCruiseVelocity((int)(Constants.kSwerveDriveMaxSpeed*0.9), 10);
-		driveMotor.configMotionAcceleration((int)(Constants.kSwerveDriveMaxSpeed), 10);
+		driveMotor.config_kP(0, 0.18, Constants.kLongCANTimeoutMs);
+		driveMotor.config_kI(0, 0.0, Constants.kLongCANTimeoutMs);
+		driveMotor.config_kD(0, 3.6, Constants.kLongCANTimeoutMs);
+		driveMotor.config_kF(0, 1023.0/Constants.kSwerveDriveMaxSpeed, Constants.kLongCANTimeoutMs);
+		driveMotor.configMotionCruiseVelocity((int)(Constants.kSwerveDriveMaxSpeed*0.9), Constants.kLongCANTimeoutMs);
+		driveMotor.configMotionAcceleration((int)(Constants.kSwerveDriveMaxSpeed), Constants.kLongCANTimeoutMs);
 		// Slot 1 corresponds to velocity mode
-		driveMotor.config_kP(1, 0.11, 10);
-		driveMotor.config_kI(1, 0.0, 10);
-		driveMotor.config_kD(1, 0.0, 10);
-		driveMotor.config_kF(1, 1023.0/Constants.kSwerveDriveMaxSpeed, 10);
+		driveMotor.config_kP(1, 0.11, Constants.kLongCANTimeoutMs);
+		driveMotor.config_kI(1, 0.0, Constants.kLongCANTimeoutMs);
+		driveMotor.config_kD(1, 0.0, Constants.kLongCANTimeoutMs);
+		driveMotor.config_kF(1, 1023.0/Constants.kSwerveDriveMaxSpeed, Constants.kLongCANTimeoutMs);
+
+
 		// if(!isDriveSensorConnected()){
 		// 	DriverStation.reportError(name + "drive encoder not detected!", false);
 		// 	hasEmergency = true;
@@ -493,7 +497,7 @@ public class SwerveDriveModule extends Subsystem{
 		}
 		SmartDashboard.putNumber(name + "Inches Driven", getDriveDistanceInches());
 		//SmartDashboard.putBoolean(name + "Zeroed With Encoder", moduleZeroedWitoutMagEnc);
-		if(Settings.debugSwerve()){
+		if(Settings.debugSwerveModule()){
 			if (RobotBase.isReal()) {
 				SmartDashboard.putNumber(name + "Absolute Angle", getAbsoluteEncoderDegrees());
 			}

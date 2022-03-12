@@ -78,37 +78,37 @@ public class FalconHood extends Subsystem{
          hoodFalcon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
  
          // Config TalonFX
-         hoodFalcon.configVoltageCompSaturation(12.0, Constants.kCANTimeoutMs);
+         hoodFalcon.configVoltageCompSaturation(12.0, Constants.kLongCANTimeoutMs);
          hoodFalcon.enableVoltageCompensation(true);
          hoodFalcon.setInverted(TalonFXInvertType.CounterClockwise);        
-         hoodFalcon.configNominalOutputForward(0.0 / 12.0, Constants.kCANTimeoutMs);
+         hoodFalcon.configNominalOutputForward(0.0 / 12.0, Constants.kLongCANTimeoutMs);
  
-         SupplyCurrentLimitConfiguration currentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 25, 30, Constants.kCANTimeoutMs);
-         hoodFalcon.configSupplyCurrentLimit(currentLimitConfiguration, Constants.kCANTimeoutMs);
+         SupplyCurrentLimitConfiguration currentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 25, 30, Constants.kLongCANTimeoutMs);
+         hoodFalcon.configSupplyCurrentLimit(currentLimitConfiguration, Constants.kLongCANTimeoutMs);
  
          hoodFalcon.selectProfileSlot(0, 0);
-         hoodFalcon.config_kP(0, Constants.FalconHood.kP, Constants.kCANTimeoutMs);
-         hoodFalcon.config_kI(0, Constants.FalconHood.kI, Constants.kCANTimeoutMs);
-         hoodFalcon.config_kD(0, Constants.FalconHood.kD, Constants.kCANTimeoutMs);
+         hoodFalcon.config_kP(0, Constants.FalconHood.kP, Constants.kLongCANTimeoutMs);
+         hoodFalcon.config_kI(0, Constants.FalconHood.kI, Constants.kLongCANTimeoutMs);
+         hoodFalcon.config_kD(0, Constants.FalconHood.kD, Constants.kLongCANTimeoutMs);
  
         //  hoodFalcon.configForwardSoftLimitEnable(true, Constants.kCANTimeoutMs);
         //  hoodFalcon.configReverseSoftLimitEnable(true, Constants.kCANTimeoutMs);
  
         
-         hoodFalcon.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 20);
-         hoodFalcon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 50);
+         hoodFalcon.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 20, Constants.kLongCANTimeoutMs);
+         hoodFalcon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 50, Constants.kLongCANTimeoutMs);
  
          //setOpenLoop(0.0);
  
          setEncoderPhase(true);
  
      }
-     private double getAbsoluteEncoderDegrees() {
-        //     // return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getOutput() * 360.0;
-        //     return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getAbsolutePosition();
-        double aNumber = 0.0;
-        return aNumber;
-     }
+    //  private double getAbsoluteEncoderDegrees() {
+    //     //     // return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getOutput() * 360.0;
+    //     //     return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getAbsolutePosition();
+    //     double aNumber = 0.0;
+    //     return aNumber;
+    //  }
      
     
      public int degreesToEncUnits(double degrees) {

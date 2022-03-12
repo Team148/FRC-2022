@@ -299,6 +299,7 @@ public class Robot extends TimedRobot {
 		try {
 			turret.resetToAbsolute();
 			// lightShow.conformToState(LEDs.State.RED);
+			Settings.update();
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
 			throw t;

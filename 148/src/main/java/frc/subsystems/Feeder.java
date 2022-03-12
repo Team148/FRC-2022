@@ -2,37 +2,42 @@ package frc.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+// import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+// import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+// import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.team254.drivers.LazyTalonFX;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+// import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import frc.Constants;
 import frc.RobotMap;
 import frc.loops.ILooper;
 import frc.loops.Loop;
 
 public class Feeder extends Subsystem {
-  private WPI_TalonSRX feederMaster = new WPI_TalonSRX(RobotMap.FEEDER_MASTER);
+  // private WPI_TalonSRX feederMaster = new WPI_TalonSRX(RobotMap.FEEDER_MASTER);
+  private LazyTalonFX feederMaster; 
   private static Feeder instance = null;
 
   private Feeder(){
 
+    feederMaster = new LazyTalonFX(RobotMap.FEEDER_MASTER);
+
     feederMaster.configFactoryDefault();
     feederMaster.set(ControlMode.PercentOutput, 0.0);
     feederMaster.setNeutralMode(NeutralMode.Coast);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_6_Misc, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_7_CommStatus, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_9_MotProfBuffer, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_10_MotionMagic, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
-    feederMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 15, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_4_AinTempVbat, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_6_Misc, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_7_CommStatus, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_9_MotProfBuffer, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_14_Turn_PIDF1, 500, Constants.kLongCANTimeoutMs);
+    feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_15_FirmwareApiStatus, 500, Constants.kLongCANTimeoutMs);
+    // feederMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_17_Targets1, 500);
     feederMaster.setInverted(false);
 
     feederMaster.overrideLimitSwitchesEnable(false);
@@ -45,7 +50,7 @@ public class Feeder extends Subsystem {
   }
 
   public void setMotors(double feeder) {
-    feederMaster.set(feeder);
+    feederMaster.set(ControlMode.PercentOutput, feeder);
   }
 
   synchronized void setOpenLoop(double feeder) {
@@ -93,7 +98,7 @@ public class Feeder extends Subsystem {
           stop();
           break;
       case INTAKING:
-          if (feederMaster.getSensorCollection().isRevLimitSwitchClosed()) {
+          if (feederMaster.getSensorCollection().isRevLimitSwitchClosed() == 1) {
             setMotors(0.0);
           }
           else {

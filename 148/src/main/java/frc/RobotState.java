@@ -270,6 +270,59 @@ public class RobotState {
 				return Optional.empty();
 			}
 		}
+
+        //Do one iteration of the vision target before getting range
+        private boolean isTrackerEmpty_Experimental = true;
+        public synchronized Optional<ShooterAimingParameters> getExperimentalAimingParameters() {
+			List<TrackReport> reports = goal_tracker_.getTracks();
+			if (!reports.isEmpty()) {
+
+                TrackReportComparator comparator = new TrackReportComparator(
+                    Constants.kTrackStabilityWeight,
+                    Constants.kTrackAgeWeight,
+                    Constants.kTrackSwitchingWeight,
+                    -1, Timer.getFPGATimestamp());
+                reports.sort(comparator);
+
+                TrackReport report = reports.get(0);
+                
+                //Assume stationary for iteration zero
+                Pose2d vehicle_pose = getPredictedFieldToVehicle(0.0);
+                //Rotation2d orientation = Rotation2d.fromDegrees(target_orientation.getAverage());
+
+                Translation2d goalPosition = lastKnownTargetPosition = report.field_to_goal;
+
+                Translation2d turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                    .getTranslation().inverse().translateBy(goalPosition);
+
+                //Iteration one
+                double temp_range = turret_to_goal.norm();
+                double time_of_flight = Constants.kVisionToFTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value;
+
+                vehicle_pose = getPredictedFieldToVehicle(time_of_flight);
+
+                turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                    .getTranslation().inverse().translateBy(goalPosition);
+
+                Pose2d turret_to_goal_robot_centric = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                    .inverse().transformBy(Pose2d.fromTranslation(goalPosition));
+                
+                
+                isTrackerEmpty_Experimental = false;
+
+                //System.out.println("TURRET TO INNER PORT ANGLE: " + turret_to_inner_port.direction().getDegrees());
+
+				ShooterAimingParameters params = new ShooterAimingParameters(turret_to_goal.norm(), 
+						turret_to_goal_robot_centric.getTranslation().direction(), turret_to_goal, report.latest_timestamp, report.stability);
+				cached_shooter_aiming_params_ = params;
+
+				return Optional.of(params);
+			} else {
+                isTrackerEmpty_Experimental = true;
+                //System.out.println("Empty goal tracker");
+				return Optional.empty();
+			}
+		}
         
         /**
          * Gets the robots relation to the vision target
@@ -383,8 +436,8 @@ public class RobotState {
 
             SmartDashboard.putNumber("Swerve Degrees Rotated", degrees_rotated_);
             
-            // if(Settings.debugVision()){
-            if(true){
+            if(Settings.debugVision()){
+            // if(true){
                 List<Pose2d> poses = getCaptureTimeFieldToGoal();
                 for (Pose2d pose : poses) {
                     // Only output first goal

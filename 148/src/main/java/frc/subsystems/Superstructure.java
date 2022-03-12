@@ -519,7 +519,8 @@ public class Superstructure extends Subsystem {
 	public void firingVision() {
 		request( 
 			new ParallelRequest(
-				turret.startVisionRequest(true)
+				// turret.startVisionRequest(true)
+				turret.startExperimentalVisionRequest() //changed from the request above
 				// new SequentialRequest(
 				// 	shooter.holdWhenReadyRequest(topRPM, bottomRPM),
 				// 	new ParallelRequest(

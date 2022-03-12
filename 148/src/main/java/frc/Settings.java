@@ -20,6 +20,7 @@ public class Settings {
     // Separate debugging output into the different subsystems so as to not 
     // overload the NetworkTables
     private boolean kDebugSwerve = false;
+    private boolean kDebugSwerveModule = false;
     private boolean kDebugTurret = false;
     private boolean kDebugShooter = false;
     private boolean kDebugVision = false;
@@ -29,6 +30,7 @@ public class Settings {
     private boolean kDebugFalconHood = false;
 
     private NetworkTableEntry swerveToggle;
+    private NetworkTableEntry swerveModuleToggle;
     private NetworkTableEntry turretToggle;
     private NetworkTableEntry shooterToggle;
     private NetworkTableEntry visionToggle;
@@ -41,6 +43,7 @@ public class Settings {
 
     private void putToggles() {
         swerveToggle = Shuffleboard.getTab(TAB).addPersistent("Debug Swerve", kDebugSwerve).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+        swerveModuleToggle = Shuffleboard.getTab(TAB).addPersistent("Debug SwerveModule", kDebugSwerveModule).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
         turretToggle = Shuffleboard.getTab(TAB).addPersistent("Debug Turret", kDebugTurret).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
         shooterToggle = Shuffleboard.getTab(TAB).addPersistent("Debug Shooter", kDebugShooter).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
         visionToggle = Shuffleboard.getTab(TAB).addPersistent("Debug Vision", kDebugVision).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
@@ -53,6 +56,7 @@ public class Settings {
 
     private void updateSettings() {
         instance.kDebugSwerve = swerveToggle.getBoolean(instance.kDebugSwerve);
+        instance.kDebugSwerveModule = swerveModuleToggle.getBoolean(instance.kDebugSwerveModule);
         instance.kDebugTurret = turretToggle.getBoolean(instance.kDebugTurret);
         instance.kDebugShooter = shooterToggle.getBoolean(instance.kDebugShooter);
         instance.kDebugVision = visionToggle.getBoolean(instance.kDebugVision);
@@ -71,6 +75,7 @@ public class Settings {
     }
 
     public static boolean debugSwerve(){ return instance.kDebugSwerve; }
+    public static boolean debugSwerveModule(){ return instance.kDebugSwerveModule; }
     public static boolean debugTurret(){ return instance.kDebugTurret; }
     public static boolean debugShooter(){ return instance.kDebugShooter; }
     public static boolean debugVision(){ return instance.kDebugVision; }

@@ -72,7 +72,7 @@ public class Constants {
 	public static final double kDistanceToTargetTolerance = 1.0;
     public static final double kGyroDriftPerRotation = -0.25; // degrees
 
-	//Vision Speed Constraint Treemap
+	//Vision Speed Constraint Treemap -- Units are inches to center of goal, then ticks per 100ms (Falcon Units)
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
 		static{
 			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(10500.0));
@@ -85,7 +85,7 @@ public class Constants {
 			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(16250.0));
 		}
 
-	//Vision Angle Constraint Treemap
+	//Vision Angle Constraint Treemap - Units are inches to center of goal / hood angle in degrees
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
 		static{
 			kVisionAngleTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(19.0));
@@ -98,6 +98,18 @@ public class Constants {
 
 		}
 
+	//Vision Time of Flight Map -- Units are inches to center of goal / seconds; currently based off video from lab
+	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionToFTreemap = new InterpolatingTreeMap<>();
+		static{
+			kVisionToFTreemap.put(new InterpolatingDouble(64.0), new InterpolatingDouble(1.0));
+			kVisionToFTreemap.put(new InterpolatingDouble(95.0), new InterpolatingDouble(1.0));
+			kVisionToFTreemap.put(new InterpolatingDouble(132.0), new InterpolatingDouble(1.25));
+			// kVisionToFTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(1.3)); //made up
+			// kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.35)); //made up
+			kVisionToFTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(1.4));
+			// kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.5)); //made up
+		}
+
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
 		static{
@@ -108,7 +120,6 @@ public class Constants {
 			kVisionDistanceTreemap.put(new InterpolatingDouble(250.0), new InterpolatingDouble(195.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(312.0), new InterpolatingDouble(228.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(385.0), new InterpolatingDouble(287.0));
-
 		}
     
     //Path following constants
