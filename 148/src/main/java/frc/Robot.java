@@ -528,19 +528,19 @@ public class Robot extends TimedRobot {
 
 		if (operator.rightCenterClick.shortReleased() || operator.rightCenterClick.longReleased()) {
 			if (!turret.isGoingToPole()) {
-				if (Math.abs(turret.getRotation().distance(Rotation2d.fromDegrees(270.0))) < Math.abs(turret.getRotation().distance(Rotation2d.fromDegrees(90.0)))) {
-					turret.setPosition(270.0);
+				if (Math.abs(turret.getRotation().distance(Rotation2d.fromDegrees(0.0))) < Math.abs(turret.getRotation().distance(Rotation2d.fromDegrees(-180.0)))) {
+					turret.setPosition(0.0);
 					isTurret180Rotation = true;
 				} else {
-					turret.setPosition(90.0);
+					turret.setPosition(-180.0);
 					isTurret180Rotation = false;
 				}
 			} else {
 				if (isTurret180Rotation) {
-					turret.setPosition(90.0);
+					turret.setPosition(-180.0);
 					isTurret180Rotation = false;
 				} else {
-					turret.setPosition(270.0);
+					turret.setPosition(0.0);
 					isTurret180Rotation = true;
 				}
 			}
