@@ -67,7 +67,7 @@ public class Constants {
 	public static final double kClosestVisionDistance = 26.0;//36.0
 
 	public static final double kVisionPIDOutputPercent = 0.5;
-    public static final double kPosePredictionTime = 0.75;//0.125; // seconds 0.25
+    public static final double kPosePredictionTime = 1.3; //0.125; // seconds 0.25 //GC changed from 0.75 3/12
 	
 	public static final double kDistanceToTargetTolerance = 1.0;
     public static final double kGyroDriftPerRotation = -0.25; // degrees
@@ -101,11 +101,11 @@ public class Constants {
 	//Vision Time of Flight Map -- Units are inches to center of goal / seconds; currently based off video from lab
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionToFTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionToFTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(1.0));
-			kVisionToFTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(1.0));
-			kVisionToFTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(1.25));
+			kVisionToFTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(0.7));
+			// kVisionToFTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(1.0));
+			// kVisionToFTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(1.25));
 			// kVisionToFTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(1.3)); //made up
-			// kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.35)); //made up
+			kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.30)); //made up
 			kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
 			// kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.5)); //made up
 		}

@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
 
 	private boolean climbModeActivated = false;
 	
-	private boolean shooter_debug = true;
+	private boolean shooter_debug = false;
 
 	private double shooterSpeed = 0.0;
 	private double hoodAngle = 0.0;

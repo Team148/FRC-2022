@@ -288,7 +288,7 @@ public class RobotState {
                 TrackReport report = reports.get(0);
                 
                 //Assume stationary for iteration zero
-                Pose2d vehicle_pose = getPredictedFieldToVehicle(Constants.kPosePredictionTime);
+                Pose2d vehicle_pose = getPredictedFieldToVehicle(0.0);
                 //Rotation2d orientation = Rotation2d.fromDegrees(target_orientation.getAverage());
 
                 Translation2d goalPosition = lastKnownTargetPosition = report.field_to_goal;
@@ -297,13 +297,19 @@ public class RobotState {
                     .getTranslation().inverse().translateBy(goalPosition);
 
                 // //Iteration one
-                // double temp_range = turret_to_goal.norm();
-                // double time_of_flight = Constants.kVisionToFTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value;
+                // Pose2d temp_vehicle_pose = getPredictedFieldToVehicle(0.0);
 
-                // vehicle_pose = getPredictedFieldToVehicle(time_of_flight);
-
-                // turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                // Translation2d temp_turret_to_goal = temp_vehicle_pose.transformBy(kVehicleToTurretFixed)
                 //     .getTranslation().inverse().translateBy(goalPosition);
+
+                double temp_range = turret_to_goal.norm();
+                double time_of_flight = Constants.kVisionToFTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value;
+
+                SmartDashboard.putNumber("Time of Flight", time_of_flight);
+                vehicle_pose = getPredictedFieldToVehicle(time_of_flight);
+
+                turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                    .getTranslation().inverse().translateBy(goalPosition);
 
                 Pose2d turret_to_goal_robot_centric = vehicle_pose.transformBy(kVehicleToTurretFixed)
                     .inverse().transformBy(Pose2d.fromTranslation(goalPosition));
