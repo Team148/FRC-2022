@@ -37,6 +37,8 @@ import com.team1323.lib.util.Util;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
 import com.team254.lib.trajectory.TrajectoryGenerator;
+import com.wpilib.PicoColorSensor;
+import com.wpilib.PicoColorSensor.RawColor;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -61,6 +63,7 @@ public class Robot extends TimedRobot {
 	private MotorizedHood hood;
 	private LinearHood newHood;
 	private FalconHood falconHood;
+	private PicoColorSensor picosensor;
 
 	// private LEDs lightShow;
 	private LimelightProcessor limelight;
@@ -139,6 +142,9 @@ public class Robot extends TimedRobot {
 		hood = frc.subsystems.MotorizedHood.getInstance();
 		newHood = LinearHood.getInstance();
 		falconHood = FalconHood.getInstance();
+
+		picosensor = new PicoColorSensor();
+
 		// lightShow = LEDs.getInstance();
 		subsystems = new SubsystemManager(
 				Arrays.asList(s, swerve, turret, shooter, intake, pivot, feeder, hood, newHood, falconHood, hanger)
@@ -172,9 +178,9 @@ public class Robot extends TimedRobot {
 
 		Settings.initializeToggles();
 
-		UsbCamera camera = CameraServer.startAutomaticCapture();
-		camera.setFPS(10);
-		camera.setResolution(320, 240);
+		// UsbCamera camera = CameraServer.startAutomaticCapture();
+		// camera.setFPS(10);
+		// camera.setResolution(320, 240);
 
 		generator.generateTrajectories();
 
@@ -189,6 +195,8 @@ public class Robot extends TimedRobot {
 		enabledLooper.outputToSmartDashboard();
 		SmartDashboard.putBoolean("Enabled", ds.isEnabled());
 		SmartDashboard.putNumber("Match time", ds.getMatchTime());
+
+
 	}
 
 	public void autoConfig() {
@@ -300,6 +308,13 @@ public class Robot extends TimedRobot {
 			turret.resetToAbsolute();
 			// lightShow.conformToState(LEDs.State.RED);
 			Settings.update();
+
+
+			RawColor temp_color = picosensor.getRawColor0();
+
+			System.out.println("RED0: " + (int)(1.8*temp_color.red*255.0 / 64000.0)  + " GREEN0: " + (int)(2.5*temp_color.green * 255.0 / 64000.0 ) + " BLUE0: " + (int)(0.98*temp_color.blue*255.0 / 64000.0) + " PROX0: " + picosensor.getProximity0());
+
+
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
 			throw t;
