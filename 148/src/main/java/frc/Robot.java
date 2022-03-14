@@ -38,6 +38,7 @@ import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
 import com.team254.lib.trajectory.TrajectoryGenerator;
 import com.wpilib.PicoColorSensor;
+import com.wpilib.PicoColorSensor.HSVColors;
 import com.wpilib.PicoColorSensor.RawColor;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -310,10 +311,12 @@ public class Robot extends TimedRobot {
 			Settings.update();
 
 
-			RawColor temp_color = picosensor.getRawColor0();
+			// RawColor temp_color = picosensor.getRawColor0();
+			// System.out.println("RED0: " + (int)(1.8*temp_color.red*255.0 / 64000.0)  + " GREEN0: " + (int)(2.5*temp_color.green * 255.0 / 64000.0 ) + " BLUE0: " + (int)(0.98*temp_color.blue*255.0 / 64000.0) + " PROX0: " + picosensor.getProximity0());
 
-			System.out.println("RED0: " + (int)(1.8*temp_color.red*255.0 / 64000.0)  + " GREEN0: " + (int)(2.5*temp_color.green * 255.0 / 64000.0 ) + " BLUE0: " + (int)(0.98*temp_color.blue*255.0 / 64000.0) + " PROX0: " + picosensor.getProximity0());
+			HSVColors temp_HSV = picosensor.getHSVColor0();
 
+			System.out.println("H: " + temp_HSV.hue + " S: " + temp_HSV.saturation + " V: " +temp_HSV.value + " IR: " + temp_HSV.ir);
 
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);

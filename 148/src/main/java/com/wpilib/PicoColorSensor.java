@@ -11,6 +11,11 @@ import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.Timer;
 
 public class PicoColorSensor implements AutoCloseable {
+
+  public static final double red_max = 64000.0;
+  public static final double green_max = 64000.0;
+  public static final double blue_max = 64000.0;
+
   public static class RawColor {
     public RawColor(int r, int g, int b, int _ir) {
       red = r;
@@ -18,6 +23,7 @@ public class PicoColorSensor implements AutoCloseable {
       blue = b;
       ir = _ir;
     }
+    
 
     public RawColor() {
     }
@@ -26,6 +32,24 @@ public class PicoColorSensor implements AutoCloseable {
     public int green;
     public int blue;
     public int ir;
+  }
+
+  public static class HSVColors {
+    public HSVColors(double h, double s, double v, int _ir){
+      hue = h;
+      saturation = s;
+      value = v;
+      ir = _ir;
+    }
+
+    public HSVColors(){
+    }
+      public double hue;
+      public double saturation;
+      public double value;
+      public int ir;
+    
+      
   }
 
   private static class SingleCharSequence implements CharSequence {
@@ -216,6 +240,52 @@ public class PicoColorSensor implements AutoCloseable {
     }
   }
 
+  /** 
+ * This function returns HSV versus raw values of RGB for the sensor, not calibrated rn
+*/
+  public HSVColors getHSVColor0(){
+    RawColor temp_rgb = getRawColor0();
+
+    int temp_red = temp_rgb.red;
+    int temp_green = temp_rgb.green;
+    int temp_blue = temp_rgb.blue;
+
+    double percent_r = Math.min(1, temp_red / red_max);
+    double percent_g = Math.min(1, temp_green / green_max);
+    double percent_b = Math.min(1, temp_blue / blue_max);
+
+    double c_max = Math.max(percent_r, Math.max(percent_g, percent_b));
+    double c_min = Math.min(percent_r, Math.min(percent_g, percent_b));
+    double diff = c_max - c_min;
+
+    double h = -1.0, s = -1.0;
+
+    if(c_min == c_max){
+      h = 0;
+    }
+    else if (c_max == percent_r){
+      h = (60*((percent_g- percent_b) / diff)+ 360.0) %360;
+    }
+    else if (c_max == percent_g){
+      h = (60*((percent_b- percent_r) / diff)+ 120.0) %360;
+    }
+    else if (c_max == percent_b){
+      h = (60*((percent_r- percent_g) / diff)+ 240.0) %360;
+    }
+
+    if (c_max == 0){
+      s= 0;
+    }
+    else{
+      s = (diff / c_max) *100;
+    }
+
+
+    double v = c_max * 100.0;
+
+    return new HSVColors(h, s, v, temp_rgb.ir);
+  }
+
   public void getRawColor0(RawColor rawColor) {
     try {
       threadLock.lock();
@@ -244,6 +314,54 @@ public class PicoColorSensor implements AutoCloseable {
     } finally {
       threadLock.unlock();
     }
+  }
+
+/** 
+ * This function returns HSV versus raw values of RGB for the sensor, not calibrated rn
+*/
+ 
+
+  public HSVColors getHSVColor1(){
+    RawColor temp_rgb = getRawColor1();
+
+    int temp_red = temp_rgb.red;
+    int temp_green = temp_rgb.green;
+    int temp_blue = temp_rgb.blue;
+
+    double percent_r = Math.min(1, temp_red / red_max);
+    double percent_g = Math.min(1, temp_green / green_max);
+    double percent_b = Math.min(1, temp_blue / blue_max);
+
+    double c_max = Math.max(percent_r, Math.max(percent_g, percent_b));
+    double c_min = Math.min(percent_r, Math.min(percent_g, percent_b));
+    double diff = c_max - c_min;
+
+    double h = -1.0, s = -1.0;
+
+    if(c_min == c_max){
+      h = 0;
+    }
+    else if (c_max == percent_r){
+      h = (60*((percent_g- percent_b) / diff)+ 360.0) %360;
+    }
+    else if (c_max == percent_g){
+      h = (60*((percent_b- percent_r) / diff)+ 120.0) %360;
+    }
+    else if (c_max == percent_b){
+      h = (60*((percent_r- percent_g) / diff)+ 240.0) %360;
+    }
+
+    if (c_max == 0){
+      s= 0;
+    }
+    else{
+      s = (diff / c_max) *100;
+    }
+
+
+    double v = c_max * 100.0;
+
+    return new HSVColors(h, s, v, temp_rgb.ir);
   }
 
   public void getRawColor1(RawColor rawColor) {
