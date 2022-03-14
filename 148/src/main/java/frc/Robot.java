@@ -442,10 +442,10 @@ public class Robot extends TimedRobot {
 
 		if(climbModeActivated) {
 			if(operator.aButton.isBeingPressed() || operator.aButton.longPressed()){
-				hanger.setMotor(0.90);
+				hanger.setMotor(1.00);
 			}
 			else if(operator.bButton.isBeingPressed() || operator.bButton.longPressed()) {
-				hanger.setMotor(-0.90);
+				hanger.setMotor(-1.00);
 			}
 			else if(operator.xButton.isBeingPressed() || operator.xButton.longPressed()) {
 				hanger.setOneClawServo(0.0);

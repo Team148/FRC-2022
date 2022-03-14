@@ -39,7 +39,7 @@ public class Hanger extends Subsystem {
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 500);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
-    hangerMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 55, 65, 1.5));
+    // hangerMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 55, 65, 1.5));
 
     oneClawServo = new LinearServo(RobotMap.ONE_CLAW_SERVO, 100, 24);
     twoClawServo = new LinearServo(RobotMap.TWO_CLAW_SERVO, 100, 24);
