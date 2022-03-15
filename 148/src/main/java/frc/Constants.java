@@ -121,14 +121,6 @@ public class Constants {
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(288.0), new InterpolatingDouble(228.0));
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(375.0), new InterpolatingDouble(287.0));
 
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(68.0), new InterpolatingDouble(64.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(96.0-12.0), new InterpolatingDouble(95.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(135.0-18.0), new InterpolatingDouble(132.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(171.0-26.0), new InterpolatingDouble(167.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(196.0-32.0), new InterpolatingDouble(195.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(218.0), new InterpolatingDouble(228.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(231.0), new InterpolatingDouble(287.0));
-
 			kVisionDistanceTreemap.put(new InterpolatingDouble(84.0), new InterpolatingDouble(64.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(111.0), new InterpolatingDouble(95.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(157.0), new InterpolatingDouble(132.0));
@@ -207,6 +199,14 @@ public class Constants {
 		public static final double HOPPER_SHOOTING_SPEED = -0.7;
 		public static final double HOPPER_WOF_SPEED = 1.0;
 
+	}
+
+	public static class BallIntake {
+
+		//Ball Intake Constants
+		public static final double INTAKING_SPEED = -1.0;
+		public static final double OUTTAKING_SPEED = 1.0;
+		
 	}
 
 	public static class Hanger {
@@ -402,6 +402,11 @@ public class Constants {
 		public static final double kMaxControlAngle = 48.0;
 
 		public static final double kAngleTolerance = 2.0;
+
+		public static final double AT_GOAL = 7.0;
+		public static final double BACK_LINE = 28.0;
+		public static final double LAUNCH_PAD = 41.0;
+		public static final double HP_WALL = 46.0;
 	}
 
 	//Field Landmarks

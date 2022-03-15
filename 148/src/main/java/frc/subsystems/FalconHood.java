@@ -16,6 +16,8 @@ import frc.loops.ILooper;
 import frc.loops.Loop;
 import frc.subsystems.requests.Request;
 import frc.vision.ShooterAimingParameters;
+
+import com.team1323.lib.util.InterpolatingDouble;
 import com.team1323.lib.util.Util;
 import com.team254.drivers.LazyTalonFX;
 import com.team254.lib.geometry.Rotation2d;
@@ -30,6 +32,7 @@ public class FalconHood extends Subsystem{
 
      // Motor and Sensors Instantiation
      private LazyTalonFX hoodFalcon;
+     private RobotState robotState;
  
      PeriodicIO periodicIO = new PeriodicIO();
  
@@ -53,7 +56,7 @@ public class FalconHood extends Subsystem{
  
      private HoodState currentState = HoodState.OPEN_LOOP;
      public enum HoodState {
-         OPEN_LOOP, POSITION;
+         OFF, OPEN_LOOP, AT_GOAL, BACK_LINE, LAUNCH_PAD, HP_WALL, EXPERIMENTAL_VISION, RESET;
      }
  
      public HoodState getState() {
@@ -118,6 +121,14 @@ public class FalconHood extends Subsystem{
      public double encUnitsToDegrees(double encUnits) {
          return encUnits / 0.0;
      }
+
+     public boolean hasReachedAngle() {
+        return Math.abs(getAngle() - targetAngle) < Constants.FalconHood.kAngleTolerance;
+    }
+
+    public double getAngle() {
+        return internalEncUnitsToHoodAngle(periodicIO.position);
+    }
  
      private void setEncoderPhase(boolean phase) {
          isEncoderFlipped = phase;
@@ -125,12 +136,8 @@ public class FalconHood extends Subsystem{
  
      public void setHoodPosition(double angle) {
 
-        setState(HoodState.POSITION);
          if (angle < Constants.FalconHood.kMinControlAngle) angle = Constants.FalconHood.kMinControlAngle;
          if (angle > Constants.FalconHood.kMaxControlAngle) angle = Constants.FalconHood.kMaxControlAngle;
-
-        //  hoodFalcon.set(ControlMode.Position, setpoint);
-        // System.out.println("Setting hood position");
 
         int setpoint = angleToEncoderUnits(angle);
         periodicIO.controlMode = ControlMode.Position;
@@ -144,6 +151,10 @@ public class FalconHood extends Subsystem{
         // System.out.println("Setting position to " + setpoint);
         return (int) setpoint;
      }
+
+     public double internalEncUnitsToHoodAngle(double encUnits) {
+        return (encUnits / 2048.0) / Constants.FalconHood.kEncoderRatio * 360.0;
+    }
  
      public void setOpenLoop(double output) {
          // periodicIO.controlMode = ControlMode.PercentOutput;
@@ -175,6 +186,13 @@ public class FalconHood extends Subsystem{
      public void writePeriodicOutputs() {
             hoodFalcon.set(periodicIO.controlMode, periodicIO.demand);
      }
+
+     public void startExperimentalVision() {
+        setState(HoodState.EXPERIMENTAL_VISION);
+        Optional<ShooterAimingParameters> aimRange = robotState.getExperimentalAimingParameters();
+        double temp_range = aimRange.get().getRange();
+        setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+    }
  
      private final Loop loop = new Loop() {
  
@@ -189,8 +207,25 @@ public class FalconHood extends Subsystem{
              switch(currentState) {
                  case OPEN_LOOP:
                     break;
-                 case POSITION:
-
+                 case AT_GOAL:
+                    setHoodPosition(Constants.FalconHood.AT_GOAL);
+                    break;
+                case BACK_LINE:
+                    setHoodPosition(Constants.FalconHood.BACK_LINE);
+                    break;
+                case LAUNCH_PAD:
+                    setHoodPosition(Constants.FalconHood.LAUNCH_PAD);
+                    break;
+                case HP_WALL:
+                    setHoodPosition(Constants.FalconHood.HP_WALL);
+                    break;
+                case EXPERIMENTAL_VISION:
+                    Optional<ShooterAimingParameters> aimRange  = robotState.getExperimentalAimingParameters();
+                    double temp_range = aimRange.get().getRange();
+                    setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+                    break;
+                case RESET:
+                    setHoodPosition(Constants.FalconHood.kMinControlAngle);
                     break;
                  default:
                  // System.out.println("Never matched a case!!!");
@@ -227,6 +262,28 @@ public class FalconHood extends Subsystem{
              }
          };
      }
+
+     public Request startExperimentalVisionRequest() {
+        System.out.println("Start Exeperimenetal Vision Request");
+        return new Request(){
+            
+            @Override
+            public void act() {
+                System.out.println("ACTING");
+                startExperimentalVision();
+            }
+            
+            @Override
+            public boolean isFinished() {
+                if (hasReachedAngle()) {
+                    DriverStation.reportError("Hood Request Finished", false);
+                    return true;
+                }
+                return false;
+            }
+            
+        };
+    }
  
      public synchronized void resetToAbsolute() {
      }

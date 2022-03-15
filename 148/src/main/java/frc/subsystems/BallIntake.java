@@ -1,6 +1,9 @@
 package frc.subsystems;
 
+import frc.Constants;
 import frc.RobotMap;
+import frc.loops.ILooper;
+import frc.loops.Loop;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -60,4 +63,62 @@ public class BallIntake extends Subsystem {
   public void zeroSensors() {
       // no-op
   }
+
+  private BallIntakeState currentState = BallIntakeState.OFF;
+  private boolean stateChanged = false;
+
+  public BallIntakeState getState() {
+      return currentState;
+    }
+
+  public synchronized void setState(BallIntakeState newState) {
+      if (newState != currentState)
+          stateChanged = true;
+  currentState = newState;
+  }
+
+  private final Loop loop = new Loop() {
+
+    @Override
+    public void onStart(double timestamp) {
+      setState(BallIntakeState.OFF);
+      stop();
+    }
+  
+    @Override
+    public void onLoop(double timestamp) {
+        switch (currentState) {
+        case OFF:
+            stop();
+            break;
+        case INTAKING:
+            setMotor(Constants.BallIntake.INTAKING_SPEED);
+            break;
+        case OUTTAKING:
+            setMotor(Constants.BallIntake.OUTTAKING_SPEED);
+        default:
+            break;
+  
+      }
+      if (stateChanged)
+        stateChanged = false;
+    }
+  
+    @Override
+    public void onStop(double timestamp) {
+      setState(BallIntakeState.OFF);
+      stop();
+    }
+  
+    };
+    @Override
+      public void registerEnabledLoops(ILooper enabledLooper) {
+        enabledLooper.register(loop);
+      }
+  
+    public enum BallIntakeState {
+      OFF,
+      INTAKING,
+      OUTTAKING
+    }
 }

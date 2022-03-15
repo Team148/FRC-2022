@@ -49,6 +49,7 @@ public class Superstructure extends Subsystem {
 		queuedRequests = new ArrayList<>(0);
 	}
 	private static Superstructure instance = null;
+
 	public static Superstructure getInstance(){
 		if(instance == null)
 			instance = new Superstructure();
@@ -128,9 +129,9 @@ public class Superstructure extends Subsystem {
 							&& !swerve.isGoingToPole()) {
 							//swerve.rotate(swerve.closestPole());
 						}
-						double temp_range = aim.get().getRange();
-						falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
-						shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+						// double temp_range = aim.get().getRange();
+						// falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+						// shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 					}
 				}
 
@@ -271,31 +272,6 @@ public class Superstructure extends Subsystem {
 		);
 	}
 
-	// public void intakeState() {
-	// 	request(new ParallelRequest(
-	// 		intake.stateRequest(Intake.State.INTAKE),
-	// 		feeder.stateRequest(Feeder.State.RECEIVING),
-	// 		shooter.openLoopRequest(0.0, 0.0)
-	// 	));
-	// }
-
-	// public void autoIntakeState() {
-	// 	request(new ParallelRequest(
-	// 		intake.stateRequest(Intake.State.INTAKE),
-	// 		feeder.stateRequest(Feeder.State.RECEIVING)
-	// 	));
-	// }
-
-	// public void postShooting() {
-	// 	request(
-	// 		new SequentialRequest(
-	// 			feeder.waitToFinishShootingRequest(),
-	// 			postShootingRequest(),
-	// 			feeder.stateRequest(Feeder.State.OFF)
-	// 		)
-	// 	);
-	// }
-
 	public void postManualShooting() {
 		request(
 			new SequentialRequest(
@@ -331,24 +307,6 @@ public class Superstructure extends Subsystem {
 		);
 	}
 
-	// public void firingState() {
-	// 	request(
-	// 		new SequentialRequest(
-	// 			new ParallelRequest(
-	// 				//hood.stateRequest(Hood.State.CLOSE_FIRE),
-	// 				//actuatingHood.stateRequest(ActuatingHood.State.MID),
-	// 				shooter.visionHoldWhenReadyRequest()
-	// 			),
-	// 			new ParallelRequest(
-	// 				feeder.stateRequest(Feeder.State.FEEDING),
-	// 				intake.stateRequest(Intake.State.FEEDING_INTAKE),
-	// 				feeder.waitToFinishShootingRequest()
-	// 			),
-	// 			postShootingRequest()
-	// 		)
-	// 	);
-	// }
-
 	public void moveAndFireVisionState(Translation2d translationFromTarget) {
 		request(
 			new SequentialRequest(
@@ -375,12 +333,6 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 					// shooter.visionHoldWhenReadyRequest()
 				)
-				// new ParallelRequest(
-				// 	intake.stateRequest(Intake.State.FEEDING_INTAKE),
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -398,13 +350,6 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				//actuatingHood.waitForHoodAngleRequst(),
-				// new ParallelRequest(
-				// 	intake.stateRequest(Intake.State.OFF),
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -422,12 +367,6 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				// new ParallelRequest(
-				// 	intake.stateRequest(Intake.State.OFF),
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -445,12 +384,6 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				// new ParallelRequest(
-				// 	intake.stateRequest(Intake.State.OFF),
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -468,50 +401,14 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				// new ParallelRequest(
-				// 	intake.stateRequest(Intake.State.OFF),
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
-
-	// public void deepFireState() {
-	// 	request(
-	// 		new SequentialRequest(
-	// 			new ParallelRequest(
-	// 				//hood.stateRequest(Hood.State.FAR_FIRE),
-	// 				//actuatingHood.stateRequest(ActuatingHood.State.FAR),
-	// 				//motorizedHood.angleRequest(Constants.MotorizedHood.kMaxControlAngle),
-	// 				shooter.holdWhenReadyRequest(1400.0, 4400.0)
-	// 			),
-	// 			//actuatingHood.waitForHoodAngleRequst(),
-	// 			new ParallelRequest(
-	// 				intake.stateRequest(Intake.State.FEEDING_INTAKE),
-	// 				feeder.stateRequest(Feeder.State.FEEDING),
-	// 				feeder.waitToFinishShootingRequest()
-	// 			),
-	// 			postShootingRequest()
-	// 		)
-	// 	);
-	// }
-
 
 	public void firingVisionState(double topRPM, double bottomRPM) {
 		request( 
 			new ParallelRequest(
 				turret.startVisionRequest(true)
-				// new SequentialRequest(
-				// 	shooter.holdWhenReadyRequest(topRPM, bottomRPM),
-				// 	new ParallelRequest(
-				// 		intake.stateRequest(Intake.State.FEEDING_INTAKE),
-				// 		feeder.stateRequest(Feeder.State.FEEDING),
-				// 		feeder.waitToFinishShootingRequest()
-				// 	),
-				// 	postShootingRequest()
-				// )
 			)
 		);
 	}
@@ -519,17 +416,9 @@ public class Superstructure extends Subsystem {
 	public void firingVision() {
 		request( 
 			new ParallelRequest(
-				// turret.startVisionRequest(true)
-				turret.startExperimentalVisionRequest() //changed from the request above
-				// new SequentialRequest(
-				// 	shooter.holdWhenReadyRequest(topRPM, bottomRPM),
-				// 	new ParallelRequest(
-				// 		intake.stateRequest(Intake.State.FEEDING_INTAKE),
-				// 		feeder.stateRequest(Feeder.State.FEEDING),
-				// 		feeder.waitToFinishShootingRequest()
-				// 	),
-				// 	postShootingRequest()
-				// )
+				turret.startExperimentalVisionRequest(),
+				falconhood.startExperimentalVisionRequest(),
+				shooter.startExperimentalVisionRequest() //changed from the request above
 			)
 		);
 	}
@@ -537,15 +426,6 @@ public class Superstructure extends Subsystem {
 		request( 
 			new ParallelRequest(
 				turret.startVisionRequest(false)
-				// new SequentialRequest(
-				// 	shooter.holdWhenReadyRequest(topRPM, bottomRPM),
-				// 	new ParallelRequest(
-				// 		intake.stateRequest(Intake.State.FEEDING_INTAKE),
-				// 		feeder.stateRequest(Feeder.State.FEEDING),
-				// 		feeder.waitToFinishShootingRequest()
-				// 	),
-				// 	postShootingRequest()
-				// )
 			)
 		);
 	}
@@ -572,11 +452,6 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				// new ParallelRequest(
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -590,14 +465,6 @@ public class Superstructure extends Subsystem {
 					// shooter.holdWhenReadyRequest(Constants.Shooter.kMidTopRPM, Constants.Shooter.kMidBottomRPM), // 400.0 3000.0 | 1100 3600
 					turret.startVisionRequest(false)
 				)
-				//swerve.lockDrivePositionRequest(),
-				//actuatingHood.waitForHoodAngleRequst(),
-				// new ParallelRequest(
-				// 	//intake.stateRequest(Intake.State.FEEDING_INTAKE),
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -613,11 +480,6 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				// new ParallelRequest(
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -631,11 +493,6 @@ public class Superstructure extends Subsystem {
 					// shooter.holdWhenReadyRequest(Constants.Shooter.kFarTopRPM, Constants.Shooter.kFarBottomRPM), // 400.0 3000.0 | 1100 3300
 					turret.startVisionRequest(false)
 				)
-				// new ParallelRequest(
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -651,11 +508,6 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				// new ParallelRequest(
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -668,11 +520,6 @@ public class Superstructure extends Subsystem {
 					// shooter.holdWhenReadyRequest(Constants.Shooter.kCloseTopRPM, Constants.Shooter.kCloseBottomRPM),
 					turret.angleRequest(0.0)
 				)
-				// new ParallelRequest(
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
@@ -689,27 +536,9 @@ public class Superstructure extends Subsystem {
 					turret.startVisionRequest(false)
 				),
 				swerve.lockDrivePositionRequest()
-				//actuatingHood.waitForHoodAngleRequst(),
-				// new ParallelRequest(
-				// 	intake.stateRequest(Intake.State.FEEDING_INTAKE),
-				// 	feeder.stateRequest(Feeder.State.FEEDING),
-				// 	feeder.waitToFinishShootingRequest()
-				// ),
-				// postShootingRequest()
 			)
 		);
 	}
-
-	// public void preFireState() {
-	// 	request(
-	// 		new ParallelRequest(
-	// 			new LambdaRequest(() -> isPrefire = true),
-	// 			motorizedHood.angleRequest(Constants.MotorizedHood.kMidAngle),
-	// 			shooter.spinUpRequest(Constants.Shooter.kMidTopRPM, Constants.Shooter.kMidBottomRPM), //1000.0 | 2000.0
-	// 			new LambdaRequest(() -> LimelightProcessor.getInstance().ledOn(true))
-	// 		)
-	// 	);
-	// }
 
 	public void spinUpAndTrackState(double topRPM, double bottomRPM) {
 		request(
@@ -734,47 +563,4 @@ public class Superstructure extends Subsystem {
 			)	
 		);
 	}
-
-	// public void fireState() {
-	// 	request(
-	// 		new SequentialRequest(
-	// 			new ParallelRequest(
-	// 				intake.stateRequest(Intake.State.FEEDING_INTAKE),
-	// 				feeder.stateRequest(Feeder.State.FEEDING),
-	// 				feeder.waitToFinishShootingRequest()
-	// 			)
-	// 		)	
-	// 	);
-	// }
-
-	// public void testFiringState() {
-	// 	request(
-	// 		new SequentialRequest(
-	// 			shooter.holdWhenReadyRequest(1200.0, 3400.0),
-	// 			new ParallelRequest(
-	// 				intake.stateRequest(Intake.State.FEEDING_INTAKE),
-	// 				feeder.stateRequest(Feeder.State.FEEDING),
-	// 				feeder.waitToFinishShootingRequest()
-	// 			),
-	// 			postShootingRequest()
-	// 		)
-	// 	);
-	// }
-
-	// public void deployHangerState() {
-	// 	request(
-	// 		new SequentialRequest(
-	// 			turret.angleRequest(180.0),
-	// 			new LambdaRequest(() -> hanger.fireExtender(true)),
-	// 			waitRequest(0.5),
-	// 			hanger.setHeightRequest(0.0, 0.1)
-	// 		)
-	// 	);
-	// }
-
-	// public void hangerState(double height) {
-	// 	request(
-	// 		hanger.setHeightRequest(height)
-	// 	);
-	// }
 }
