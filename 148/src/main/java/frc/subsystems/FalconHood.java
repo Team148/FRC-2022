@@ -199,6 +199,7 @@ public class FalconHood extends Subsystem{
          @Override
          public void onStart(double timestamp) {
             hoodFalcon.setNeutralMode(NeutralMode.Brake);
+            setState(HoodState.RESET);
          }
  
          @Override

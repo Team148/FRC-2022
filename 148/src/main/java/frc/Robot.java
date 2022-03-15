@@ -391,8 +391,9 @@ public class Robot extends TimedRobot {
 		else if(driver.leftTrigger.isBeingPressed()) {
 			// intakePercent = 1.0;
 			intake.setState(BallIntakeState.OUTTAKING);
-		}else if(driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased()){
+		}else if(driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased() || driver.leftTrigger.longReleased() || driver.leftTrigger.shortReleased()){
 			feeder.setState(FeederState.OFF);
+			intake.setState(BallIntakeState.OFF);
 		}
 
 		if (driver.rightCenterClick.isBeingPressed()) {

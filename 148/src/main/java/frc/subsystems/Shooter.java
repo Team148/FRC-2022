@@ -137,6 +137,7 @@ public class Shooter extends Subsystem {
     @Override
     public void onStart(double timestamp) {
       ShooterMaster.setNeutralMode(NeutralMode.Coast);
+      setState(ShooterState.RESET);
     }
 
     @Override
