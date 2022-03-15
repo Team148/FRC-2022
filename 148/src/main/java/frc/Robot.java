@@ -353,6 +353,7 @@ public class Robot extends TimedRobot {
 			intake.setState(BallIntakeState.OFF);
 			feeder.setState(FeederState.OFF);
 			falconHood.setState(HoodState.RESET);
+			shooter.setState(ShooterState.RESET);
 		}
 
 		//STATE CONTROLS
@@ -394,6 +395,10 @@ public class Robot extends TimedRobot {
 			feeder.setState(FeederState.OFF);
 		}
 
+		if (driver.rightCenterClick.isBeingPressed()) {
+			pivot.setState(PivotState.RESET);
+		}
+
 		//OPERATOR
 
 		double operatorRightX = operator.getRightX();//getX(Hand.kRight);
@@ -429,6 +434,7 @@ public class Robot extends TimedRobot {
 
 		if(operator.backButton.isBeingPressed() && operator.startButton.isBeingPressed()) {
 			climbModeActivated = true;
+			s.turretPositionState(0.0);
 			pivot.setState(PivotState.RESET);
 		}
 
@@ -503,7 +509,6 @@ public class Robot extends TimedRobot {
 		}
 
 		if(operator.rightTrigger.isBeingPressed() || operator.rightTrigger.longPressed()) {
-			// intakePercent = -1.0;
 			intake.setState(BallIntakeState.INTAKING);
 			feeder.setState(FeederState.SHOOTING);
 			
