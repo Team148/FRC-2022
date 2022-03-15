@@ -399,25 +399,25 @@ public class Robot extends TimedRobot {
 		//optional manual shooter controls
 				// + (X) -
 
-		// if(shooter_debug){
-		// 	if(operator.backButton.wasActivated()) {
-		// 		hoodAngle += 1.0;
-		// 		System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
-		// 	}
-		// 	else if(operator.startButton.wasActivated()) {
-		// 		hoodAngle -= 1.0;
-		// 		System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
-		// 	}
+		if(shooter_debug){
+			if(operator.backButton.wasActivated()) {
+				hoodAngle += 1.0;
+				System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
+			}
+			else if(operator.startButton.wasActivated()) {
+				hoodAngle -= 1.0;
+				System.out.println("Hood Angle Set to: " + hoodAngle + " degrees.");
+			}
 
-		// 	if(operator.leftBumper.wasActivated()) {
-		// 		shooterSpeed += 250.0;
-		// 		System.out.println("Shooter Speed Set to: " + shooterSpeed);
-		// 	}
-		// 	else if(operator.rightBumper.wasActivated()) {
-		// 		shooterSpeed -= 250.0;
-		// 		System.out.println("Shooter Speed Set to: " + shooterSpeed);
-		// 	}
-		// }// end of shooter testing
+			if(operator.leftBumper.wasActivated()) {
+				shooterSpeed += 250.0;
+				System.out.println("Shooter Speed Set to: " + shooterSpeed);
+			}
+			else if(operator.rightBumper.wasActivated()) {
+				shooterSpeed -= 250.0;
+				System.out.println("Shooter Speed Set to: " + shooterSpeed);
+			}
+		}// end of shooter testing
 
 		if (Math.abs(operatorRightX) != 0) {
 			turret.setOpenLoop(operatorRightX);
