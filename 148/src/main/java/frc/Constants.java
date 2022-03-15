@@ -48,7 +48,7 @@ public class Constants {
     public static final double kCameraXOffset = -6.5; // Tweaked for Quickdraw
     public static final double kCameraZOffset = 36.67; // Tweaked for Quickdraw
     public static final double kCameraYawAngleDegrees = 0; //-2.25;//-12.7
-    public static final double kCameraPitchAngleDegrees = Settings.kIsUsingCompBot ? 32.0 : 32.0; //Tweaked for Quickdraw
+    public static final double kCameraPitchAngleDegrees = Settings.kIsUsingCompBot ? 24.0 : 24.0; //Tweaked for Quickdraw -- 32.0 / 32.0
 
     //Limelight
     public static final double kHorizontalFOV = 59.6; // degrees
@@ -113,13 +113,29 @@ public class Constants {
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(108.0), new InterpolatingDouble(95.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(144.0), new InterpolatingDouble(132.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(187.0), new InterpolatingDouble(167.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(195.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(288.0), new InterpolatingDouble(228.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(375.0), new InterpolatingDouble(287.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(108.0), new InterpolatingDouble(95.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(144.0), new InterpolatingDouble(132.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(187.0), new InterpolatingDouble(167.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(195.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(288.0), new InterpolatingDouble(228.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(375.0), new InterpolatingDouble(287.0));
+
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(68.0), new InterpolatingDouble(64.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(96.0-12.0), new InterpolatingDouble(95.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(135.0-18.0), new InterpolatingDouble(132.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(171.0-26.0), new InterpolatingDouble(167.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(196.0-32.0), new InterpolatingDouble(195.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(218.0), new InterpolatingDouble(228.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(231.0), new InterpolatingDouble(287.0));
+
+			kVisionDistanceTreemap.put(new InterpolatingDouble(84.0), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(111.0), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(157.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(198.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(233.0), new InterpolatingDouble(195.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(218.0), new InterpolatingDouble(228.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(231.0), new InterpolatingDouble(287.0));
 		}
     
     //Path following constants

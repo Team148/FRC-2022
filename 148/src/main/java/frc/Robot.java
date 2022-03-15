@@ -348,7 +348,7 @@ public class Robot extends TimedRobot {
 
 		if (driver.startButton.longPressed()) {
 			swerve.lazyReset();
-			s.turretPositionState(90.0);
+			s.turretPositionState(-180.9);
 			hoodAngle = 0.0;
 			shooterSpeed = 0.0;
 			pivot.setState(PivotState.RESET);
@@ -485,9 +485,10 @@ public class Robot extends TimedRobot {
 				// falconHood.setHoodPosition(27.0);
 			}
 			else if (operator.leftCenterClick.wasActivated()) {
-				hoodAngle = 0.0;
-				// falconHood.setHoodPosition(0.0);
-				shooterSpeed = 0.0;
+				// s.zeroShooter();
+				// hoodAngle = 0.0;
+				// // falconHood.setHoodPosition(0.0);
+				// shooterSpeed = 0.0;
 			}
 		}
 

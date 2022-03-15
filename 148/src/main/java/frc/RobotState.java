@@ -116,8 +116,14 @@ public class RobotState {
         /*return getLatestFieldToVehicle().getValue().
             transformBy(Pose2d.exp(vehicle_velocity_averaged_.getAverage().scaled(lookahead_time)));*/
         Twist2d deltaPose = vehicle_velocity_averaged_.getAverage().scaled(lookahead_time);
+        
+        //James BS
+        Twist2d deltaPose_theta = vehicle_velocity_averaged_.getAverage().scaled(0.125);
+        // return getLatestFieldToVehicle().getValue().
+        //     transformBy(new Pose2d(deltaPose.dx, deltaPose.dy, Rotation2d.fromRadians(deltaPose.dtheta)));
+
         return getLatestFieldToVehicle().getValue().
-            transformBy(new Pose2d(deltaPose.dx, deltaPose.dy, Rotation2d.fromRadians(deltaPose.dtheta)));
+        transformBy(new Pose2d(deltaPose.dx, deltaPose.dy,Rotation2d.fromRadians(deltaPose_theta.dtheta)));
     }
     
     /**
