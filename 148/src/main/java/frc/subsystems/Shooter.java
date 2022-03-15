@@ -178,6 +178,11 @@ public class Shooter extends Subsystem {
     }
   };
 
+  @Override
+     public void registerEnabledLoops(ILooper enabledLooper) {
+         enabledLooper.register(loop);
+  }
+
   public Request stateRequest(ShooterState desiredState) {
     return new Request(){
     
