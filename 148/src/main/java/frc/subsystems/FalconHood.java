@@ -56,7 +56,7 @@ public class FalconHood extends Subsystem{
  
      private HoodState currentState = HoodState.OPEN_LOOP;
      public enum HoodState {
-         OFF, OPEN_LOOP, AT_GOAL, BACK_LINE, LAUNCH_PAD, HP_WALL, EXPERIMENTAL_VISION, RESET;
+         OFF, OPEN_LOOP, AT_GOAL, BACK_LINE, LAUNCH_PAD, HP_WALL, EXPERIMENTAL_VISION, RESET, AUTO;
      }
  
      public HoodState getState() {
@@ -219,13 +219,10 @@ public class FalconHood extends Subsystem{
                 case HP_WALL:
                     setHoodPosition(Constants.FalconHood.HP_WALL);
                     break;
-                case EXPERIMENTAL_VISION:
-                    Optional<ShooterAimingParameters> aimRange  = robotState.getExperimentalAimingParameters();
-                    double temp_range = aimRange.get().getRange();
-                    setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
-                    break;
                 case RESET:
                     setHoodPosition(Constants.FalconHood.kMinControlAngle);
+                    break;
+                case AUTO:
                     break;
                  default:
                  // System.out.println("Never matched a case!!!");
