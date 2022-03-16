@@ -2,6 +2,7 @@ package frc;
 
 import java.util.Arrays;
 
+import frc.Constants.Hood;
 // import frc.Constants.MotorizedHood;
 import frc.auto.AutoModeBase;
 import frc.auto.AutoModeExecuter;
@@ -487,7 +488,7 @@ public class Robot extends TimedRobot {
 				shooter_velocity = Constants.Shooter.LAUNCH_PAD;
 				hood_angle = Constants.FalconHood.LAUNCH_PAD;
 			}
-			else if (operator.leftCenterClick.wasActivated()) {
+			else if (operator.leftCenterClick.isBeingPressed()) {
 				falconHood.setState(HoodState.RESET);
 				shooter.setState(ShooterState.RESET);
 				shooter_velocity = 0.0;
@@ -506,6 +507,8 @@ public class Robot extends TimedRobot {
 		}
 
 		if(operator.leftTrigger.isBeingPressed()) {
+			shooter.setState(ShooterState.AUTO);
+			falconHood.setState(HoodState.AUTO);
 			s.firingVision();
 		}
 

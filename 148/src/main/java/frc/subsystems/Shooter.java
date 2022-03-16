@@ -38,7 +38,7 @@ public class Shooter extends Subsystem {
 
   private ShooterState currentState = ShooterState.OPEN_LOOP;
      public enum ShooterState {
-         OFF, OPEN_LOOP, AT_GOAL, BACK_LINE, LAUNCH_PAD, HP_WALL, EXPERIMENTAL_VISION, RESET;
+         OFF, OPEN_LOOP, AT_GOAL, BACK_LINE, LAUNCH_PAD, HP_WALL, EXPERIMENTAL_VISION, RESET, AUTO;
      }
  
      public ShooterState getState() {
@@ -159,13 +159,10 @@ public class Shooter extends Subsystem {
           case HP_WALL:
               setVelocity(Constants.Shooter.HP_WALL);
               break;
-          case EXPERIMENTAL_VISION:
-              Optional<ShooterAimingParameters> aimRange  = robotState.getExperimentalAimingParameters();
-              double temp_range = aimRange.get().getRange();
-              setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
-              break;
           case RESET:
               setVelocity(0.0);
+              break;
+          case AUTO:
               break;
             default:
             // System.out.println("Never matched a case!!!");

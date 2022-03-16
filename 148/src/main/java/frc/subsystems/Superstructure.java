@@ -24,6 +24,7 @@ import com.team254.lib.geometry.Translation2d;
 import frc.subsystems.BallIntake;
 import frc.subsystems.Shooter;
 import frc.subsystems.Turret;
+import frc.subsystems.FalconHood.HoodState;
 import frc.subsystems.FalconHood;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -55,6 +56,8 @@ public class Superstructure extends Subsystem {
 			instance = new Superstructure();
 		return instance;
 	}
+
+	private boolean wantAutoAim = false;
 	
 	private Request activeRequest = null;
 	private List<Request> queuedRequests = new ArrayList<>();
@@ -128,6 +131,11 @@ public class Superstructure extends Subsystem {
 							!turret.inVisionRange(turret.boundToTurretRange(aim.get().getTurretAngle().getDegrees())))
 							&& !swerve.isGoingToPole()) {
 							//swerve.rotate(swerve.closestPole());
+						}
+						if(wantAutoAim) {
+							double temp_range = aim.get().getRange();
+							falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+							shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 						}
 						// double temp_range = aim.get().getRange();
 						// falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
@@ -413,12 +421,17 @@ public class Superstructure extends Subsystem {
 		);
 	}
 
+	public void stopVision() {
+		wantAutoAim = false;
+	}
+
 	public void firingVision() {
+		wantAutoAim = true;
 		request( 
 			new ParallelRequest(
-				turret.startExperimentalVisionRequest(),
-				falconhood.startExperimentalVisionRequest(),
-				shooter.startExperimentalVisionRequest() //changed from the request above
+				turret.startExperimentalVisionRequest()
+				// falconhood.startExperimentalVisionRequest(),
+				// shooter.startExperimentalVisionRequest() //changed from the request above
 			)
 		);
 	}
@@ -431,6 +444,7 @@ public class Superstructure extends Subsystem {
 	}
 
 	public void turretPositionState(double angle) {
+		wantAutoAim = false;
 		request(
 			new SequentialRequest(
 				//hood.stateRequest(Hood.State.CLOSE_FIRE),
