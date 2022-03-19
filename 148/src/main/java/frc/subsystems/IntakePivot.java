@@ -139,13 +139,15 @@ public class IntakePivot extends Subsystem {
     }
 
     public void setIntakePivotPosition(double angle) {
-        if (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE)
-            angle = Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE;
-        if (angle > Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)
-            angle = Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE;
+        // if (angle < Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE)
+        //     angle = Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE;
+        // if (angle > Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE)
+        //     angle = Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE;
             int setpoint = angleToEncoderUnits(angle);
-            periodicIO.controlMode = ControlMode.Position;
-            periodicIO.demand = setpoint;
+            // periodicIO.controlMode = ControlMode.Position;
+            // periodicIO.demand = setpoint;
+            intakePivot.set(ControlMode.Position, setpoint);
+            // System.out.println("Pivot Set Point = " + setpoint);
         }
 
     public int angleToEncoderUnits(double angle) {

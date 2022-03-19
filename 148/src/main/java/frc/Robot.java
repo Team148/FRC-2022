@@ -379,25 +379,65 @@ public class Robot extends TimedRobot {
 			swerve.rotate(0);
 		}
 
-		if(driver.leftBumper.wasActivated()) {
-			pivot.setState(PivotState.UP);
-		}
-		else if(driver.rightBumper.wasActivated()) {
-			pivot.setState(PivotState.DOWN);
+		// if(driver.leftBumper.wasActivated()) {
+		// 	pivot.setState(PivotState.UP);
+		// }
+		// else if(driver.rightBumper.wasActivated()) {
+		// 	pivot.setState(PivotState.DOWN);
+		// }
+
+		// if(driver.rightTrigger.isBeingPressed()) {
+		// 	// intakePercent = -1.0;
+		// 	intake.setState(BallIntakeState.INTAKING);
+		// 	feeder.setState(FeederState.INTAKING);
+		// 	// lightShow.conformToState(LEDs.State.RAPID_FLASHING_YELLOW);//quiero más Ball
+		// }
+		// else if(driver.leftTrigger.isBeingPressed()) {
+		// 	// intakePercent = 1.0;
+		// 	intake.setState(BallIntakeState.OUTTAKING);
+		// }
+		// else if(driver.leftTrigger.longReleased() || driver.leftTrigger.shortReleased() || driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased()){
+		// 	intake.setState(BallIntakeState.OFF);
+		// 	feeder.setState(FeederState.OFF);
+		// }
+
+		// if(driver.getRawAxis(3) >= Constants.kDriverTriggerOFFMIN){
+		// 	if(driver.getRawAxis(3) <= Constants.kDriverTriggerOFFMAX){
+		// 		pivot.setIntakePivotPosition(0.0);
+		// 		intake.setState(BallIntakeState.OFF);
+		// 		feeder.setState(FeederState.OFF);
+		// 	}
+		// 	else{
+		// 		pivot.setIntakePivotPosition(driver.getRawAxis(3) * 100.0);
+		// 		// System.out.println("Pivot angle set to: " + driver.getRawAxis(3) * 100.0);
+		// 		intake.setState(BallIntakeState.INTAKING);
+		// 		feeder.setState(FeederState.INTAKING);
+		// 	}
+		// }
+
+		if(driver.getRawAxis(3) >= Constants.kDriverTriggerOFFMIN){
+			if(driver.getRawAxis(3) <= Constants.kDriverTriggerOFFMAX){
+				pivot.setState(PivotState.RESET);
+				intake.setState(BallIntakeState.OFF);
+				feeder.setState(FeederState.OFF);
+			}
+			else if (driver.getRawAxis(3) <= Constants.kDriverTriggerHalfMAX){
+				pivot.setState(PivotState.UP);
+				intake.setState(BallIntakeState.INTAKING);
+				feeder.setState(FeederState.OFF);
+			}
+			else if(driver.getRawAxis(3) <= Constants.kDriverTriggerFullMAX){
+				pivot.setState(PivotState.DOWN);
+				intake.setState(BallIntakeState.INTAKING);
+				feeder.setState(FeederState.INTAKING);
+			}
 		}
 
-		if(driver.rightTrigger.isBeingPressed()) {
-			// intakePercent = -1.0;
-			intake.setState(BallIntakeState.INTAKING);
-			feeder.setState(FeederState.INTAKING);
-			// lightShow.conformToState(LEDs.State.RAPID_FLASHING_YELLOW);//quiero más Ball
-		}
-		else if(driver.leftTrigger.isBeingPressed()) {
-			// intakePercent = 1.0;
+		if(driver.leftTrigger.isBeingPressed()){
 			intake.setState(BallIntakeState.OUTTAKING);
-		}
-		else if(driver.leftTrigger.longReleased() || driver.leftTrigger.shortReleased() || driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased()){
-			intake.setState(BallIntakeState.OFF);
+			feeder.setState(FeederState.UNJAM_FEED);
+		} else if(driver.leftBumper.isBeingPressed()){
+			intake.setState(BallIntakeState.OUTTAKING);
 			feeder.setState(FeederState.OFF);
 		}
 

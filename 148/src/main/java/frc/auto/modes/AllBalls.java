@@ -93,7 +93,6 @@ public class AllBalls extends AutoModeBase {
         runAction(new RemainingProgressAction(0.01));
         runAction(new WaitAction(0.5));
         runAction(new SetTrajectoryAction(trajectories.terminalToShotButBetter, 0.0, 0.5));
-        runAction(new SetBallIntakeState(BallIntakeState.OFF));
         runAction(new SetTurretAngleAction(180.0));        
         runAction(new SetHoodAngleAction(28.0));
         runAction(new SetShooterSpeedAction(11000));

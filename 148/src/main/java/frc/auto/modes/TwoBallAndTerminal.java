@@ -14,10 +14,12 @@ import frc.auto.actions.ResetPoseAction;
 import frc.auto.actions.SeriesAction;
 import frc.auto.actions.SetBallIntakeSpeedAction;
 import frc.auto.actions.SetHoodAngleAction;
+import frc.auto.actions.SetHoodState;
 import frc.auto.actions.SetBallIntakeState;
 import frc.auto.actions.SetFeederState;
 import frc.auto.actions.SetPivotState;
 import frc.auto.actions.SetShooterSpeedAction;
+import frc.auto.actions.SetShooterState;
 import frc.auto.actions.SetTrajectoryAction;
 import frc.auto.actions.SetTurretAngleAction;
 import frc.auto.actions.SetTurretState;
@@ -38,8 +40,10 @@ import frc.subsystems.Swerve;
 import frc.subsystems.Hanger.HangerState;
 import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.IntakePivot.PivotState;
+import frc.subsystems.Shooter.ShooterState;
 import frc.subsystems.Turret.State;
 import frc.subsystems.BallIntake.BallIntakeState;
+import frc.subsystems.FalconHood.HoodState;
 
 import com.team254.lib.geometry.Pose2d;
 import com.team254.lib.geometry.Pose2dWithCurvature;
@@ -68,8 +72,12 @@ public class TwoBallAndTerminal extends AutoModeBase {
         super.startTime = Timer.getFPGATimestamp();
         runAction(new ResetPoseAction(Constants.twoBallStart));
         LimelightProcessor.getInstance().ledOn(true);
+        runAction(new SetShooterState(ShooterState.AUTO));
+        runAction(new SetHoodState(HoodState.AUTO));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
+        runAction(new SetShooterSpeedAction(11750.0));
+        runAction(new SetHoodAngleAction(28.0));
         runAction(new SetTrajectoryAction(trajectories.twoStartToBall, -90.0, 1.5));
             // runAction(new ParallelAction(
             //     Arrays.asList(
@@ -78,17 +86,15 @@ public class TwoBallAndTerminal extends AutoModeBase {
             // )
             // ));
         s.turretPositionState(-180.0);
-        runAction(new SetShooterSpeedAction(11750.0));
-        runAction(new SetHoodAngleAction(28.0));
         runAction(new RemainingProgressAction(0.05));
-            runAction(new SetPivotState(PivotState.DOWN));
+        runAction(new SetPivotState(PivotState.DOWN));
         s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new WaitAction(1.75));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetTrajectoryAction(trajectories.twoBallToBallTwo, 35.0, 0.75));
-        runAction(new SetShooterSpeedAction(12250.0));
-        runAction(new SetHoodAngleAction(30.0));
+        // runAction(new SetShooterSpeedAction(12250.0));
+        // runAction(new SetHoodAngleAction(30.0));
         runAction(new SetTurretAngleAction(-250.0));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
@@ -101,8 +107,8 @@ public class TwoBallAndTerminal extends AutoModeBase {
         runAction(new SetTrajectoryAction(trajectories.terminalToShot, 184.0, 0.5));
         runAction(new SetBallIntakeState(BallIntakeState.OFF));
         runAction(new SetTurretAngleAction(-90.0));        
-        runAction(new SetHoodAngleAction(28.0));
-        runAction(new SetShooterSpeedAction(11000));
+        // runAction(new SetHoodAngleAction(28.0));
+        // runAction(new SetShooterSpeedAction(11000));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));

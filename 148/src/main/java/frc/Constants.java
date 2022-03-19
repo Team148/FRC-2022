@@ -72,6 +72,16 @@ public class Constants {
 	public static final double kDistanceToTargetTolerance = 1.0;
     public static final double kGyroDriftPerRotation = -0.25; // degrees
 
+	//joystick constants
+	public static final double kDriverTriggerOFFMIN = 0;
+	public static final double kDriverTriggerOFFMAX = 0.1;
+
+	public static final double kDriverTriggerHalfMIN = 0.2;
+	public static final double kDriverTriggerHalfMAX = 0.7;
+	
+	public static final double kDriverTriggerFullMIN = 0.8;
+	public static final double kDriverTriggerFullMAX = 1.0;
+
 	//Vision Speed Constraint Treemap -- Units are inches to center of goal, then ticks per 100ms (Falcon Units)
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
 		static{
@@ -113,23 +123,24 @@ public class Constants {
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
 		static{
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(108.0), new InterpolatingDouble(95.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(144.0), new InterpolatingDouble(132.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(187.0), new InterpolatingDouble(167.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(228.0), new InterpolatingDouble(195.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(288.0), new InterpolatingDouble(228.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(375.0), new InterpolatingDouble(287.0));
-
-			kVisionDistanceTreemap.put(new InterpolatingDouble(67.0), new InterpolatingDouble(64.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(93.0), new InterpolatingDouble(95.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(129.0), new InterpolatingDouble(132.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(159.0), new InterpolatingDouble(167.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(181.0), new InterpolatingDouble(195.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(215.0), new InterpolatingDouble(228.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(234.0), new InterpolatingDouble(252.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(259.0), new InterpolatingDouble(287.0));
-
+			//Practice Bot
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(67.0), new InterpolatingDouble(64.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(93.0), new InterpolatingDouble(95.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(129.0), new InterpolatingDouble(132.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(159.0), new InterpolatingDouble(167.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(181.0), new InterpolatingDouble(195.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(215.0), new InterpolatingDouble(228.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(234.0), new InterpolatingDouble(252.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(259.0), new InterpolatingDouble(287.0));
+			//Comp Bot
+			kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(115.0), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(162.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(207.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(239.0), new InterpolatingDouble(195.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(302.0), new InterpolatingDouble(228.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(333.0), new InterpolatingDouble(252.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(382.0), new InterpolatingDouble(287.0));
 		}
     
     //Path following constants
@@ -331,7 +342,7 @@ public class Constants {
 	public static class IntakePivot {
 
 		//IntakePivot Gains
-		public static double INTAKEPIVOT_KP = 0.0375; // 0.7;
+		public static double INTAKEPIVOT_KP = kIsUsingCompBot ? 0.075 : 0.0375;
 		public static double INTAKEPIVOT_KI = 0.0;
 		public static double INTAKEPIVOT_KD = 0.0;// 0.0;
 		public static double INTAKEPIVOT_KF = 0.0;
@@ -346,14 +357,15 @@ public class Constants {
 		public static final double INTAKEPIVOT_DOWN = -47800.0;
 
 		public static final double INTAKEPIVOT_ZEROEDANGLE = 0.0;
-		public static final double INTAKEPIVOT_MAXCONTROLANGLE = 103.0; //In both positive and negative directions | 220.0
+		public static final double INTAKEPIVOT_MAXCONTROLANGLE = kIsUsingCompBot ? 135.0 : 103.0;//In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = 45.0; // -25.0
 
 		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0;
 		public static final double kAngleTolerance = 1.0;
 
 		//Ratios
-		public static final double kInternalEncToOutputRatio = ((54.0 * 84.0 *  48.0) / (8.0 * 30.0 * 16.0));
+		public static final double kInternalEncToOutputRatio = kIsUsingCompBot ? ((54.0 * 60.0) / (10.0 * 12.0)) : ((54.0 * 84.0 *  48.0) / (8.0 * 30.0 * 16.0));
+
 	}
 
 	public static class MotorizedHood {

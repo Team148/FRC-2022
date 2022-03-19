@@ -13,10 +13,12 @@ import frc.auto.actions.ResetPoseAction;
 import frc.auto.actions.SeriesAction;
 import frc.auto.actions.SetBallIntakeSpeedAction;
 import frc.auto.actions.SetHoodAngleAction;
+import frc.auto.actions.SetHoodState;
 import frc.auto.actions.SetPivotState;
 import frc.auto.actions.SetBallIntakeState;
 import frc.auto.actions.SetFeederState;
 import frc.auto.actions.SetShooterSpeedAction;
+import frc.auto.actions.SetShooterState;
 import frc.auto.actions.SetTrajectoryAction;
 import frc.auto.actions.SetTurretAngleAction;
 import frc.auto.actions.SetTurretState;
@@ -73,10 +75,12 @@ public class OneBallAndDefend extends AutoModeBase {
         runAction(new SetTurretAngleAction(-187.0));
         runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 45.0, 1.0));
         runAction(new RemainingProgressAction(0.05));
+        runAction(new SetBallIntakeState(BallIntakeState.OFF));
         s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
             
-            runAction(new WaitAction(1.0));
+            runAction(new WaitAction(1.0));        
+            runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
             runAction(new SetFeederState(FeederState.INTAKING));
             runAction(new SetTrajectoryAction(trajectories.oneBallOneToDefend, 135.0, 1.0));
             runAction(new RemainingProgressAction(0.05));
@@ -85,7 +89,7 @@ public class OneBallAndDefend extends AutoModeBase {
             runAction(new SetTrajectoryAction(trajectories.oneBallDefendToDrop, 180.0, 1.0));
             runAction(new RemainingProgressAction(0.05));
             runAction(new SetPivotState(PivotState.UP));
-            runAction(new SetBallIntakeState(BallIntakeState.OUTTAKING));
+            // runAction(new SetBallIntakeState(BallIntakeState.OUTTAKING));
             runAction(new SetFeederState(FeederState.UNJAM_FEED));
             // runAction(new WaitAction(1.0));
             // runAction(new SetPivotState(PivotState.DOWN));

@@ -154,18 +154,19 @@ public class Turret extends Subsystem {
             */
         periodicIO.controlMode = ControlMode.MotionMagic;
         periodicIO.demand = turretDegreesToInternalEncUnits(targetAngle);
-        System.out.println("Demand is: " + periodicIO.demand);
+        // System.out.println("Demand is: " + periodicIO.demand);
     }
 
-    private void setVisionAngle(double angle) {
-        targetAngle = boundToTurretRange(angle);
-        /*if (ActuatingHood.getInstance().isStowed())
-            targetAngle = closestPole();
-            */
-        periodicIO.controlMode = ControlMode.Position;
-        periodicIO.demand = turretDegreesToInternalEncUnits(targetAngle);
-        System.out.println("Demand is: " + periodicIO.demand);
-    }
+    // private void setVisionAngle(double angle) {
+    //     targetAngle = boundToTurretRange(angle);
+    //     /*if (ActuatingHood.getInstance().isStowed())
+    //         targetAngle = closestPole();
+    //         */
+    //     periodicIO.controlMode = ControlMode.Position;
+    //     periodicIO.demand = turretDegreesToInternalEncUnits(targetAngle);
+    //     System.out.println("Demand is: " + periodicIO.demand);
+    // }
+    
     private boolean inRange(double value, double min, double max) {
         return min <= value && value <= max;
     }
