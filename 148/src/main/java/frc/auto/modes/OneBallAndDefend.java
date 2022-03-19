@@ -13,6 +13,8 @@ import frc.auto.actions.ResetPoseAction;
 import frc.auto.actions.SeriesAction;
 import frc.auto.actions.SetBallIntakeSpeedAction;
 import frc.auto.actions.SetHoodAngleAction;
+import frc.auto.actions.SetPivotState;
+import frc.auto.actions.SetBallIntakeState;
 import frc.auto.actions.SetFeederState;
 import frc.auto.actions.SetShooterSpeedAction;
 import frc.auto.actions.SetTrajectoryAction;
@@ -28,9 +30,12 @@ import frc.auto.actions.WaitToPassXCoordinateAction;
 import frc.auto.actions.WaitToPassYCoordinateAction;
 import frc.loops.LimelightProcessor;
 import frc.loops.LimelightProcessor.Pipeline;
+import frc.subsystems.Feeder;
 import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
+import frc.subsystems.BallIntake.BallIntakeState;
 import frc.subsystems.Hanger.HangerState;
+import frc.subsystems.IntakePivot.PivotState;
 import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.Turret.State;
 
@@ -58,10 +63,32 @@ public class OneBallAndDefend extends AutoModeBase {
     @Override
     protected void routine() throws AutoModeEndedException {
         super.startTime = Timer.getFPGATimestamp();
-        //LimelightProcessor.getInstance().ledOn(true);
+        LimelightProcessor.getInstance().ledOn(true);
         runAction(new ResetPoseAction(Constants.oneBallStart));
-        runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 0.0, 1.0));
-        runAction(new SetTrajectoryAction(trajectories.oneBallOneToDefend, 180.0, 1.0));
+        runAction(new SetPivotState(PivotState.DOWN));
+        runAction(new SetFeederState(FeederState.INTAKING));
+        runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
+        runAction(new SetShooterSpeedAction(12000.0));
+        runAction(new SetHoodAngleAction(29.0));
+        runAction(new SetTurretAngleAction(-187.0));
+        runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 45.0, 1.0));
+        runAction(new RemainingProgressAction(0.05));
+        s.firingVision();
+        runAction(new SetFeederState(FeederState.SHOOTING));
+            
+            runAction(new WaitAction(1.0));
+            runAction(new SetFeederState(FeederState.INTAKING));
+            runAction(new SetTrajectoryAction(trajectories.oneBallOneToDefend, 135.0, 1.0));
+            runAction(new RemainingProgressAction(0.05));
+            runAction(new SetTrajectoryAction(trajectories.oneBallToDefendTwo, -90.0, 1.0));
+            runAction(new RemainingProgressAction(0.05));
+            runAction(new SetTrajectoryAction(trajectories.oneBallDefendToDrop, 180.0, 1.0));
+            runAction(new RemainingProgressAction(0.05));
+            runAction(new SetPivotState(PivotState.UP));
+            runAction(new SetBallIntakeState(BallIntakeState.OUTTAKING));
+            runAction(new SetFeederState(FeederState.UNJAM_FEED));
+            // runAction(new WaitAction(1.0));
+            // runAction(new SetPivotState(PivotState.DOWN));
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");
 	}

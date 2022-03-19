@@ -79,6 +79,9 @@ public class Robot extends TimedRobot {
 	public static Turret getTurret(){
 		return Turret.getInstance();
 	}
+	public static BallIntake getBallIntake(){
+		return BallIntake.getInstance();
+	}
 	public static MotorizedHood getHood(){
 		return MotorizedHood.getInstance();
 	}
@@ -392,9 +395,10 @@ public class Robot extends TimedRobot {
 		else if(driver.leftTrigger.isBeingPressed()) {
 			// intakePercent = 1.0;
 			intake.setState(BallIntakeState.OUTTAKING);
-		}else if(driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased() || driver.leftTrigger.longReleased() || driver.leftTrigger.shortReleased()){
-			feeder.setState(FeederState.OFF);
+		}
+		else if(driver.leftTrigger.longReleased() || driver.leftTrigger.shortReleased() || driver.rightTrigger.longReleased() || driver.rightTrigger.shortReleased()){
 			intake.setState(BallIntakeState.OFF);
+			feeder.setState(FeederState.OFF);
 		}
 
 		if (driver.rightCenterClick.isBeingPressed()) {
@@ -438,6 +442,8 @@ public class Robot extends TimedRobot {
 			climbModeActivated = true;
 			s.turretPositionState(0.0);
 			pivot.setState(PivotState.RESET);
+			shooter.setState(ShooterState.RESET);
+			falconHood.setState(HoodState.RESET);
 		}
 
 		if(climbModeActivated) {

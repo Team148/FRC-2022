@@ -20,7 +20,7 @@ public class SmartDashboardInteractions {
     	modeChooser = new SendableChooser<AutoOption>();
         modeChooser.setDefaultOption(DEFAULT_MODE.name, DEFAULT_MODE);
         modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL.name, AutoOption.TWO_BALL_AND_TERMINAL);
-        modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL_BLUE.name, AutoOption.TWO_BALL_AND_TERMINAL_BLUE);
+        // modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL_BLUE.name, AutoOption.TWO_BALL_AND_TERMINAL_BLUE);
         modeChooser.addOption(AutoOption.ONE_BALL_AND_DEFEND.name, AutoOption.ONE_BALL_AND_DEFEND);
         modeChooser.addOption(AutoOption.ONE_BALL_AND_TERMINAL.name, AutoOption.ONE_BALL_AND_TERMINAL);
         modeChooser.addOption(AutoOption.ONE_BALL_BASE.name, AutoOption.ONE_BALL_BASE);
@@ -41,7 +41,7 @@ public class SmartDashboardInteractions {
 
     enum AutoOption{
         TWO_BALL_AND_TERMINAL("Two Balls and Terminal Shot"),
-        TWO_BALL_AND_TERMINAL_BLUE("Two Balls and Terminal Shot (Blue)"),
+        // TWO_BALL_AND_TERMINAL_BLUE("Two Balls and Terminal Shot (Blue)"),
         ONE_BALL_AND_DEFEND("One ball and defend"),
         ONE_BALL_AND_TERMINAL("One ball and Terminal Shot"),
         ONE_BALL_BASE("One ball");
@@ -60,8 +60,8 @@ public class SmartDashboardInteractions {
                 return new OneBallAndTerminal();
             case ONE_BALL_AND_DEFEND:
                 return new OneBallAndDefend();
-            case TWO_BALL_AND_TERMINAL_BLUE:
-                return new TwoBallAndTerminalBlue();
+            // case TWO_BALL_AND_TERMINAL_BLUE:
+            //     return new TwoBallAndTerminalBlue();
             case TWO_BALL_AND_TERMINAL:
                 return new TwoBallAndTerminal();
             default:

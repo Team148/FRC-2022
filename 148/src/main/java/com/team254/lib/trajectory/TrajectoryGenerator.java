@@ -126,7 +126,18 @@ public class TrajectoryGenerator {
         public final Trajectory<TimedState<Pose2dWithCurvature>> terminalToShot;
 
         public final Trajectory<TimedState<Pose2dWithCurvature>> oneBallStartToBallOne;
+
         public final Trajectory<TimedState<Pose2dWithCurvature>> oneBallOneToDefend;
+        public final Trajectory<TimedState<Pose2dWithCurvature>> oneBallToDefendTwo;
+        public final Trajectory<TimedState<Pose2dWithCurvature>> oneBallDefendToDrop;
+
+        public final Trajectory<TimedState<Pose2dWithCurvature>> oneBallTerminal;
+        public final Trajectory<TimedState<Pose2dWithCurvature>> oneBallTerminalShot;
+
+
+        public final Trajectory<TimedState<Pose2dWithCurvature>> terminalToShotButBetter;
+
+
 
         private TrajectorySet() {
         
@@ -136,8 +147,16 @@ public class TrajectoryGenerator {
             terminalToShot = getTerminalToShot();
 
             oneBallStartToBallOne = getOneBallStartToBallOne();
-            oneBallOneToDefend = getOneBallOneToDefend();
 
+            oneBallOneToDefend = getOneBallOneToDefend();
+            oneBallToDefendTwo = getOneBallToDefendTwo();
+            oneBallDefendToDrop = getOneBallDefendToDrop();
+
+            oneBallTerminal = getOneBallTerminal();
+            oneBallTerminalShot = getOneBallTerminalShot();
+
+
+            terminalToShotButBetter = getTerminalToShotButBetter();
 
         }
 
@@ -187,6 +206,53 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.oneBallOneDefend);
             
             return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallToDefendTwo(){
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(Constants.oneBallOneDefend);
+            waypoints.add(Constants.oneBallToDefend);
+
+            
+            return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallDefendToDrop(){
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(Constants.oneBallToDefend);
+            waypoints.add(Constants.oneBallDefendDropOff);
+
+            
+            return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallTerminal(){
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(Constants.oneBallOne);
+            waypoints.add(Constants.oneBallTerminal);
+
+            
+            return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallTerminalShot(){
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(Constants.oneBallTerminal);
+            waypoints.add(Constants.oneBallTerminalShot);
+
+            
+            return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+        }
+
+
+
+        //no
+        private Trajectory<TimedState<Pose2dWithCurvature>> getTerminalToShotButBetter(){
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(Constants.twoBallTerminal2);
+            waypoints.add(Constants.oneBallTerminalShot);
+
+            return generateTrajectory(false, waypoints, Arrays.asList(), 150.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
     }
 }

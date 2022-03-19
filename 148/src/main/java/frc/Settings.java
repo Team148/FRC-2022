@@ -21,9 +21,9 @@ public class Settings {
     // overload the NetworkTables
     private boolean kDebugSwerve = false;
     private boolean kDebugSwerveModule = false;
-    private boolean kDebugTurret = false;
+    private boolean kDebugTurret = true;
     private boolean kDebugShooter = false;
-    private boolean kDebugVision = false;
+    private boolean kDebugVision = true;
     private boolean kDebugFeeder = false;
     private boolean kDebugHanger = false;
     private boolean kDebugIntakePivot = false;

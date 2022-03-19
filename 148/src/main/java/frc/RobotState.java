@@ -118,7 +118,7 @@ public class RobotState {
         Twist2d deltaPose = vehicle_velocity_averaged_.getAverage().scaled(lookahead_time);
         
         //James BS
-        Twist2d deltaPose_theta = vehicle_velocity_averaged_.getAverage().scaled(0.125);
+        Twist2d deltaPose_theta = vehicle_velocity_averaged_.getAverage().scaled(0.0625);//0.125 og
         // return getLatestFieldToVehicle().getValue().
         //     transformBy(new Pose2d(deltaPose.dx, deltaPose.dy, Rotation2d.fromRadians(deltaPose.dtheta)));
 

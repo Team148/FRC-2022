@@ -103,7 +103,7 @@ public class Turret extends Subsystem {
         turret.config_kF(0, Constants.Turret.TURRET_KF, Constants.kLongCANTimeoutMs);
 
         turret.configMotionCruiseVelocity((int)(Constants.Turret.TURRET_MAXSPEED), Constants.kLongCANTimeoutMs);
-        turret.configMotionAcceleration((int)(Constants.Turret.TURRET_MAXSPEED * 3.0), Constants.kLongCANTimeoutMs);
+        turret.configMotionAcceleration((int)(Constants.Turret.TURRET_MAXSPEED * 6.0), Constants.kLongCANTimeoutMs);
         turret.configMotionSCurveStrength(0);
 
         turret.configForwardSoftLimitThreshold(turretDegreesToInternalEncUnits(Constants.Turret.TURRET_MAXCONTROLANGLE), Constants.kLongCANTimeoutMs);
@@ -154,9 +154,18 @@ public class Turret extends Subsystem {
             */
         periodicIO.controlMode = ControlMode.MotionMagic;
         periodicIO.demand = turretDegreesToInternalEncUnits(targetAngle);
-        // System.out.println("Demand is: " + periodicIO.demand);
+        System.out.println("Demand is: " + periodicIO.demand);
     }
 
+    private void setVisionAngle(double angle) {
+        targetAngle = boundToTurretRange(angle);
+        /*if (ActuatingHood.getInstance().isStowed())
+            targetAngle = closestPole();
+            */
+        periodicIO.controlMode = ControlMode.Position;
+        periodicIO.demand = turretDegreesToInternalEncUnits(targetAngle);
+        System.out.println("Demand is: " + periodicIO.demand);
+    }
     private boolean inRange(double value, double min, double max) {
         return min <= value && value <= max;
     }

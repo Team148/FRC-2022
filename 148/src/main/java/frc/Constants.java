@@ -121,13 +121,15 @@ public class Constants {
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(288.0), new InterpolatingDouble(228.0));
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(375.0), new InterpolatingDouble(287.0));
 
-			kVisionDistanceTreemap.put(new InterpolatingDouble(84.0), new InterpolatingDouble(64.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(111.0), new InterpolatingDouble(95.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(157.0), new InterpolatingDouble(132.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(198.0), new InterpolatingDouble(167.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(233.0), new InterpolatingDouble(195.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(218.0), new InterpolatingDouble(228.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(231.0), new InterpolatingDouble(287.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(67.0), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(93.0), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(129.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(159.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(181.0), new InterpolatingDouble(195.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(215.0), new InterpolatingDouble(228.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(234.0), new InterpolatingDouble(252.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(259.0), new InterpolatingDouble(287.0));
+
 		}
     
     //Path following constants
@@ -304,10 +306,10 @@ public class Constants {
 		// public static final double TURRET_MAXINITIALANGLE = 325.0;//305.0;
 		// public static final double TURRET_MININITIALLANGLE = 15.0;//35.0;
 
-		public static final double TURRET_MAXCONTROLANGLE = 35.0;//55.0;//305.0;
-		public static final double TURRET_MINCONTROLANGLE = -235.0;//-255.0;//35.0;
-		public static final double TURRET_MAXINITIALANGLE = 35.0;//55.0;//305.0;
-		public static final double TURRET_MININITIALLANGLE = -235.0;//-255.0;//35.0;
+		public static final double TURRET_MAXCONTROLANGLE = 55.0;//305.0;
+		public static final double TURRET_MINCONTROLANGLE = -255.0;//35.0;
+		public static final double TURRET_MAXINITIALANGLE = 55.0;//305.0;
+		public static final double TURRET_MININITIALLANGLE = -255.0;//35.0;
 
 		//Turret pose with respect to the robot's center
 		public static final double kXOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
@@ -428,7 +430,15 @@ public class Constants {
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
 	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
 	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
-	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 180.0, 78.0), Rotation2d.fromDegrees(0.0));
+
+	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallToDefend = new Pose2d(new Translation2d(kFieldLength - 160.0, -20.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallDefendDropOff = new Pose2d(new Translation2d(kFieldLength - 210.0, 30.0), Rotation2d.fromDegrees(0.0));
+
+	public static final Pose2d oneBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
+	public static final Pose2d oneBallTerminalShot = new Pose2d(new Translation2d(kFieldLength - 150.0, 0.0), Rotation2d.fromDegrees(0.0));
+
+
 
 	public static final Pose2d swerveReset = new Pose2d(new Translation2d(0.0 , 0.0), Rotation2d.fromDegrees(180.0));
 
