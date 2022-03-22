@@ -116,8 +116,14 @@ public class RobotState {
         /*return getLatestFieldToVehicle().getValue().
             transformBy(Pose2d.exp(vehicle_velocity_averaged_.getAverage().scaled(lookahead_time)));*/
         Twist2d deltaPose = vehicle_velocity_averaged_.getAverage().scaled(lookahead_time);
+        
+        //James BS
+        Twist2d deltaPose_theta = vehicle_velocity_averaged_.getAverage().scaled(0.0625);//0.125 og
+        // return getLatestFieldToVehicle().getValue().
+        //     transformBy(new Pose2d(deltaPose.dx, deltaPose.dy, Rotation2d.fromRadians(deltaPose.dtheta)));
+
         return getLatestFieldToVehicle().getValue().
-            transformBy(new Pose2d(deltaPose.dx, deltaPose.dy, Rotation2d.fromRadians(deltaPose.dtheta)));
+        transformBy(new Pose2d(deltaPose.dx, deltaPose.dy,Rotation2d.fromRadians(deltaPose_theta.dtheta)));
     }
     
     /**
@@ -169,7 +175,11 @@ public class RobotState {
         
         // find intersection with the goal
         double scaling = differential_height_ / zr;
-        double distance = Math.hypot(xr, yr) * scaling;
+        
+        //James BS
+        double camera_distance = (Math.hypot(xr, yr) * scaling);
+        SmartDashboard.putNumber("Camera Distance", camera_distance);
+        double distance = Constants.kVisionDistanceTreemap.getInterpolated(new InterpolatingDouble(camera_distance)).value + (Constants.kGoalTargetDiameter/2.0);
         Rotation2d angle = new Rotation2d(xr, yr, true);
 
         return field_to_camera.transformBy(Pose2d
@@ -263,6 +273,65 @@ public class RobotState {
 				return Optional.of(params);
 			} else {
                 isTrackerEmpty = true;
+                //System.out.println("Empty goal tracker");
+				return Optional.empty();
+			}
+		}
+
+        //Do one iteration of the vision target before getting range
+        private boolean isTrackerEmpty_Experimental = true;
+        public synchronized Optional<ShooterAimingParameters> getExperimentalAimingParameters() {
+			List<TrackReport> reports = goal_tracker_.getTracks();
+			if (!reports.isEmpty()) {
+
+                TrackReportComparator comparator = new TrackReportComparator(
+                    Constants.kTrackStabilityWeight,
+                    Constants.kTrackAgeWeight,
+                    Constants.kTrackSwitchingWeight,
+                    -1, Timer.getFPGATimestamp());
+                reports.sort(comparator);
+
+                TrackReport report = reports.get(0);
+                
+                //Assume stationary for iteration zero
+                Pose2d vehicle_pose = getPredictedFieldToVehicle(0.0);
+                //Rotation2d orientation = Rotation2d.fromDegrees(target_orientation.getAverage());
+
+                Translation2d goalPosition = lastKnownTargetPosition = report.field_to_goal;
+
+                Translation2d turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                    .getTranslation().inverse().translateBy(goalPosition);
+
+                // //Iteration one
+                // Pose2d temp_vehicle_pose = getPredictedFieldToVehicle(0.0);
+
+                // Translation2d temp_turret_to_goal = temp_vehicle_pose.transformBy(kVehicleToTurretFixed)
+                //     .getTranslation().inverse().translateBy(goalPosition);
+
+                double temp_range = turret_to_goal.norm();
+                double time_of_flight = Constants.kVisionToFTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value;
+
+                SmartDashboard.putNumber("Time of Flight", time_of_flight);
+                vehicle_pose = getPredictedFieldToVehicle(time_of_flight);
+
+                turret_to_goal = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                    .getTranslation().inverse().translateBy(goalPosition);
+
+                Pose2d turret_to_goal_robot_centric = vehicle_pose.transformBy(kVehicleToTurretFixed)
+                    .inverse().transformBy(Pose2d.fromTranslation(goalPosition));
+                
+                
+                isTrackerEmpty_Experimental = false;
+
+                //System.out.println("TURRET TO INNER PORT ANGLE: " + turret_to_inner_port.direction().getDegrees());
+
+				ShooterAimingParameters params = new ShooterAimingParameters(turret_to_goal.norm(), 
+						turret_to_goal_robot_centric.getTranslation().direction(), turret_to_goal, report.latest_timestamp, report.stability);
+				cached_shooter_aiming_params_ = params;
+
+				return Optional.of(params);
+			} else {
+                isTrackerEmpty_Experimental = true;
                 //System.out.println("Empty goal tracker");
 				return Optional.empty();
 			}
@@ -371,14 +440,17 @@ public class RobotState {
         public void outputToSmartDashboard(){
             SmartDashboard.putBoolean("Sees Target", seesTarget);
 
-            /*Twist2d velocity = vehicle_velocity_averaged_.getAverage();
+            Twist2d velocity = vehicle_velocity_averaged_.getAverage();
             SmartDashboard.putNumber("Swerve Velocity dx", velocity.dx);
             SmartDashboard.putNumber("Swerve Velocity dy", velocity.dy);
             SmartDashboard.putNumber("Swerve Velocity dtheta", Math.toDegrees(velocity.dtheta));
 
-            SmartDashboard.putNumber("Swerve Degrees Rotated", degrees_rotated_);*/
+            
+
+            SmartDashboard.putNumber("Swerve Degrees Rotated", degrees_rotated_);
             
             if(Settings.debugVision()){
+            // if(true){
                 List<Pose2d> poses = getCaptureTimeFieldToGoal();
                 for (Pose2d pose : poses) {
                     // Only output first goal

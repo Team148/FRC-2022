@@ -1,20 +1,17 @@
 package frc.auto;
 
-// import com.team1323.frc2020.auto.modes.OppoTrenchAndThreeMode;
-// import com.team1323.frc2020.auto.modes.StandStillMode;
-// import com.team1323.frc2020.auto.modes.TrenchRunMode;
-// import com.team1323.frc2020.auto.modes.TrenchRunPoachedMode;
-// import com.team1323.frc2020.auto.modes.TwoAndTrenchRunMode;
-// import com.team1323.frc2020.auto.modes.TwoAndTrenchRunPoachedMode;
-import frc.auto.modes.ThiefAndRendezvous;
-import frc.auto.modes.RendezvousAndTrenchMode;
+import frc.auto.modes.TwoBallAndTerminal;
+import frc.auto.modes.TwoBallAndTerminalBlue;
+import frc.auto.modes.OneBallAndDefend;
+import frc.auto.modes.OneBallAndTerminal;
+import frc.auto.modes.OneBallBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SmartDashboardInteractions {
     private static final String SELECTED_AUTO_MODE = "selected_auto_mode";
     
-    private static final AutoOption DEFAULT_MODE = AutoOption.THIEF_AND_RENDEZVOUS;
+    private static final AutoOption DEFAULT_MODE = AutoOption.TWO_BALL_AND_TERMINAL;
 
     private SendableChooser<AutoOption> modeChooser;
 
@@ -22,13 +19,11 @@ public class SmartDashboardInteractions {
     public void initWithDefaults(){
     	modeChooser = new SendableChooser<AutoOption>();
         modeChooser.setDefaultOption(DEFAULT_MODE.name, DEFAULT_MODE);
-        //modeChooser.addOption(AutoOption.TRENCH_RUN_MODE.name, AutoOption.TRENCH_RUN_MODE);
-        //modeChooser.addOption(AutoOption.TRENCH_RUN_POACHED_MODE.name, AutoOption.TRENCH_RUN_POACHED_MODE);
-        // modeChooser.addOption(AutoOption.TWO_AND_TRENCH_RUN.name, AutoOption.TWO_AND_TRENCH_RUN);
-        // modeChooser.addOption(AutoOption.TWO_AND_TRENCH_POACHED_MODE.name, AutoOption.TWO_AND_TRENCH_POACHED_MODE);
-        // modeChooser.addOption(AutoOption.OPPO_TRENCH_AND_THREE_MODE.name, AutoOption.OPPO_TRENCH_AND_THREE_MODE);
-        modeChooser.addOption(AutoOption.THIEF_AND_RENDEZVOUS.name, AutoOption.THIEF_AND_RENDEZVOUS);
-        modeChooser.addOption(AutoOption.RENDEZVOUS_AND_TRENCH.name, AutoOption.RENDEZVOUS_AND_TRENCH);
+        modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL.name, AutoOption.TWO_BALL_AND_TERMINAL);
+        // modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL_BLUE.name, AutoOption.TWO_BALL_AND_TERMINAL_BLUE);
+        modeChooser.addOption(AutoOption.ONE_BALL_AND_DEFEND.name, AutoOption.ONE_BALL_AND_DEFEND);
+        modeChooser.addOption(AutoOption.ONE_BALL_AND_TERMINAL.name, AutoOption.ONE_BALL_AND_TERMINAL);
+        modeChooser.addOption(AutoOption.ONE_BALL_BASE.name, AutoOption.ONE_BALL_BASE);
 
         SmartDashboard.putData("Mode Chooser", modeChooser);
     	SmartDashboard.putString(SELECTED_AUTO_MODE, DEFAULT_MODE.name);
@@ -45,14 +40,11 @@ public class SmartDashboardInteractions {
     }
 
     enum AutoOption{
-        // STAND_STILL("Stand Still"),
-        // TRENCH_RUN_MODE("Trench Run"),
-        // TWO_AND_TRENCH_RUN("Two Balls + Trench Run"),
-        // TRENCH_RUN_POACHED_MODE("Trench Poached Run"),
-        // TWO_AND_TRENCH_POACHED_MODE("Two Balls + Trench Poached Run"),
-        // OPPO_TRENCH_AND_THREE_MODE("Oppo Trench Run + Three Balls");
-        THIEF_AND_RENDEZVOUS("Opponent Trench and 5 RZone Balls"),
-    	RENDEZVOUS_AND_TRENCH("Trench Three and 5 Rzone Balls");
+        TWO_BALL_AND_TERMINAL("Two Balls and Terminal Shot"),
+        // TWO_BALL_AND_TERMINAL_BLUE("Two Balls and Terminal Shot (Blue)"),
+        ONE_BALL_AND_DEFEND("One ball and defend"),
+        ONE_BALL_AND_TERMINAL("One ball and Terminal Shot"),
+        ONE_BALL_BASE("One ball");
     	public final String name;
     	
     	AutoOption(String name){
@@ -62,25 +54,19 @@ public class SmartDashboardInteractions {
 
     private AutoModeBase createAutoMode(AutoOption option){
     	switch(option){
-            // case STAND_STILL:
-            //     return new StandStillMode();
-            // case TRENCH_RUN_MODE:
-            //     return new TrenchRunMode();
-            // case TWO_AND_TRENCH_RUN:
-            //     return new TwoAndTrenchRunMode();
-            // case TRENCH_RUN_POACHED_MODE:
-            //     return new TrenchRunPoachedMode();
-            // case TWO_AND_TRENCH_POACHED_MODE:
-            //     return new TwoAndTrenchRunPoachedMode();
-            // case OPPO_TRENCH_AND_THREE_MODE:
-            //     return new OppoTrenchAndThreeMode();\
-            case THIEF_AND_RENDEZVOUS:
-                return new ThiefAndRendezvous();
-            case RENDEZVOUS_AND_TRENCH:
-                return new RendezvousAndTrenchMode();
+            case ONE_BALL_BASE:
+                return new OneBallBase();
+            case ONE_BALL_AND_TERMINAL:
+                return new OneBallAndTerminal();
+            case ONE_BALL_AND_DEFEND:
+                return new OneBallAndDefend();
+            // case TWO_BALL_AND_TERMINAL_BLUE:
+            //     return new TwoBallAndTerminalBlue();
+            case TWO_BALL_AND_TERMINAL:
+                return new TwoBallAndTerminal();
             default:
                 System.out.println("ERROR: unexpected auto mode: " + option);
-                return new ThiefAndRendezvous();
+                return new TwoBallAndTerminal();
     	}
     }
     

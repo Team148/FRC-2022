@@ -72,15 +72,15 @@ public class MotorizedHood extends Subsystem {
         // encoder = new DutyCycle(new DigitalInput(RobotMap.HOOD_ENCODER));
         robotState = RobotState.getInstance();
 
-        left_servo = new PWM(RobotMap.SERVO_1);
-        right_servo = new PWM(RobotMap.SERVO_2);
+        left_servo = new PWM(RobotMap.MOTORIZED_SERVO_1);
+        right_servo = new PWM(RobotMap.MOTORIZED_SERVO_2);
 
         left_servo.setBounds(1.7, 1.52, 1.5, 1.48, 1.3);   //bounds for SAVOX
         right_servo.setBounds(1.7, 1.52, 1.5, 1.48, 1.3);  //bounds for SAVOX
 
-        encoder = new CANCoder(RobotMap.HOOD_CAN_PORT);
-        encoder.configFactoryDefault();
-        encoder.configMagnetOffset(Constants.MotorizedHood.kEncoderOffset);
+        // encoder = new CANCoder(RobotMap.HOOD_CAN_PORT);
+        // encoder.configFactoryDefault();
+        // encoder.configMagnetOffset(Constants.MotorizedHood.kEncoderOffset);
 
         pidf = new SynchronousPIDF(Constants.MotorizedHood.kP, Constants.MotorizedHood.kI, Constants.MotorizedHood.kD);
         pidf.setDeadband(Constants.MotorizedHood.kAngleDeadband);
@@ -133,21 +133,21 @@ public class MotorizedHood extends Subsystem {
     //     isEncoderFlipped = phase;
     // }
 
-    private double getAbsoluteEncoderDegrees() {
-        // return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getOutput() * 360.0;
-        return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getAbsolutePosition();
+    // private double getAbsoluteEncoderDegrees() {
+    //     // return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getOutput() * 360.0;
+    //     return (isEncoderFlipped ? -1.0 : 1.0) * encoder.getAbsolutePosition();
 
-    }
+    // }
 
-    private boolean isEncoderConnected() {
-        if (RobotBase.isReal()) {
-            //System.out.println("Robot Base: " + RobotBase.isReal() + " Encoder Freq: " + encoder.getFrequency());
-            // return (encoder.getFrequency() != 0) ? true : false;
-            return (encoder.getBusVoltage() != 0) ? true : false;
+    // private boolean isEncoderConnected() {
+    //     if (RobotBase.isReal()) {
+    //         //System.out.println("Robot Base: " + RobotBase.isReal() + " Encoder Freq: " + encoder.getFrequency());
+    //         // return (encoder.getFrequency() != 0) ? true : false;
+    //         return (encoder.getBusVoltage() != 0) ? true : false;
 
-        }
-        return true;
-    }
+    //     }
+    //     return true;
+    // }
 
     // public double encUnitsToDegrees(double encUnits) {
     //     return encUnits / Constants.MotorizedHood.kTicksPerDegree;
@@ -247,7 +247,7 @@ public class MotorizedHood extends Subsystem {
     @Override
     public void readPeriodicInputs() {
         // periodicIO.position = hood.getSelectedSensorPosition(0);
-        periodicIO.position = encoder.getAbsolutePosition();
+        periodicIO.position = 0.0;//encoder.getAbsolutePosition();
     }
 
     @Override
@@ -335,7 +335,7 @@ public class MotorizedHood extends Subsystem {
 
     @Override
     public void outputTelemetry() {
-        SmartDashboard.putNumber("Hood Absolute Encoder", getAbsoluteEncoderDegrees()); // -281 -234
+        // SmartDashboard.putNumber("Hood Absolute Encoder", getAbsoluteEncoderDegrees()); // -281 -234
         // SmartDashboard.putNumber("Hood Encoder", periodicIO.position); // -8000
         SmartDashboard.putNumber("Hood Angle", getAngle()); // -17 -66
         SmartDashboard.putNumber("Hood Servo Power", periodicIO.demand);

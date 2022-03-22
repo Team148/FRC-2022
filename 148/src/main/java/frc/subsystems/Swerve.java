@@ -137,7 +137,7 @@ public class Swerve extends Subsystem{
 	public void alwaysConfigureModules(){
 		alwaysConfigureModules = true;
 	}
-	Pose2d startingPose = Constants.goalWallPose;
+	Pose2d startingPose = Constants.twoBallStart;
 	public void setStartingPose(Pose2d newPose){
 		startingPose = newPose;
 	}
@@ -436,6 +436,14 @@ public class Swerve extends Subsystem{
 		modules.get(3).setModuleAngle(-45.0);
 		isDriveLocked = false;
 		//modules.forEach((m) -> m.setDrivePositionTarget(0.0));
+	}
+	public void lazyReset() {
+		setState(ControlState.POSITION);
+		modules.get(0).setModuleAngle(0.0);
+		modules.get(1).setModuleAngle(0.0);
+		modules.get(2).setModuleAngle(0.0);
+		modules.get(3).setModuleAngle(0.0);
+		isDriveLocked = false;
 	}
 
 	/** Puts drive motors into closed-loop velocity mode */
@@ -1216,7 +1224,7 @@ public class Swerve extends Subsystem{
 
 	@Override
 	public synchronized void zeroSensors() {
-		zeroSensors(Constants.goalWallPose);
+		zeroSensors(Constants.postTerminalShot);
 	}
 	
 	/** Zeroes the drive motors, and sets the robot's internal position and heading to match that of the fed pose */
@@ -1259,6 +1267,7 @@ public class Swerve extends Subsystem{
 		if(outputWpiPose)
 		SmartDashboard.putNumberArray("Path Pose", new double[]{wpiPose.getTranslation().x(), wpiPose.getTranslation().y(), wpiPose.getRotation().getUnboundedDegrees()});
 		if(Settings.debugSwerve()){
+		// if(true){
 			SmartDashboard.putNumber("Robot X", pose.getTranslation().x());
 			SmartDashboard.putNumber("Robot Y", pose.getTranslation().y());
 			SmartDashboard.putNumber("Robot Heading", pose.getRotation().getUnboundedDegrees());

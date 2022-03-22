@@ -25,29 +25,30 @@ public class Constants {
 	public static final boolean kResetTalons = false;
 
 	//Physical Robot Dimensions (including bumpers)
-	public static final double kRobotWidth = 34.5;//36.5;
-	public static final double kRobotLength = 34.5;//36.5;
+	public static final double kRobotWidth = 33.16; // Waco 34.5;
+	public static final double kRobotLength = 33.16;  // Waco 34.5;
 	public static final double kRobotHalfWidth = kRobotWidth / 2.0;
 	public static final double kRobotHalfLength = kRobotLength / 2.0;
 
 	/**
     * Target Specifications
     */
-    public static final double kVisionTargetHeight = 98.25; //81.0 to bottom
+    public static final double kVisionTargetHeight = 102.5; //Tweaked for 2022 Rapid React 
     public static final Rotation2d kPortTargetOrientation = Rotation2d.fromDegrees(0.0);
     public static final Translation2d kOuterPortToInnerPort = new Translation2d(29.25, 0.0);
+	public static final double kGoalTargetDiameter = 53.0;
 
 	//Swerve Calculations Constants (measurements are in inches)
-    public static final double kWheelbaseLength = 20.5; //16.5
-    public static final double kWheelbaseWidth  = 20.5; //16.5
+    public static final double kWheelbaseLength = 21.25; //Tweaked for Quickdraw //was 20.5 for Waco
+    public static final double kWheelbaseWidth  = 21.25; //Tweaked for Quickdraw //was 20.5 for Waco
     public static final double kSwerveDiagonal = Math.hypot(kWheelbaseLength, kWheelbaseWidth);
     
     //Camera Constants (X and Y are with respect to the turret's center)
-    public static final double kCameraYOffset = 0.0;//0.25
-    public static final double kCameraXOffset = 9.13;//8.216; //8.5
-    public static final double kCameraZOffset = 26.48;//25.0; //26.776 24.524
-    public static final double kCameraYawAngleDegrees = -2.25;//-12.7
-    public static final double kCameraPitchAngleDegrees = Settings.kIsUsingCompBot ? 30.0 : 30.0; //21.75 for bottom 34.3 37.0604
+    public static final double kCameraYOffset = 0.0; //Tweaked for Quickdraw
+    public static final double kCameraXOffset = -6.5; // Tweaked for Quickdraw
+    public static final double kCameraZOffset = 36.67; // Tweaked for Quickdraw
+    public static final double kCameraYawAngleDegrees = 0; //-2.25;//-12.7
+    public static final double kCameraPitchAngleDegrees = Settings.kIsUsingCompBot ? 24.0 : 24.0; //Tweaked for Quickdraw -- 32.0 / 32.0
 
     //Limelight
     public static final double kHorizontalFOV = 59.6; // degrees
@@ -57,28 +58,90 @@ public class Constants {
     public static final double kImageCaptureLatency = 11.0 / 1000.0; // seconds
     
     //Goal tracker constants
-    public static final double kMaxGoalTrackAge = 0.5;
+    public static final double kMaxGoalTrackAge = 2.5;
     public static final double kMaxTrackerDistance = 18.0;
     public static final double kCameraFrameRate = 90.0;
-    public static final double kTrackStabilityWeight = 1.0;
-    public static final double kTrackAgeWeight = 1.0;
-    public static final double kTrackSwitchingWeight = 0.0;
+    public static final double kTrackStabilityWeight = 10.0;
+    public static final double kTrackAgeWeight = 5.0;
+    public static final double kTrackSwitchingWeight = 10.0;
 	public static final double kClosestVisionDistance = 26.0;//36.0
 
 	public static final double kVisionPIDOutputPercent = 0.5;
-    public static final double kPosePredictionTime = 0.125; // seconds 0.25
+    public static final double kPosePredictionTime = 1.3; //0.125; // seconds 0.25 //GC changed from 0.75 3/12
 	
 	public static final double kDistanceToTargetTolerance = 1.0;
     public static final double kGyroDriftPerRotation = -0.25; // degrees
 
-	//Vision Speed Constraint Treemap
+	//joystick constants
+	public static final double kDriverTriggerOFFMIN = 0;
+	public static final double kDriverTriggerOFFMAX = 0.1;
+
+	public static final double kDriverTriggerHalfMIN = 0.2;
+	public static final double kDriverTriggerHalfMAX = 0.7;
+	
+	public static final double kDriverTriggerFullMIN = 0.8;
+	public static final double kDriverTriggerFullMAX = 1.0;
+
+	//Vision Speed Constraint Treemap -- Units are inches to center of goal, then ticks per 100ms (Falcon Units)
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
-	static{
-		kVisionSpeedTreemap.put(new InterpolatingDouble(-6.0), new InterpolatingDouble(24.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(60.0), new InterpolatingDouble(48.0));
-		kVisionSpeedTreemap.put(new InterpolatingDouble(300.0), new InterpolatingDouble(48.0));
-	}
+		static{
+			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(10500.0));
+			// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(11250.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(11750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(12750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(13500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(14500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0));
+		}
+
+	//Vision Angle Constraint Treemap - Units are inches to center of goal / hood angle in degrees
+	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
+		static{
+			kVisionAngleTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(17.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(27.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(33.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(36.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(38.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(44.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(44.0));
+
+		}
+
+	//Vision Time of Flight Map -- Units are inches to center of goal / seconds; currently based off video from lab
+	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionToFTreemap = new InterpolatingTreeMap<>();
+		static{
+			kVisionToFTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(0.7));
+			// kVisionToFTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(1.0));
+			// kVisionToFTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(1.25));
+			// kVisionToFTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(1.3)); //made up
+			kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.30)); //made up
+			kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
+			// kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.5)); //made up
+		}
+
+	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
+	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
+		static{
+			//Practice Bot
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(67.0), new InterpolatingDouble(64.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(93.0), new InterpolatingDouble(95.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(129.0), new InterpolatingDouble(132.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(159.0), new InterpolatingDouble(167.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(181.0), new InterpolatingDouble(195.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(215.0), new InterpolatingDouble(228.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(234.0), new InterpolatingDouble(252.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(259.0), new InterpolatingDouble(287.0));
+			//Comp Bot
+			kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(115.0), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(162.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(207.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(239.0), new InterpolatingDouble(195.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(302.0), new InterpolatingDouble(228.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(333.0), new InterpolatingDouble(252.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(382.0), new InterpolatingDouble(287.0));
+		}
     
     //Path following constants
     public static final double kPathLookaheadTime = 0.25;  // seconds to look ahead along the path for steering 0.4
@@ -97,10 +160,10 @@ public class Constants {
     * Enter angle read by the absolute encoder. Insert as degrees and subtract or add 90° to the value
     * based on where the bevel ended up.
     */
-	public static final double kFrontRightEncoderStartingPos = kIsUsingCompBot ? -350 : 0;//-176
-	public static final double kFrontLeftEncoderStartingPos = kIsUsingCompBot ? -31 : 0;//-343
-	public static final double kRearLeftEncoderStartingPos = kIsUsingCompBot ? -358 : 0;//-90
-	public static final double kRearRightEncoderStartingPos = kIsUsingCompBot ? -145 : 0;//-271 
+	public static final double kFrontRightEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-350 : 0;//-176
+	public static final double kFrontLeftEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-31 : 0;//-343
+	public static final double kRearLeftEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-358 : 0;//-90
+	public static final double kRearRightEncoderStartingPos = kIsUsingCompBot ? 0 : 0;//-145 : 0;//-271 
 	
 	//Swerve Module Positions (relative to the center of the drive base)
 	public static final Translation2d kVehicleToModuleZero = new Translation2d(kWheelbaseLength/2, kWheelbaseWidth/2);
@@ -130,16 +193,17 @@ public class Constants {
     public static final double kSwerveDriveEncoderResolution = 2048.0; //2048.0 for falcon 500
 	public static final double kSwerveRotationEncoderResolution = 2048.0;
 	  /** The number of rotations the swerve rotation motor undergoes for every rotation of the module. */
-	  public static final double kSwerveRotationReduction = 12.0;
+	  public static final double kSwerveRotationReduction = (72.0 * 24.0) / (14.0 * 12.0 );//12.0;
 	/** The number of rotations the swerve drive encoder undergoes for every rotation of the wheel. */
 	public static final double kSwerveEncoderToWheelRatio = 6.54;
 	public static final double kSwerveEncUnitsPerWheelRev = kSwerveDriveEncoderResolution * kSwerveEncoderToWheelRatio;
 	public static final double kSwerveEncUnitsPerInch = kSwerveEncUnitsPerWheelRev / (Math.PI * kSwerveWheelDiameter);
 
-	public static class BallHandoff {
+	public static class Feeder {
 
 		//Feeder Constants
 		public static final double FEEDER_SHOOTING_SPEED = 0.75;
+		public static final double FEEDER_INTAKE_SPEED = 0.3;
 		public static final double FEEDER_UNJAM_SPEED = -0.5;
 		public static final double HOPPER_UNJAM_SPEED = 0.67;
 
@@ -148,6 +212,14 @@ public class Constants {
 		public static final double HOPPER_SHOOTING_SPEED = -0.7;
 		public static final double HOPPER_WOF_SPEED = 1.0;
 
+	}
+
+	public static class BallIntake {
+
+		//Ball Intake Constants
+		public static final double INTAKING_SPEED = -1.0;
+		public static final double OUTTAKING_SPEED = 1.0;
+		
 	}
 
 	public static class Hanger {
@@ -176,10 +248,10 @@ public class Constants {
 	public static class Shooter {
 
 		//Shooter Gains
-		public static double FLYWHEEL_KP = 0.12;
-		public static double FLYWHEEL_KI = 0.0;
-		public static double FLYWHEEL_KD = 0.5;
-		public static double FLYWHEEL_KF = 0.014;
+		public static double FLYWHEEL_KP = 0.06;//0.12;
+		public static double FLYWHEEL_KI = 0.0; //0.0
+		public static double FLYWHEEL_KD = 0.2;//0.5;
+		public static double FLYWHEEL_KF = 0.057;//0.014;
 		public static int FLYWHEEL_IZONE = (int) (1023.0 / FLYWHEEL_KP);
 		public static double FLYWHEEL_RAMPRATE = 0;
 		public static int FLYWHEEL_ALLOWED_ERROR = 0;
@@ -188,6 +260,14 @@ public class Constants {
 		public static double SHOOTER_VELOCITY_TOLERANCE = 260;
 
 		public static double COMP_FAR_FLYWHEEL = 13500;
+
+		public static double MINIMUM_SHOOTER_SPEED = 0;
+
+		public static double AT_GOAL = 10750;//11500.0;//incorrect
+		public static double BACK_LINE = 11500.0;//11200.0;
+		public static double LAUNCH_PAD = 12500.0;
+		public static double FAR_LAUNCH_PAD = 13200.0;//incorrect
+		public static double HP_WALL = 16250.0;//13000.0;//incorrect
 
 	}
 
@@ -232,26 +312,60 @@ public class Constants {
 		//Turret Constants
 		public static final double TURRET_MAXSPEED = 22000.0;//22000.0;
 
-		public static final double TURRET_MAXCONTROLANGLE = 210.0; //In both positive and negative directions | 220.0
-		public static final double TURRET_MINCONTROLANGLE = -35.0; // -25.0
-		public static final double TURRET_MAXINITIALANGLE = 220.0; // 220.0
-		public static final double TURRET_MININITIALLANGLE = -35.0; //-25.0
+		// public static final double TURRET_MAXCONTROLANGLE = 325.0;//305.0;
+		// public static final double TURRET_MINCONTROLANGLE = 15.0;//35.0;
+		// public static final double TURRET_MAXINITIALANGLE = 325.0;//305.0;
+		// public static final double TURRET_MININITIALLANGLE = 15.0;//35.0;
+
+		public static final double TURRET_MAXCONTROLANGLE = 55.0;//305.0;
+		public static final double TURRET_MINCONTROLANGLE = -255.0;//35.0;
+		public static final double TURRET_MAXINITIALANGLE = 55.0;//305.0;
+		public static final double TURRET_MININITIALLANGLE = -255.0;//35.0;
 
 		//Turret pose with respect to the robot's center
-		public static final double kXOffset = -7.50;//-4.25;
-		public static final double kYOffset = 0.0;
+		public static final double kXOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
+		public static final double kYOffset = -5.50; //Tweaked for 2022 Rapid React - Quickdraw
 
-		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
+		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? -180 : -180;//90.0 : 0.0; //40.2 : -110.5; // Absolute position of the magnet 309.25
 		public static final double kAngleTolerance = 1.0;
 
 		//Ratios
-		public static final double kInternalEncToOutputRatio = ((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
+		public static final double kInternalEncToOutputRatio = ((140.0 * 40.0) / (10.0 * 8.0));//((148.0 * 50.0) / (8.0 * 12.0));//((213 * 50) / (8 * 18));//100.0;
 		public static final double kEncoderToOutputRatio = 14.0;//1.0;
 
 		public static final List<double[]> kVisionRanges = Arrays.asList(
-			new double[] {TURRET_MINCONTROLANGLE, 87.0},
-			new double[] {93.0, TURRET_MAXCONTROLANGLE}
+			new double[] {TURRET_MINCONTROLANGLE, TURRET_MAXCONTROLANGLE},
+			new double[] {TURRET_MAXCONTROLANGLE, TURRET_MAXCONTROLANGLE}
 		);
+	}
+
+	public static class IntakePivot {
+
+		//IntakePivot Gains
+		public static double INTAKEPIVOT_KP = kIsUsingCompBot ? 0.075 : 0.0375;
+		public static double INTAKEPIVOT_KI = 0.0;
+		public static double INTAKEPIVOT_KD = 0.0;// 0.0;
+		public static double INTAKEPIVOT_KF = 0.0;
+		public static int INTAKEPIVOT_IZONE = (int) (1023.0 / INTAKEPIVOT_KP);
+		public static double INTAKEPIVOT_RAMPRATE = 0;
+		public static int INTAKEPIVOT_ALLOWED_ERROR = 100;
+
+		//IntakePivot Constants
+		public static final double INTAKEPIVOT_MAXSPEED = 22000.0;//10000.0;
+
+		public static final double INTAKEPIVOT_UP = -30700.0;
+		public static final double INTAKEPIVOT_DOWN = -47800.0;
+
+		public static final double INTAKEPIVOT_ZEROEDANGLE = 0.0;
+		public static final double INTAKEPIVOT_MAXCONTROLANGLE = kIsUsingCompBot ? 135.0 : 103.0;//In both positive and negative directions | 220.0
+		public static final double INTAKEPIVOT_MINCONTROLANGLE = 45.0; // -25.0
+
+		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0;
+		public static final double kAngleTolerance = 1.0;
+
+		//Ratios
+		public static final double kInternalEncToOutputRatio = kIsUsingCompBot ? ((54.0 * 60.0) / (10.0 * 12.0)) : ((54.0 * 84.0 *  48.0) / (8.0 * 30.0 * 16.0));
+
 	}
 
 	public static class MotorizedHood {
@@ -290,85 +404,54 @@ public class Constants {
 		
 	}
 
+	public static class FalconHood{
+
+		public static double kP = 0.2;
+		public static double kI = 0.0;
+		public static double kD = 0.0;
+
+		public static final double kEncoderRatio =  (52 * 460) / (8 * 14); //no longer pending
+
+		public static final double kMinControlAngle = 0.0;
+		public static final double kMaxControlAngle = 48.0;
+
+		public static final double kAngleTolerance = 2.0;
+
+		public static final double AT_GOAL = 7.0;
+		public static final double BACK_LINE = 28.0;
+		public static final double LAUNCH_PAD = 41.0;
+		public static final double HP_WALL = 46.0;
+	}
+
 	//Field Landmarks
-	public static final double kFieldLength = 629.25;
-	public static final double kFieldHalfWidth = 161.6;
+	public static final double kFieldLength = 625.0;
+	public static final double kFieldHalfWidth = 163.0;
 
 	//Field Positions
 	// 135.0 inches from full field to start line pose
-	public static final Pose2d testTrenchBallOne = new Pose2d(new Translation2d(kFieldLength - (135.0 + 109.0), 133.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testTrenchBallThree = new Pose2d(new Translation2d(kFieldLength - (135.0 + 182.0), 133.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testTrenchBallFourAndFive = new Pose2d(new Translation2d(kFieldLength - (135.0 + 247.0), 133.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testEnemyTrenchBallFourAndFive = new Pose2d(new Translation2d(kFieldLength - (135.0 + 118.0), -130.0), Rotation2d.fromDegrees(180.0));
+	// public static final Pose2d twoBallStart = new Pose2d(new Translation2d(297.0, -51.0), Rotation2d.fromDegrees(0.0)); //250.0
+	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(kFieldLength - 290.0, -90.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(-90.0));
+	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(35.0));
+	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(35.0));
+	public static final Pose2d twoBallTutu = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(-8.0));
+	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
+	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(184.0)); 
+	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -120.0), Rotation2d.fromDegrees(184.0));
 
-	public static final Pose2d testRZoneBall1 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 109.0), (kFieldHalfWidth - 137.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall2 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 126.0), (kFieldHalfWidth - 130.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall3 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 144.0), (kFieldHalfWidth - 127.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall4 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 120.0), -(kFieldHalfWidth - 155.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d testRZoneBall5 = new Pose2d(new Translation2d(kFieldLength - (135.0 + 138.0), (kFieldHalfWidth - 159.0)), Rotation2d.fromDegrees(180.0));
-		
-	public static final Pose2d goalCenterPose = new Pose2d(new Translation2d(kFieldLength - (135.0), (kFieldHalfWidth - 91.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d goalWallPose = new Pose2d(new Translation2d(kFieldLength - (135.0), (kFieldHalfWidth - 19.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d loadWallPose = new Pose2d(new Translation2d(kFieldLength - (135.0), -(kFieldHalfWidth - 19.0)), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d goalWallResetPose = new Pose2d(new Translation2d(495.0, 142.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d goalCenterOffsetLeftPose = new Pose2d(new Translation2d(kFieldLength - (135.0 + 44.0), (kFieldHalfWidth - 126.0)), Rotation2d.fromDegrees(180.0));
-	
+	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
+	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
 
-	public static final Pose2d goalCenterBackwardPose = new Pose2d(new Translation2d(130.0, -70.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d goalWallBackwardPose = new Pose2d(new Translation2d(130.0, -142.0), Rotation2d.fromDegrees(180.0));
-	public static final Pose2d loadWallBackwardPose = new Pose2d(new Translation2d(135.0, 142.0), Rotation2d.fromDegrees(0.0));
-	
-	public static final Pose2d goalCenterOffsetPose = new Pose2d(new Translation2d(455.0, 80.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d goalCenterOffsetBackwardPose = new Pose2d(new Translation2d(170.0, -80.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallToDefend = new Pose2d(new Translation2d(kFieldLength - 160.0, -20.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallDefendDropOff = new Pose2d(new Translation2d(kFieldLength - 210.0, 30.0), Rotation2d.fromDegrees(0.0));
 
-	public static final Pose2d goalCenterOffsetLeft180Pose = new Pose2d(new Translation2d(495.0, 25.0), Rotation2d.fromDegrees(180.0));
+	public static final Pose2d oneBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
+	public static final Pose2d oneBallTerminalShot = new Pose2d(new Translation2d(kFieldLength - 150.0, 0.0), Rotation2d.fromDegrees(0.0));
 
-    // public static final Pose2d goalCenterOffsetLeftPose = new Pose2d(new Translation2d(450.0, 25.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d goalCenterOffsetLeftBackwardPose = new Pose2d(new Translation2d(175.0, -25.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d goalCenterOffsetResetPose = new Pose2d(new Translation2d(495.0, 25.0), Rotation2d.fromDegrees(180.0));
 
-	public static final Pose2d outsideRZoneLeftPose = new Pose2d(new Translation2d(370.0, -50.0), Rotation2d.fromDegrees(70.0));
-    public static final Pose2d rZoneBallOneAnglePose = new Pose2d(new Translation2d(400.0, 20.0), Rotation2d.fromDegrees(70.0));
-    public static final Pose2d rZoneInsidePose = new Pose2d(new Translation2d(360.0, 20.0), Rotation2d.fromDegrees(70.0));
 
-    public static final Pose2d trenchBallOnePoseActual = new Pose2d(new Translation2d(385.0, 134.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallTwoPoseActual = new Pose2d(new Translation2d(350.0, 134.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallThreePoseActual = new Pose2d(new Translation2d(313.0, 134.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallFourPoseActual = new Pose2d(new Translation2d(248.0, 134.0), Rotation2d.fromDegrees(0.0));
-    
-    public static final Pose2d trenchBallOnePose = new Pose2d(new Translation2d(385.0, 128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallTwoPose = new Pose2d(new Translation2d(350.0, 128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallThreePose = new Pose2d(new Translation2d(313.0, 128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallFourPose = new Pose2d(new Translation2d(248.0, 128.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d swerveReset = new Pose2d(new Translation2d(0.0 , 0.0), Rotation2d.fromDegrees(180.0));
 
-    public static final Pose2d trenchBallOneBackwardPose = new Pose2d(new Translation2d(240.0, -128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallTwoBackwardPose = new Pose2d(new Translation2d(275.0, -128.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d trenchBallThreeBackwardPose = new Pose2d(new Translation2d(312.0, -128.0), Rotation2d.fromDegrees(180.0));
-    public static final Pose2d trenchBallFourBackwardPose = new Pose2d(new Translation2d(377.0, -128.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d enemyTrenchPose = new Pose2d(new Translation2d(390.0, -135.0), Rotation2d.fromDegrees(180.0));
-    public static final Pose2d enemyTrenchBackwardPose = new Pose2d(new Translation2d(235.0, 135.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rZoneBallOnePose = new Pose2d(new Translation2d(387.0, 24.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallTwoPose = new Pose2d(new Translation2d(369.0, 31.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallThreePose = new Pose2d(new Translation2d(350.0, 40.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFourPose = new Pose2d(new Translation2d(376.0, 6.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFivePose = new Pose2d(new Translation2d(357.0, 2.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rendezvousFourBallCenter = new Pose2d(new Translation2d(362.0, 20.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rendezvousFourBallOffset = new Pose2d(new Translation2d(370.0, -40.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rZoneBallOneBackwardPose = new Pose2d(new Translation2d(235.0, -63.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallTwoBackwardPose = new Pose2d(new Translation2d(233.0, -42.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallThreeBackwardPose = new Pose2d(new Translation2d(226.0, -18.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFourBackwardPose = new Pose2d(new Translation2d(232.0, 0.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d rZoneBallFiveBackwardPose = new Pose2d(new Translation2d(239.0, 13.0), Rotation2d.fromDegrees(0.0));
-
-    public static final Pose2d rZoneBallOne110Pose = new Pose2d(new Translation2d(390.0, 60.0), Rotation2d.fromDegrees(-110.0));
-
-    public static final Pose2d enemyRZoneBallOnePose = new Pose2d(new Translation2d(237.0, -25.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallTwoPose = new Pose2d(new Translation2d(257.0, -32.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallThreePose = new Pose2d(new Translation2d(275.0, -39.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallFourPose = new Pose2d(new Translation2d(250.0, 5.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d enemyRZoneBallFivePose = new Pose2d(new Translation2d(268.0, -2.0), Rotation2d.fromDegrees(0.0));
 }

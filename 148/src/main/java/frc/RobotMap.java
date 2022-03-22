@@ -25,7 +25,9 @@ public class RobotMap {
 
     //Map Flywheel CAN IDs
     public static final int FLYWHEEL_MASTER = 10;
-    public static final int FLYWHEEL_FOLLOWER = 11;
+
+    //Map Hood CAN IDs
+    public static final int HOOD_MASTER = 11;
 
     //Map Feeder CAN IDs
     public static final int FEEDER_MASTER = 12;
@@ -36,11 +38,14 @@ public class RobotMap {
     //Map Intake CAN IDs
     public static final int INTAKE_MASTER = 14;
 
+    //Map IntakePivot CAN IDs
+    public static final int INTAKE_PIVOT_MASTER = 15;
+
     //Map Hanger CAN IDs
     public static final int HANGER_MASTER = 16;
 
     //Pigeon
-    public static final int PIGEON = 15;    
+    public static final int PIGEON = 17;    
     
     //Digital Inputs
 
@@ -48,9 +53,17 @@ public class RobotMap {
     public static final int CANIFIER = 23;
 
 
-    //Hood Servos
-    public static final int SERVO_1 = 1;
-    public static final int SERVO_2 = 0;
+    //Linear Hood Servos
+    public static final int SERVO_1 = 8;
+    public static final int SERVO_2 = 9;
+
+    //Hanger Servos
+    public static final int ONE_CLAW_SERVO = 0;
+    public static final int TWO_CLAW_SERVO = 1;
+
+    //Motorized Servos
+    public static final int MOTORIZED_SERVO_1 = 6;
+    public static final int MOTORIZED_SERVO_2 = 7;
 
     //Hood Encoder
     // public static final int MA3_PORT = 0;

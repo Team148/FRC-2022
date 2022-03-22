@@ -9,10 +9,18 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+// import edu.wpi.first.wpilibj.Servo;
+import com.team1323.lib.util.LinearServo;
+
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 public class Hanger extends Subsystem {
   private WPI_TalonFX hangerMaster = new WPI_TalonFX(RobotMap.HANGER_MASTER);
+
+  private LinearServo oneClawServo;
+  private LinearServo twoClawServo;
+
   private static Hanger instance = null;
 
   private Hanger(){
@@ -31,7 +39,10 @@ public class Hanger extends Subsystem {
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 500);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
-    hangerMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 55, 65, 1.5));
+    // hangerMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 55, 65, 1.5));
+
+    oneClawServo = new LinearServo(RobotMap.ONE_CLAW_SERVO, 100, 24);
+    twoClawServo = new LinearServo(RobotMap.TWO_CLAW_SERVO, 100, 24);
   }
 
   public static Hanger getInstance() {
@@ -44,7 +55,7 @@ public class Hanger extends Subsystem {
     hangerMaster.set(ControlMode.PercentOutput, speed);
   }
 
-  synchronized void setOpenLoop(double speed) {
+  public void setOpenLoop(double speed) {
     hangerMaster.set(ControlMode.PercentOutput, speed);
   }
 
@@ -61,7 +72,28 @@ public class Hanger extends Subsystem {
     }
     else
       return false;
-  } 
+  }
+
+  public void setOneClawServo(double position) {
+    oneClawServo.set(position);
+  }
+
+  public void setTwoClawServo(double position) {
+    twoClawServo.set(position);
+  }
+
+  public void setBothClawServos(double positionOneClaw, double positionTwoClaw) {
+    oneClawServo.set(positionOneClaw);
+    twoClawServo.set(positionTwoClaw);
+  }
+
+  public double getOneClawServoPosition() {
+    return oneClawServo.getPosition();
+  }
+
+  public double getTwoClawServoPosition() {
+    return twoClawServo.getPosition();
+  }
 
   @Override
   public synchronized void stop() {
@@ -107,7 +139,6 @@ public void onStart(double timestamp) {
 public void onLoop(double timestamp) {
     switch (currentState) {
     case OFF:
-        stop();
         break;
     case STOW:
         if(getHangerPosition() < Constants.Hanger.HANGER_DOWN_SLOW)

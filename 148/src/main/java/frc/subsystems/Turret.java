@@ -60,7 +60,7 @@ public class Turret extends Subsystem {
 
     private State currentState = State.OPEN_LOOP;
     public enum State {
-        OPEN_LOOP, VISION, POSITION, GYRO_COMP, AWAITING_LOCK;
+        OPEN_LOOP, EXPERIMENTAL_VISION, VISION, POSITION, GYRO_COMP, AWAITING_LOCK;
     }
 
     public State getState() {
@@ -88,34 +88,42 @@ public class Turret extends Subsystem {
         robotState = RobotState.getInstance();
 
         // Config TalonFX
-        turret.configVoltageCompSaturation(12.0, Constants.kCANTimeoutMs);
+        turret.configVoltageCompSaturation(12.0, Constants.kLongCANTimeoutMs);
         turret.enableVoltageCompensation(true);
         turret.setInverted(TalonFXInvertType.Clockwise);        
-        turret.configNominalOutputForward(0.0 / 12.0, Constants.kCANTimeoutMs);
+        // turret.configNominalOutputForward(0.0 / 12.0, Constants.kLongCANTimeoutMs);
 
-        SupplyCurrentLimitConfiguration currentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 25, 30, Constants.kCANTimeoutMs);
-        turret.configSupplyCurrentLimit(currentLimitConfiguration, Constants.kCANTimeoutMs);
+        SupplyCurrentLimitConfiguration currentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 25, 30, Constants.kLongCANTimeoutMs);
+        turret.configSupplyCurrentLimit(currentLimitConfiguration, Constants.kLongCANTimeoutMs);
 
         turret.selectProfileSlot(0, 0);
-        turret.config_kP(0, Constants.Turret.TURRET_KP, Constants.kCANTimeoutMs);
-        turret.config_kI(0, Constants.Turret.TURRET_KI, Constants.kCANTimeoutMs);
-        turret.config_kD(0, Constants.Turret.TURRET_KD, Constants.kCANTimeoutMs);
-        turret.config_kF(0, Constants.Turret.TURRET_KF, Constants.kCANTimeoutMs);
+        turret.config_kP(0, Constants.Turret.TURRET_KP, Constants.kLongCANTimeoutMs);
+        turret.config_kI(0, Constants.Turret.TURRET_KI, Constants.kLongCANTimeoutMs);
+        turret.config_kD(0, Constants.Turret.TURRET_KD, Constants.kLongCANTimeoutMs);
+        turret.config_kF(0, Constants.Turret.TURRET_KF, Constants.kLongCANTimeoutMs);
 
-        turret.configMotionCruiseVelocity((int)(Constants.Turret.TURRET_MAXSPEED), Constants.kCANTimeoutMs);
-        turret.configMotionAcceleration((int)(Constants.Turret.TURRET_MAXSPEED * 3.0), Constants.kCANTimeoutMs);
+        turret.configMotionCruiseVelocity((int)(Constants.Turret.TURRET_MAXSPEED), Constants.kLongCANTimeoutMs);
+        turret.configMotionAcceleration((int)(Constants.Turret.TURRET_MAXSPEED * 6.0), Constants.kLongCANTimeoutMs);
         turret.configMotionSCurveStrength(0);
 
-        turret.configForwardSoftLimitThreshold(turretDegreesToInternalEncUnits(Constants.Turret.TURRET_MAXCONTROLANGLE), Constants.kCANTimeoutMs);
-        turret.configReverseSoftLimitThreshold(turretDegreesToInternalEncUnits(Constants.Turret.TURRET_MINCONTROLANGLE), Constants.kCANTimeoutMs);
-        turret.configForwardSoftLimitEnable(true, Constants.kCANTimeoutMs);
-        turret.configReverseSoftLimitEnable(true, Constants.kCANTimeoutMs);
+        turret.configForwardSoftLimitThreshold(turretDegreesToInternalEncUnits(Constants.Turret.TURRET_MAXCONTROLANGLE), Constants.kLongCANTimeoutMs);
+        turret.configReverseSoftLimitThreshold(turretDegreesToInternalEncUnits(Constants.Turret.TURRET_MINCONTROLANGLE), Constants.kLongCANTimeoutMs);
+        turret.configForwardSoftLimitEnable(true, Constants.kLongCANTimeoutMs);
+        turret.configReverseSoftLimitEnable(true, Constants.kLongCANTimeoutMs);
 
         System.out.println("Turret max soft limit: " + turretDegreesToInternalEncUnits(Constants.Turret.TURRET_MAXCONTROLANGLE));
         System.out.println("Turret min soft limit: " + turretDegreesToInternalEncUnits(Constants.Turret.TURRET_MINCONTROLANGLE));
 
-        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 20);
-        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 50);
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 50, Constants.kLongCANTimeoutMs); //was 20 and no timeout
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20, Constants.kLongCANTimeoutMs); //was 50 and no timeout
+
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1000, Constants.kLongCANTimeoutMs);
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_4_AinTempVbat, 1000, Constants.kLongCANTimeoutMs);
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_9_MotProfBuffer, 1000, Constants.kLongCANTimeoutMs);
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 1000, Constants.kLongCANTimeoutMs);
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 1000, Constants.kLongCANTimeoutMs);
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 1000, Constants.kLongCANTimeoutMs);
+        turret.setStatusFramePeriod(StatusFrameEnhanced.Status_14_Turn_PIDF1, 1000, Constants.kLongCANTimeoutMs);
 
         //setOpenLoop(0.0);
 
@@ -149,6 +157,16 @@ public class Turret extends Subsystem {
         // System.out.println("Demand is: " + periodicIO.demand);
     }
 
+    // private void setVisionAngle(double angle) {
+    //     targetAngle = boundToTurretRange(angle);
+    //     /*if (ActuatingHood.getInstance().isStowed())
+    //         targetAngle = closestPole();
+    //         */
+    //     periodicIO.controlMode = ControlMode.Position;
+    //     periodicIO.demand = turretDegreesToInternalEncUnits(targetAngle);
+    //     System.out.println("Demand is: " + periodicIO.demand);
+    // }
+    
     private boolean inRange(double value, double min, double max) {
         return min <= value && value <= max;
     }
@@ -225,6 +243,18 @@ public class Turret extends Subsystem {
         }
     }
 
+    public void startExperimentalVision() {
+        // this.aimInnerPort = aimInnerPort;
+        setState(State.EXPERIMENTAL_VISION);
+        Optional<ShooterAimingParameters> aim_exp = robotState.getExperimentalAimingParameters();
+        if (aim_exp.isPresent()) {
+            System.out.println("Vision Target Range: " + aim_exp.get().getRange() + " Vision Target Angle: " + aim_exp.get().getTurretAngle().getDegrees());
+            setAngle(aim_exp.get().getTurretAngle().getDegrees());
+        } else {
+            System.out.println("No visible or cached target");
+        }
+    }
+
     public void setOpenLoop(double output) {
         periodicIO.controlMode = ControlMode.PercentOutput;
         periodicIO.demand = /*Hood.getInstance().isStowed() ? 0.0 : */Util.scaledDeadband(output, 1.0, 0.25) * 0.5;
@@ -236,7 +266,7 @@ public class Turret extends Subsystem {
     }
 
     public boolean isTracking() {
-        return currentState == State.VISION;
+        return (currentState == State.VISION || currentState == State.EXPERIMENTAL_VISION);
     }
     
     public boolean hasReachedAngle() {
@@ -280,6 +310,13 @@ public class Turret extends Subsystem {
                     Optional<ShooterAimingParameters> aim  = robotState.getAimingParameters(aimInnerPort);
                     if (aim.isPresent()) {
                         setAngle(aim.get().getTurretAngle().getDegrees());
+                    }
+                    break;
+                case EXPERIMENTAL_VISION:
+                    // System.out.println("Current state is VISION");
+                    Optional<ShooterAimingParameters> aim_exp  = robotState.getExperimentalAimingParameters();
+                    if (aim_exp.isPresent()) {
+                        setAngle(aim_exp.get().getTurretAngle().getDegrees());
                     }
                     break;
                 case GYRO_COMP:
@@ -407,6 +444,28 @@ public class Turret extends Subsystem {
         };
     }
 
+    public Request startExperimentalVisionRequest() {
+        System.out.println("Start Exeperimenetal Vision Request");
+        return new Request(){
+            
+            @Override
+            public void act() {
+                System.out.println("ACTING");
+                startExperimentalVision();
+            }
+            
+            @Override
+            public boolean isFinished() {
+                if (hasReachedAngle()) {
+                    DriverStation.reportError("Turret Request Finished", false);
+                    return true;
+                }
+                return false;
+            }
+            
+        };
+    }
+
     public Request stateRequest(State desiredState) {
         return new Request(){
         
@@ -418,7 +477,7 @@ public class Turret extends Subsystem {
     }
 
     public int turretDegreesToInternalEncUnits(double turretAngle) {
-        return (int) ((turretAngle / 360.0) * Constants.Turret.kInternalEncToOutputRatio * 2048.0);
+        return (int) ((turretAngle / 360.0) * Constants.Turret.kInternalEncToOutputRatio * 2048.0 );
     }
 
     public double internalEncUnitsToTurretDegrees(double encUnits) {
@@ -430,7 +489,7 @@ public class Turret extends Subsystem {
             //System.out.println("Turret Encoder Connected: " + isEncoderConnected());
             if (RobotBase.isReal()) {
                 //DriverStation.reportError("TURRET WAS RESET TO ABSOLUTE WITH THE MAG ENCODER", false);
-                double absolutePosition = Util.boundAngle0to360Degrees(90.0);//getAbsoluteEncoderDegrees() - Constants.Turret.kEncoderStartingAngle);
+                double absolutePosition = Util.boundAngle0to360Degrees(Constants.Turret.kEncoderStartingAngle);
                 if (absolutePosition > Constants.Turret.TURRET_MAXINITIALANGLE)
                     absolutePosition -= 360.0;
                 else if (absolutePosition < Constants.Turret.TURRET_MININITIALLANGLE)
@@ -444,7 +503,7 @@ public class Turret extends Subsystem {
                 //System.out.println("Turret Absolute angle: " + getAbsoluteEncoderDegrees() + ", encoder offset: " + Constants.Turret.kEncoderStartingAngle + ", difference: " + (getAbsoluteEncoderDegrees() - Constants.Turret.kEncoderStartingAngle) + ", degreesToEncUnits: " + turretDegreesToInternalEncUnits(getAbsoluteEncoderDegrees() - Constants.Turret.kEncoderStartingAngle));
             } else {
                 DriverStation.reportError("Turret encoder NOT DETECTED: CURRENT POSITION SET TO 0", false);
-                turret.setSelectedSensorPosition(turretDegreesToInternalEncUnits(90.0));
+                turret.setSelectedSensorPosition(turretDegreesToInternalEncUnits(180.0));
                 // turret.setSelectedSensorPosition(0, 0, Constants.kCANTimeoutMs);
             }
         }
