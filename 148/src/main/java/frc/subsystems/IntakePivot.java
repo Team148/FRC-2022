@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
@@ -84,8 +85,10 @@ public class IntakePivot extends Subsystem {
         intakePivot.setInverted(TalonFXInvertType.CounterClockwise);        
         intakePivot.configNominalOutputForward(0.0 / 12.0, Constants.kCANTimeoutMs);
 
-        SupplyCurrentLimitConfiguration currentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 25, 30, Constants.kCANTimeoutMs);
+        SupplyCurrentLimitConfiguration currentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 25, 30, 5.0);
+        StatorCurrentLimitConfiguration statorLimitConfiguration = new StatorCurrentLimitConfiguration(true, 80, 100, 0.5);
         intakePivot.configSupplyCurrentLimit(currentLimitConfiguration, Constants.kCANTimeoutMs);
+        intakePivot.configStatorCurrentLimit(statorLimitConfiguration, Constants.kCANTimeoutMs);
 
         intakePivot.selectProfileSlot(0, 0);
         intakePivot.config_kP(0, Constants.IntakePivot.INTAKEPIVOT_KP, Constants.kCANTimeoutMs);
@@ -95,8 +98,8 @@ public class IntakePivot extends Subsystem {
         // intakePivot.configAllowableClosedloopError(0 , 5000.0, Constants.kCANTimeoutMs);
 
         intakePivot.configMotionCruiseVelocity((int)(Constants.IntakePivot.INTAKEPIVOT_MAXSPEED), Constants.kCANTimeoutMs);
-        intakePivot.configMotionAcceleration((int)(Constants.IntakePivot.INTAKEPIVOT_MAXSPEED * 3.0), Constants.kCANTimeoutMs);
-        intakePivot.configMotionSCurveStrength(0);
+        intakePivot.configMotionAcceleration((int)(45000), Constants.kCANTimeoutMs);
+        intakePivot.configMotionSCurveStrength(3);
 
         // intakePivot.configForwardSoftLimitThreshold(0.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MAXCONTROLANGLE), Constants.kCANTimeoutMs);
         // intakePivot.configReverseSoftLimitThreshold(-50000.0, Constants.kCANTimeoutMs);//Constants.IntakePivot.INTAKEPIVOT_MINCONTROLANGLE), Constants.kCANTimeoutMs);
@@ -120,7 +123,7 @@ public class IntakePivot extends Subsystem {
     }
 
     public void setPivotPosition(double setpoint) {
-        intakePivot.set(ControlMode.Position, setpoint);
+        intakePivot.set(ControlMode.MotionMagic, setpoint);
     }
 
 
@@ -146,7 +149,7 @@ public class IntakePivot extends Subsystem {
             int setpoint = angleToEncoderUnits(angle);
             // periodicIO.controlMode = ControlMode.Position;
             // periodicIO.demand = setpoint;
-            intakePivot.set(ControlMode.Position, setpoint);
+            intakePivot.set(ControlMode.MotionMagic, setpoint);
             // System.out.println("Pivot Set Point = " + setpoint);
         }
 

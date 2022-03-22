@@ -58,12 +58,12 @@ public class Constants {
     public static final double kImageCaptureLatency = 11.0 / 1000.0; // seconds
     
     //Goal tracker constants
-    public static final double kMaxGoalTrackAge = 0.5;
+    public static final double kMaxGoalTrackAge = 2.5;
     public static final double kMaxTrackerDistance = 18.0;
     public static final double kCameraFrameRate = 90.0;
-    public static final double kTrackStabilityWeight = 1.0;
-    public static final double kTrackAgeWeight = 1.0;
-    public static final double kTrackSwitchingWeight = 0.0;
+    public static final double kTrackStabilityWeight = 10.0;
+    public static final double kTrackAgeWeight = 5.0;
+    public static final double kTrackSwitchingWeight = 10.0;
 	public static final double kClosestVisionDistance = 26.0;//36.0
 
 	public static final double kVisionPIDOutputPercent = 0.5;
@@ -351,7 +351,7 @@ public class Constants {
 		public static int INTAKEPIVOT_ALLOWED_ERROR = 100;
 
 		//IntakePivot Constants
-		public static final double INTAKEPIVOT_MAXSPEED = 5000.0;//22000.0;
+		public static final double INTAKEPIVOT_MAXSPEED = 22000.0;//10000.0;
 
 		public static final double INTAKEPIVOT_UP = -30700.0;
 		public static final double INTAKEPIVOT_DOWN = -47800.0;

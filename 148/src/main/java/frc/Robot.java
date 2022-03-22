@@ -543,13 +543,13 @@ public class Robot extends TimedRobot {
 		}
 
 		if (operator.POV0.wasActivated()) {
-			s.turretPositionState(-180.0); //270.0//90
+			s.turretPositionState(0.0); //270.0//90
 		} else if (operator.POV90.wasActivated()) {
-			s.turretPositionState(-90.0);//180 //180
+			s.turretPositionState(55.0);//180 //180
 		} else if (operator.POV180.wasActivated()) {
-			s.turretPositionState(0.0);//90 //305
+			s.turretPositionState(-180.0);//90 //305
 		} else if (operator.POV270.wasActivated()) {
-			s.turretPositionState(55.0);//305 //35
+			s.turretPositionState(-90.0);//305 //35
 		}
 
 		if(operator.leftTrigger.isBeingPressed()) {
