@@ -36,8 +36,10 @@ import frc.subsystems.Feeder;
 import frc.subsystems.Superstructure;
 import frc.subsystems.Swerve;
 import frc.subsystems.BallIntake.BallIntakeState;
+import frc.subsystems.FalconHood.HoodState;
 import frc.subsystems.Hanger.HangerState;
 import frc.subsystems.IntakePivot.PivotState;
+import frc.subsystems.Shooter.ShooterState;
 import frc.subsystems.Feeder.FeederState;
 import frc.subsystems.Turret.State;
 
@@ -67,6 +69,8 @@ public class OneBallAndDefend extends AutoModeBase {
         super.startTime = Timer.getFPGATimestamp();
         LimelightProcessor.getInstance().ledOn(true);
         runAction(new ResetPoseAction(Constants.oneBallStart));
+        runAction(new SetShooterState(ShooterState.AUTO));
+        runAction(new SetHoodState(HoodState.AUTO));
         runAction(new SetPivotState(PivotState.DOWN));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetBallIntakeState(BallIntakeState.INTAKING));

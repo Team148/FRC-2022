@@ -74,6 +74,7 @@ public class TwoBallAndTerminal extends AutoModeBase {
         LimelightProcessor.getInstance().ledOn(true);
         runAction(new SetShooterState(ShooterState.AUTO));
         runAction(new SetHoodState(HoodState.AUTO));
+        runAction(new SetPivotState(PivotState.DOWN));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
         runAction(new SetShooterSpeedAction(11750.0));
@@ -87,12 +88,11 @@ public class TwoBallAndTerminal extends AutoModeBase {
             // ));
         s.turretPositionState(-180.0);
         runAction(new RemainingProgressAction(0.05));
-        runAction(new SetPivotState(PivotState.DOWN));
         s.firingVision();
         runAction(new SetFeederState(FeederState.SHOOTING));
-        runAction(new WaitAction(1.75));
+        runAction(new WaitAction(1.25));
         runAction(new SetFeederState(FeederState.INTAKING));
-        runAction(new SetTrajectoryAction(trajectories.twoBallToBallTwo, 35.0, 0.75));
+        runAction(new SetTrajectoryAction(trajectories.twoBallToBallTwo, 20.0, 0.75));
         // runAction(new SetShooterSpeedAction(12250.0));
         // runAction(new SetHoodAngleAction(30.0));
         runAction(new SetTurretAngleAction(-250.0));
@@ -103,7 +103,7 @@ public class TwoBallAndTerminal extends AutoModeBase {
         runAction(new SetTrajectoryAction(trajectories.twoBallsToTheWall, -45.0, 0.6));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new RemainingProgressAction(0.01));
-        runAction(new WaitAction(0.5));
+        runAction(new WaitAction(2.0));
         runAction(new SetTrajectoryAction(trajectories.terminalToShot, 184.0, 0.5));
         runAction(new SetBallIntakeState(BallIntakeState.OFF));
         runAction(new SetTurretAngleAction(-90.0));        
@@ -111,6 +111,8 @@ public class TwoBallAndTerminal extends AutoModeBase {
         // runAction(new SetShooterSpeedAction(11000));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
+        runAction(new WaitAction(0.25));
+        runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
         runAction(new SetFeederState(FeederState.SHOOTING));
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");
