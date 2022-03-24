@@ -441,10 +441,12 @@ public class Constants {
 
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
 	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
-	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
+	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(-90.0));
 
-	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d oneBallToDefend = new Pose2d(new Translation2d(kFieldLength - 160.0, -20.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 160.0, -30.0), Rotation2d.fromDegrees(-90.0));
+	public static final Pose2d oneBallOneDefend2 = new Pose2d(new Translation2d(kFieldLength - 160.0, -20.0), Rotation2d.fromDegrees(135.0));
+	public static final Pose2d oneBallToDefend = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
+	public static final Pose2d oneBallToDefend2 = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
 	public static final Pose2d oneBallDefendDropOff = new Pose2d(new Translation2d(kFieldLength - 210.0, 30.0), Rotation2d.fromDegrees(0.0));
 
 	public static final Pose2d oneBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));

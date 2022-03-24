@@ -197,7 +197,7 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.oneBallStart);
             waypoints.add(Constants.oneBallOne);
 
-            return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 75.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallOneToDefend(){
@@ -205,16 +205,16 @@ public class TrajectoryGenerator {
             waypoints.add(Constants.oneBallOne2);
             waypoints.add(Constants.oneBallOneDefend);
             
-            return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 100.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallToDefendTwo(){
             List<Pose2d> waypoints = new ArrayList<>();
-            waypoints.add(Constants.oneBallOneDefend);
+            waypoints.add(Constants.oneBallOneDefend2);
             waypoints.add(Constants.oneBallToDefend);
 
             
-            return generateTrajectory(false, waypoints, Arrays.asList(), 20.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
+            return generateTrajectory(false, waypoints, Arrays.asList(), 100.0, kMaxAccel, kMaxDecel, kMaxVoltage, 60.0, 1);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getOneBallDefendToDrop(){
