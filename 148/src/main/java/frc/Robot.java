@@ -480,7 +480,8 @@ public class Robot extends TimedRobot {
 
 		if(operator.backButton.isBeingPressed() && operator.startButton.isBeingPressed()) {
 			climbModeActivated = true;
-			s.turretPositionState(0.0);
+			// s.turretPositionState(1.0);
+			turret.setPosition(0.0);
 			pivot.setState(PivotState.RESET);
 			shooter.setState(ShooterState.RESET);
 			falconHood.setState(HoodState.RESET);
