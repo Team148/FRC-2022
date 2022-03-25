@@ -75,8 +75,8 @@ public class OneBallAndDefend extends AutoModeBase {
         runAction(new SetPivotState(PivotState.DOWN));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
-        runAction(new SetShooterSpeedAction(12000.0));
-        runAction(new SetHoodAngleAction(29.0));
+        runAction(new SetShooterSpeedAction(11750.0));
+        runAction(new SetHoodAngleAction(28.0));
         runAction(new SetTurretAngleAction(-187.0));
         runAction(new SetTrajectoryAction(trajectories.oneBallStartToBallOne, 45.0, 1.0));
         runAction(new RemainingProgressAction(0.05));
