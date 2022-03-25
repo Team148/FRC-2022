@@ -146,10 +146,10 @@ public class Constants {
 
 			//Comp Bot - Irving
 			kVisionDistanceTreemap.put(new InterpolatingDouble(82.3), new InterpolatingDouble(64.0+0.0)); // bounces between 81.4 83.2
-			kVisionDistanceTreemap.put(new InterpolatingDouble(116.3), new InterpolatingDouble(95.0+0.0)); //115.6 - 117
-			kVisionDistanceTreemap.put(new InterpolatingDouble(160.9), new InterpolatingDouble(132.0+0.0)); //160.9 - (goal range report 151)
-			kVisionDistanceTreemap.put(new InterpolatingDouble(209.5), new InterpolatingDouble(167.0+0.0)); //208 - 211
-			kVisionDistanceTreemap.put(new InterpolatingDouble(236.6), new InterpolatingDouble(195.0+0.0)); //246 - 247
+			kVisionDistanceTreemap.put(new InterpolatingDouble(116.3), new InterpolatingDouble(95.0+7.0)); //115.6 - 117
+			kVisionDistanceTreemap.put(new InterpolatingDouble(160.9), new InterpolatingDouble(132.0+10.0)); //160.9 - (goal range report 151)
+			kVisionDistanceTreemap.put(new InterpolatingDouble(209.5), new InterpolatingDouble(167.0+10.0)); //208 - 211
+			kVisionDistanceTreemap.put(new InterpolatingDouble(236.6), new InterpolatingDouble(195.0+10.0)); //246 - 247
 			kVisionDistanceTreemap.put(new InterpolatingDouble(293.5), new InterpolatingDouble(228.0+0.0)); //293 - 294
 			kVisionDistanceTreemap.put(new InterpolatingDouble(330.5), new InterpolatingDouble(252.0+0.0)); //330.56 (reported 270.13)
 			kVisionDistanceTreemap.put(new InterpolatingDouble(389.0), new InterpolatingDouble(287.0+0.0)); //388.98 
@@ -447,8 +447,8 @@ public class Constants {
 	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(20.0));
 	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(20.0));
 	public static final Pose2d twoBallTutu = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(-8.0));
-	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -100.0), Rotation2d.fromDegrees(-45.0)); //x was 40 y was -95
-	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 40.0, -100.0), Rotation2d.fromDegrees(184.0)); //x was 40 y was -95
+	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 43.0, -100.0), Rotation2d.fromDegrees(-45.0)); //x was 40 y was -95
+	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 43.0, -100.0), Rotation2d.fromDegrees(184.0)); //x was 40 y was -95
 	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -120.0), Rotation2d.fromDegrees(184.0));
 
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
