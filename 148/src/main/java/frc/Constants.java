@@ -145,14 +145,14 @@ public class Constants {
 
 
 			//Comp Bot - Irving
-			kVisionDistanceTreemap.put(new InterpolatingDouble(82.3), new InterpolatingDouble(64.0+20.0)); // bounces between 81.4 83.2
-			kVisionDistanceTreemap.put(new InterpolatingDouble(116.3), new InterpolatingDouble(95.0+20.0)); //115.6 - 117
-			kVisionDistanceTreemap.put(new InterpolatingDouble(160.9), new InterpolatingDouble(132.0+20.0)); //160.9 - (goal range report 151)
-			kVisionDistanceTreemap.put(new InterpolatingDouble(209.5), new InterpolatingDouble(167.0+20.0)); //208 - 211
-			kVisionDistanceTreemap.put(new InterpolatingDouble(236.6), new InterpolatingDouble(195.0+20.0)); //246 - 247
-			kVisionDistanceTreemap.put(new InterpolatingDouble(293.5), new InterpolatingDouble(228.0+20.0)); //293 - 294
-			kVisionDistanceTreemap.put(new InterpolatingDouble(330.5), new InterpolatingDouble(252.0+20.0)); //330.56 (reported 270.13)
-			kVisionDistanceTreemap.put(new InterpolatingDouble(389.0), new InterpolatingDouble(287.0+20.0)); //388.98 
+			kVisionDistanceTreemap.put(new InterpolatingDouble(82.3), new InterpolatingDouble(64.0+10.0)); // bounces between 81.4 83.2
+			kVisionDistanceTreemap.put(new InterpolatingDouble(116.3), new InterpolatingDouble(95.0+10.0)); //115.6 - 117
+			kVisionDistanceTreemap.put(new InterpolatingDouble(160.9), new InterpolatingDouble(132.0+10.0)); //160.9 - (goal range report 151)
+			kVisionDistanceTreemap.put(new InterpolatingDouble(209.5), new InterpolatingDouble(167.0+10.0)); //208 - 211
+			kVisionDistanceTreemap.put(new InterpolatingDouble(236.6), new InterpolatingDouble(195.0+10.0)); //246 - 247
+			kVisionDistanceTreemap.put(new InterpolatingDouble(293.5), new InterpolatingDouble(228.0+10.0)); //293 - 294
+			kVisionDistanceTreemap.put(new InterpolatingDouble(330.5), new InterpolatingDouble(252.0+10.0)); //330.56 (reported 270.13)
+			kVisionDistanceTreemap.put(new InterpolatingDouble(389.0), new InterpolatingDouble(287.0+10.0)); //388.98 
 		}
     
     //Path following constants

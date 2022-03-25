@@ -93,10 +93,11 @@ public class OneBallAndDefend extends AutoModeBase {
             runAction(new SetTrajectoryAction(trajectories.oneBallToDefendTwo, 135.0, 1.0));
             runAction(new RemainingProgressAction(0.05));
             runAction(new WaitAction(0.25));
-            runAction(new TurnToHeading(250.0));
+            // runAction(new TurnToHeading(250.0));
+            runAction(new TurnToHeading(0.0));
             // runAction(new SetTrajectoryAction(trajectories.oneBallDefendToDrop, 180.0, 1.0));
             // runAction(new RemainingProgressAction(0.05));
-            runAction(new WaitAction(1.0));
+            runAction(new WaitAction(1.5));  //irving was 1.0
             runAction(new SetPivotState(PivotState.UP));
             // runAction(new SetBallIntakeState(BallIntakeState.OUTTAKING));
             runAction(new SetFeederState(FeederState.UNJAM_FEED));
