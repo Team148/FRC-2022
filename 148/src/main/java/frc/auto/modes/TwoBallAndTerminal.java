@@ -103,7 +103,11 @@ public class TwoBallAndTerminal extends AutoModeBase {
         runAction(new SetTrajectoryAction(trajectories.twoBallsToTheWall, -45.0, 0.6));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new RemainingProgressAction(0.01));
-        runAction(new WaitAction(2.0));
+        runAction(new WaitAction(0.5));
+        runAction(new SetPivotState(PivotState.UP));
+        runAction(new WaitAction(0.75));
+        runAction(new SetPivotState(PivotState.DOWN));
+        runAction(new WaitAction(0.75));
         runAction(new SetTrajectoryAction(trajectories.terminalToShot, 184.0, 0.5));
         runAction(new SetBallIntakeState(BallIntakeState.OFF));
         runAction(new SetTurretAngleAction(-90.0));        
