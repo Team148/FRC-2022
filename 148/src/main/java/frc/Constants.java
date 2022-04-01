@@ -134,25 +134,25 @@ public class Constants {
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(259.0), new InterpolatingDouble(287.0));
 
 			// //Comp Bot
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(115.0), new InterpolatingDouble(95.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(162.0), new InterpolatingDouble(132.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(207.0), new InterpolatingDouble(167.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(239.0), new InterpolatingDouble(195.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(302.0), new InterpolatingDouble(228.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(333.0), new InterpolatingDouble(252.0));
-			// kVisionDistanceTreemap.put(new InterpolatingDouble(382.0), new InterpolatingDouble(287.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(115.0), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(162.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(207.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(239.0), new InterpolatingDouble(195.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(302.0), new InterpolatingDouble(228.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(333.0), new InterpolatingDouble(252.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(382.0), new InterpolatingDouble(287.0));
 
 
 			//Comp Bot - Irving
-			kVisionDistanceTreemap.put(new InterpolatingDouble(82.3), new InterpolatingDouble(64.0+0.0)); // bounces between 81.4 83.2
-			kVisionDistanceTreemap.put(new InterpolatingDouble(116.3), new InterpolatingDouble(95.0+7.0)); //115.6 - 117
-			kVisionDistanceTreemap.put(new InterpolatingDouble(160.9), new InterpolatingDouble(132.0+10.0)); //160.9 - (goal range report 151)
-			kVisionDistanceTreemap.put(new InterpolatingDouble(209.5), new InterpolatingDouble(167.0+10.0)); //208 - 211
-			kVisionDistanceTreemap.put(new InterpolatingDouble(236.6), new InterpolatingDouble(195.0+10.0)); //246 - 247
-			kVisionDistanceTreemap.put(new InterpolatingDouble(293.5), new InterpolatingDouble(228.0+0.0)); //293 - 294
-			kVisionDistanceTreemap.put(new InterpolatingDouble(330.5), new InterpolatingDouble(252.0+0.0)); //330.56 (reported 270.13)
-			kVisionDistanceTreemap.put(new InterpolatingDouble(389.0), new InterpolatingDouble(287.0+0.0)); //388.98 
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(82.3), new InterpolatingDouble(64.0+0.0)); // bounces between 81.4 83.2
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(116.3), new InterpolatingDouble(95.0+7.0)); //115.6 - 117
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(160.9), new InterpolatingDouble(132.0+10.0)); //160.9 - (goal range report 151)
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(209.5), new InterpolatingDouble(167.0+10.0)); //208 - 211
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(236.6), new InterpolatingDouble(195.0+10.0)); //246 - 247
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(293.5), new InterpolatingDouble(228.0+0.0)); //293 - 294
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(330.5), new InterpolatingDouble(252.0+0.0)); //330.56 (reported 270.13)
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(389.0), new InterpolatingDouble(287.0+0.0)); //388.98 
 		}
     
     //Path following constants
