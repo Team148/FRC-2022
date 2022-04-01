@@ -371,6 +371,8 @@ public class Constants {
 		public static final double INTAKEPIVOT_ZEROEDANGLE = 0.0;
 		public static final double INTAKEPIVOT_MAXCONTROLANGLE = kIsUsingCompBot ? 135.0 : 103.0;//In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = 45.0; // -25.0
+		public static final double INTAKEPIVOT_SNATCHANGLE = 100.0;
+
 
 		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0;
 		public static final double kAngleTolerance = 1.0;
@@ -454,6 +456,7 @@ public class Constants {
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
 	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
 	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(-90.0));
+	public static final Pose2d oneBallOne3 = new Pose2d(new Translation2d(kFieldLength - 195.0, 90.0), Rotation2d.fromDegrees(0.0));
 
 	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 160.0, -30.0), Rotation2d.fromDegrees(-90.0));
 	public static final Pose2d oneBallOneDefend2 = new Pose2d(new Translation2d(kFieldLength - 160.0, -20.0), Rotation2d.fromDegrees(135.0));
@@ -463,6 +466,9 @@ public class Constants {
 
 	public static final Pose2d oneBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
 	public static final Pose2d oneBallTerminalShot = new Pose2d(new Translation2d(kFieldLength - 150.0, 0.0), Rotation2d.fromDegrees(0.0));
+
+	public static final Pose2d oneBallAndPartnerBalls = new Pose2d(new Translation2d(kFieldLength - 225.0, 33.0), Rotation2d.fromDegrees(-90.0));
+	public static final Pose2d oneBallAndPartnerBalls2 = new Pose2d(new Translation2d(kFieldLength - 225.0, 33.0), Rotation2d.fromDegrees(90.0));
 
 
 
