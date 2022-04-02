@@ -135,7 +135,7 @@ public class Superstructure extends Subsystem {
 				// }
 				HSVColors temp_HSV = picosensor.getHSVColor1();
 					
-				System.out.println("Hue: " + temp_HSV.hue + ", Value: " + temp_HSV.value + ", IR: "  + temp_HSV.ir);
+				// System.out.println("Hue: " + temp_HSV.hue + ", Value: " + temp_HSV.value + ", IR: "  + temp_HSV.ir);
 
 				if (turret.isTracking()) {
 					if (aim.isPresent()) {
@@ -148,11 +148,11 @@ public class Superstructure extends Subsystem {
 							double temp_range = aim.get().getRange();
 							// if(temp_HSV.ir >= Constants.kIRThreshold){
 								if(Robot.isRed){
-									System.out.println("We are Red");
+									// System.out.println("We are Red");
 									boolean temp_ball_color = (temp_HSV.hue <= Constants.kBlueBallHMax && temp_HSV.hue >= Constants.kBlueBallHMin);
 									
 									if( temp_ball_color || Timer.getFPGATimestamp() - wrongBallSeen < Constants.kBallTimeThreshold){
-										System.out.println("Ball is Blue");
+										// System.out.println("Ball is Blue");
 										//minus distance
 										// double temp_range = aim.get().getRange();
 										if(temp_ball_color)
@@ -161,7 +161,7 @@ public class Superstructure extends Subsystem {
 										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 									}
 									else {
-										System.out.println("Ball is Bueno");
+										// System.out.println("Ball is Bueno");
 										falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 									}
@@ -169,14 +169,14 @@ public class Superstructure extends Subsystem {
 								else if(!Robot.isRed){
 									boolean temp_ball_color = (temp_HSV.hue <= Constants.kRedBallHMax && temp_HSV.hue >= Constants.kRedBallHMin);
 									if( temp_ball_color || Timer.getFPGATimestamp() - wrongBallSeen < Constants.kBallTimeThreshold){
-										System.out.println("Ball is Red");
+										// System.out.println("Ball is Red");
 										if(temp_ball_color)
 											wrongBallSeen = Timer.getFPGATimestamp();
 										falconhood.setHoodPosition(5.0);
 										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 									}
 									else {
-										System.out.println("Ball is Bueno");
+										// System.out.println("Ball is Bueno");
 										falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
 									}
