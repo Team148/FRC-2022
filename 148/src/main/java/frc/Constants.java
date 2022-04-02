@@ -87,11 +87,11 @@ public class Constants {
 		static{
 			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(10500.0));
 			// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(11250.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(11750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(12750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(13500.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(14500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(11250.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(11750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(12750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(13500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0+25.0 ), new InterpolatingDouble(14500.0));
 			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0));
 		}
 
@@ -99,11 +99,11 @@ public class Constants {
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
 		static{
 			kVisionAngleTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(17.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(27.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(33.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(36.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(38.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(44.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(27.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(33.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(36.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(38.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(228.0+20.0+25.0), new InterpolatingDouble(44.0));
 			kVisionAngleTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(44.0));
 
 		}
@@ -115,9 +115,9 @@ public class Constants {
 			// kVisionToFTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(1.0));
 			// kVisionToFTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(1.25));
 			// kVisionToFTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(1.3)); //made up
-			kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.30)); //made up
-			kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
-			// kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.5)); //made up
+			// kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.30)); //made up
+			// kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
+			kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.4)); //made up
 		}
 
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
