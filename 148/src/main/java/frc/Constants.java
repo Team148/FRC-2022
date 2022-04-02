@@ -82,6 +82,15 @@ public class Constants {
 	public static final double kDriverTriggerFullMIN = 0.8;
 	public static final double kDriverTriggerFullMAX = 1.0;
 
+	//Color see ball oooo
+	public static final double kRedBallHMax = 360.0;
+	public static final double kRedBallHMin = 310.0;
+	public static final double kBlueBallHMax = 210.0;
+	public static final double kBlueBallHMin = 120.0;
+
+	public static final double kIRThreshold = 20.0;
+
+	public static final double kBallTimeThreshold = 0.05;
 	//Vision Speed Constraint Treemap -- Units are inches to center of goal, then ticks per 100ms (Falcon Units)
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
 		static{

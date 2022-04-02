@@ -43,6 +43,7 @@ import com.team254.lib.trajectory.TrajectoryGenerator;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID ;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -127,6 +128,7 @@ public class Robot extends TimedRobot {
 	private double shooter_velocity = 0.0;
 	private double hood_angle = 0.0;
 
+	public static boolean isRed = true;
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -293,6 +295,10 @@ public class Robot extends TimedRobot {
 			disabledLooper.start();
 
 			limelight.ledOn(false);
+
+			if(DriverStation.getAlliance() == Alliance.Red) isRed = true;
+			else isRed = false;
+
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
 			throw t;

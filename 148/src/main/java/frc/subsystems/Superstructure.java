@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import frc.Constants;
+import frc.Robot;
 import frc.RobotMap;
 import frc.RobotState;
 import frc.loops.ILooper;
@@ -20,6 +21,8 @@ import frc.vision.ShooterAimingParameters;
 import com.team1323.lib.util.InterpolatingDouble;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
+import com.wpilib.PicoColorSensor;
+import com.wpilib.PicoColorSensor.HSVColors;
 
 import frc.subsystems.BallIntake;
 import frc.subsystems.Shooter;
@@ -37,8 +40,12 @@ public class Superstructure extends Subsystem {
 	public Shooter shooter;
 	public FalconHood falconhood;
 
+	public PicoColorSensor picosensor;
+
 	private RobotState robotState;
 	
+	private Double wrongBallSeen = 0.0;
+
 	public Superstructure(){
 		swerve = Swerve.getInstance();
 		turret = Turret.getInstance();
@@ -47,6 +54,8 @@ public class Superstructure extends Subsystem {
 
 		robotState = RobotState.getInstance();
 		
+		picosensor = new PicoColorSensor();
+
 		queuedRequests = new ArrayList<>(0);
 	}
 	private static Superstructure instance = null;
@@ -124,6 +133,9 @@ public class Superstructure extends Subsystem {
 				// } else if (swerve.modules.get(0).getModuleVelocity() < 60.0 && intake.getState() == Intake.State.INTAKE) {
 				// 	intake.setOpenLoop(Constants.Intake.kIntakeSpeed);
 				// }
+				HSVColors temp_HSV = picosensor.getHSVColor1();
+					
+				System.out.println("Hue: " + temp_HSV.hue + ", Value: " + temp_HSV.value + ", IR: "  + temp_HSV.ir);
 
 				if (turret.isTracking()) {
 					if (aim.isPresent()) {
@@ -134,12 +146,49 @@ public class Superstructure extends Subsystem {
 						}
 						if(wantAutoAim) {
 							double temp_range = aim.get().getRange();
-							falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
-							shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+							// if(temp_HSV.ir >= Constants.kIRThreshold){
+								if(Robot.isRed){
+									System.out.println("We are Red");
+									boolean temp_ball_color = (temp_HSV.hue <= Constants.kBlueBallHMax && temp_HSV.hue >= Constants.kBlueBallHMin);
+									
+									if( temp_ball_color || Timer.getFPGATimestamp() - wrongBallSeen < Constants.kBallTimeThreshold){
+										System.out.println("Ball is Blue");
+										//minus distance
+										// double temp_range = aim.get().getRange();
+										if(temp_ball_color)
+											wrongBallSeen = Timer.getFPGATimestamp();
+										falconhood.setHoodPosition(5.0);
+										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+									}
+									else {
+										System.out.println("Ball is Bueno");
+										falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+									}
+								}
+								else if(!Robot.isRed){
+									boolean temp_ball_color = (temp_HSV.hue <= Constants.kRedBallHMax && temp_HSV.hue >= Constants.kRedBallHMin);
+									if( temp_ball_color || Timer.getFPGATimestamp() - wrongBallSeen < Constants.kBallTimeThreshold){
+										System.out.println("Ball is Red");
+										if(temp_ball_color)
+											wrongBallSeen = Timer.getFPGATimestamp();
+										falconhood.setHoodPosition(5.0);
+										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+									}
+									else {
+										System.out.println("Ball is Bueno");
+										falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+										shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+									}
+								}
+							// }
+							// else {
+							// 	double temp_range = aim.get().getRange();
+							// 	falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+							// 	shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+							// }
 						}
-						// double temp_range = aim.get().getRange();
-						// falconhood.setHoodPosition(Constants.kVisionAngleTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
-						// shooter.setVelocity(Constants.kVisionSpeedTreemap.getInterpolated(new InterpolatingDouble(temp_range)).value);
+						
 					}
 				}
 
