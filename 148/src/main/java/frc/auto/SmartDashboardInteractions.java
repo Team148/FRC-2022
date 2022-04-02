@@ -1,5 +1,6 @@
 package frc.auto;
 
+import frc.auto.modes.GrabEmByTheBalls;
 import frc.auto.modes.TwoBallAndTerminal;
 import frc.auto.modes.TwoBallAndTerminalBlue;
 import frc.auto.modes.OneBallAndDefend;
@@ -19,6 +20,7 @@ public class SmartDashboardInteractions {
     public void initWithDefaults(){
     	modeChooser = new SendableChooser<AutoOption>();
         modeChooser.setDefaultOption(DEFAULT_MODE.name, DEFAULT_MODE);
+        modeChooser.addOption(AutoOption.GRAB_EM_BALLS.name, AutoOption.GRAB_EM_BALLS);
         modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL.name, AutoOption.TWO_BALL_AND_TERMINAL);
         // modeChooser.addOption(AutoOption.TWO_BALL_AND_TERMINAL_BLUE.name, AutoOption.TWO_BALL_AND_TERMINAL_BLUE);
         modeChooser.addOption(AutoOption.ONE_BALL_AND_DEFEND.name, AutoOption.ONE_BALL_AND_DEFEND);
@@ -40,6 +42,7 @@ public class SmartDashboardInteractions {
     }
 
     enum AutoOption{
+        GRAB_EM_BALLS("One Ball and Partner Balls"),
         TWO_BALL_AND_TERMINAL("Two Balls and Terminal Shot"),
         // TWO_BALL_AND_TERMINAL_BLUE("Two Balls and Terminal Shot (Blue)"),
         ONE_BALL_AND_DEFEND("One ball and defend"),
@@ -60,6 +63,8 @@ public class SmartDashboardInteractions {
                 return new OneBallAndTerminal();
             case ONE_BALL_AND_DEFEND:
                 return new OneBallAndDefend();
+            case GRAB_EM_BALLS:
+                return new GrabEmByTheBalls();
             // case TWO_BALL_AND_TERMINAL_BLUE:
             //     return new TwoBallAndTerminalBlue();
             case TWO_BALL_AND_TERMINAL:

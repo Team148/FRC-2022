@@ -54,7 +54,7 @@ public class IntakePivot extends Subsystem {
 
     private PivotState currentState = PivotState.OPEN_LOOP;
     public enum PivotState {
-        OPEN_LOOP, POSITION, AWAITING_LOCK, UP, DOWN, RESET;
+        OPEN_LOOP, POSITION, AWAITING_LOCK, UP, DOWN, RESET, LILDOWN;
     }
 
     public PivotState getState() {
@@ -198,6 +198,9 @@ public class IntakePivot extends Subsystem {
                     break;
                 case RESET:
                     setPivotPosition(angleToEncoderUnits(Constants.IntakePivot.INTAKEPIVOT_ZEROEDANGLE));
+                    break;
+                case LILDOWN:
+                    setPivotPosition(angleToEncoderUnits(Constants.IntakePivot.INTAKEPIVOT_SNATCHANGLE));
                     break;
                 default:
                 // System.out.println("Never matched a case!!!");

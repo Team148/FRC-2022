@@ -179,12 +179,21 @@ public class RobotState {
         //James BS
         double camera_distance = (Math.hypot(xr, yr) * scaling);
         SmartDashboard.putNumber("Camera Distance", camera_distance);
-        double distance = Constants.kVisionDistanceTreemap.getInterpolated(new InterpolatingDouble(camera_distance)).value + (Constants.kGoalTargetDiameter/2.0);
+        double distance = Constants.kVisionDistanceTreemap.getInterpolated(new InterpolatingDouble(camera_distance)).value + (Constants.kGoalTargetDiameter/2.0)+12.5;
         Rotation2d angle = new Rotation2d(xr, yr, true);
 
-        return field_to_camera.transformBy(Pose2d
+        Translation2d temp_field_to_goal = field_to_camera.transformBy(Pose2d
         .fromTranslation(new Translation2d(distance * angle.cos(), distance * angle.sin())))
         .getTranslation();
+
+        SmartDashboard.putNumber("goal_pose_instant_x", temp_field_to_goal.x());
+        SmartDashboard.putNumber("goal_pose_instant_y", temp_field_to_goal.y());
+
+        return temp_field_to_goal;
+
+        // return field_to_camera.transformBy(Pose2d
+        // .fromTranslation(new Translation2d(distance * angle.cos(), distance * angle.sin())))
+        // .getTranslation();
     }
     
     /**

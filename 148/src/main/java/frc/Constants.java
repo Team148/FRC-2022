@@ -82,16 +82,25 @@ public class Constants {
 	public static final double kDriverTriggerFullMIN = 0.8;
 	public static final double kDriverTriggerFullMAX = 1.0;
 
+	//Color see ball oooo
+	public static final double kRedBallHMax = 360.0;
+	public static final double kRedBallHMin = 310.0;
+	public static final double kBlueBallHMax = 210.0;
+	public static final double kBlueBallHMin = 120.0;
+
+	public static final double kIRThreshold = 20.0;
+
+	public static final double kBallTimeThreshold = 0.05;
 	//Vision Speed Constraint Treemap -- Units are inches to center of goal, then ticks per 100ms (Falcon Units)
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
 		static{
 			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(10500.0));
 			// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(11250.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(11750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(12750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(13500.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(14500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(11250.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(11750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(12750.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(13500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0+25.0 ), new InterpolatingDouble(14500.0));
 			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0));
 		}
 
@@ -99,11 +108,11 @@ public class Constants {
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
 		static{
 			kVisionAngleTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(17.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(27.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(33.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(167.0+20.0), new InterpolatingDouble(36.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(195.0+20.0), new InterpolatingDouble(38.0));
-			kVisionAngleTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(44.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(27.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(33.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(36.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(38.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(228.0+20.0+25.0), new InterpolatingDouble(44.0));
 			kVisionAngleTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(44.0));
 
 		}
@@ -115,9 +124,9 @@ public class Constants {
 			// kVisionToFTreemap.put(new InterpolatingDouble(95.0+20.0), new InterpolatingDouble(1.0));
 			// kVisionToFTreemap.put(new InterpolatingDouble(132.0+20.0), new InterpolatingDouble(1.25));
 			// kVisionToFTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(1.3)); //made up
-			kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.30)); //made up
-			kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
-			// kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.5)); //made up
+			// kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.30)); //made up
+			// kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
+			kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.4)); //made up
 		}
 
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
@@ -132,7 +141,8 @@ public class Constants {
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(215.0), new InterpolatingDouble(228.0));
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(234.0), new InterpolatingDouble(252.0));
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(259.0), new InterpolatingDouble(287.0));
-			//Comp Bot
+
+			// //Comp Bot
 			kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(115.0), new InterpolatingDouble(95.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(162.0), new InterpolatingDouble(132.0));
@@ -141,6 +151,17 @@ public class Constants {
 			kVisionDistanceTreemap.put(new InterpolatingDouble(302.0), new InterpolatingDouble(228.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(333.0), new InterpolatingDouble(252.0));
 			kVisionDistanceTreemap.put(new InterpolatingDouble(382.0), new InterpolatingDouble(287.0));
+
+
+			//Comp Bot - Irving
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(82.3), new InterpolatingDouble(64.0+0.0)); // bounces between 81.4 83.2
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(116.3), new InterpolatingDouble(95.0+7.0)); //115.6 - 117
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(160.9), new InterpolatingDouble(132.0+10.0)); //160.9 - (goal range report 151)
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(209.5), new InterpolatingDouble(167.0+10.0)); //208 - 211
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(236.6), new InterpolatingDouble(195.0+10.0)); //246 - 247
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(293.5), new InterpolatingDouble(228.0+0.0)); //293 - 294
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(330.5), new InterpolatingDouble(252.0+0.0)); //330.56 (reported 270.13)
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(389.0), new InterpolatingDouble(287.0+0.0)); //388.98 
 		}
     
     //Path following constants
@@ -359,6 +380,8 @@ public class Constants {
 		public static final double INTAKEPIVOT_ZEROEDANGLE = 0.0;
 		public static final double INTAKEPIVOT_MAXCONTROLANGLE = kIsUsingCompBot ? 135.0 : 103.0;//In both positive and negative directions | 220.0
 		public static final double INTAKEPIVOT_MINCONTROLANGLE = 45.0; // -25.0
+		public static final double INTAKEPIVOT_SNATCHANGLE = 100.0;
+
 
 		public static final double kEncoderStartingAngle = Settings.kIsUsingCompBot ? 0.0 : 0.0;
 		public static final double kAngleTolerance = 1.0;
@@ -432,23 +455,29 @@ public class Constants {
 	// public static final Pose2d twoBallStart = new Pose2d(new Translation2d(297.0, -51.0), Rotation2d.fromDegrees(0.0)); //250.0
 	public static final Pose2d twoBallStart = new Pose2d(new Translation2d(kFieldLength - 290.0, -90.0), Rotation2d.fromDegrees(0.0));
 	public static final Pose2d twoBallOne = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(-90.0));
-	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(35.0));
-	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(35.0));
+	public static final Pose2d twoBallOne2 = new Pose2d(new Translation2d(kFieldLength - 290.0, -127.0), Rotation2d.fromDegrees(20.0));
+	public static final Pose2d twoBallTwo = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(20.0));
 	public static final Pose2d twoBallTutu = new Pose2d(new Translation2d(kFieldLength - 195.0, -100.0), Rotation2d.fromDegrees(-8.0));
-	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
-	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(184.0)); 
+	public static final Pose2d twoBallTerminal = new Pose2d(new Translation2d(kFieldLength - 43.0, -100.0), Rotation2d.fromDegrees(-45.0)); //x was 40 y was -95
+	public static final Pose2d twoBallTerminal2 = new Pose2d(new Translation2d(kFieldLength - 43.0, -100.0), Rotation2d.fromDegrees(184.0)); //x was 40 y was -95
 	public static final Pose2d postTerminalShot = new Pose2d(new Translation2d(kFieldLength - 312.0 , -120.0), Rotation2d.fromDegrees(184.0));
 
 	public static final Pose2d oneBallStart = new Pose2d(new Translation2d(kFieldLength - 250.0, 53.0), Rotation2d.fromDegrees(0.0));
 	public static final Pose2d oneBallOne = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
-	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(45.0));
+	public static final Pose2d oneBallOne2 = new Pose2d(new Translation2d(kFieldLength - 195.0, 88.0), Rotation2d.fromDegrees(-90.0));
+	public static final Pose2d oneBallOne3 = new Pose2d(new Translation2d(kFieldLength - 195.0, 90.0), Rotation2d.fromDegrees(0.0));
 
-	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(0.0));
-	public static final Pose2d oneBallToDefend = new Pose2d(new Translation2d(kFieldLength - 160.0, -20.0), Rotation2d.fromDegrees(0.0));
+	public static final Pose2d oneBallOneDefend = new Pose2d(new Translation2d(kFieldLength - 160.0, -30.0), Rotation2d.fromDegrees(-90.0));
+	public static final Pose2d oneBallOneDefend2 = new Pose2d(new Translation2d(kFieldLength - 160.0, -20.0), Rotation2d.fromDegrees(135.0));
+	public static final Pose2d oneBallToDefend = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
+	public static final Pose2d oneBallToDefend2 = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
 	public static final Pose2d oneBallDefendDropOff = new Pose2d(new Translation2d(kFieldLength - 210.0, 30.0), Rotation2d.fromDegrees(0.0));
 
 	public static final Pose2d oneBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
 	public static final Pose2d oneBallTerminalShot = new Pose2d(new Translation2d(kFieldLength - 150.0, 0.0), Rotation2d.fromDegrees(0.0));
+
+	public static final Pose2d oneBallAndPartnerBalls = new Pose2d(new Translation2d(kFieldLength - 225.0, 33.0), Rotation2d.fromDegrees(-90.0));
+	public static final Pose2d oneBallAndPartnerBalls2 = new Pose2d(new Translation2d(kFieldLength - 225.0, 33.0), Rotation2d.fromDegrees(90.0));
 
 
 
