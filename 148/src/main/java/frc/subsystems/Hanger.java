@@ -27,7 +27,7 @@ public class Hanger extends Subsystem {
   private Hanger(){
     hangerMaster.configFactoryDefault();
     hangerMaster.set(ControlMode.PercentOutput, 0.0);
-    hangerMaster.setInverted(false);
+    hangerMaster.setInverted(true);
     hangerMaster.setNeutralMode(NeutralMode.Brake);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
@@ -43,7 +43,7 @@ public class Hanger extends Subsystem {
 
     hangerFollower.configFactoryDefault();
     hangerFollower.set(ControlMode.PercentOutput, 0.0);
-    hangerFollower.setInverted(false);
+    hangerFollower.setInverted(true);
     hangerFollower.setNeutralMode(NeutralMode.Brake);
     hangerFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
     hangerFollower.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
