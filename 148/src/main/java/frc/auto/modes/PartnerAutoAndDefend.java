@@ -58,7 +58,7 @@ public class PartnerAutoAndDefend extends AutoModeBase {
 
     @Override
     public List<Trajectory<TimedState<Pose2dWithCurvature>>> getPaths() {
-        return Arrays.asList(trajectories.yourPartnersBalls, trajectories.yourPartnersBallsPart2);
+        return Arrays.asList(trajectories.yourPartnersBalls, trajectories.yourPartnersBallsPart2, trajectories.oneBallOneToDefend, trajectories.oneBallToDefendTwo);
     }
 
 	public PartnerAutoAndDefend() {
