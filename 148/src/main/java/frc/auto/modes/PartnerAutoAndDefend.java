@@ -73,7 +73,12 @@ public class PartnerAutoAndDefend extends AutoModeBase {
         runAction(new SetPivotState(PivotState.RESET));
         runAction(new SetShooterState(ShooterState.AUTO));
         runAction(new SetHoodState(HoodState.AUTO));
+        // runAction(new SetShooterSpeedAction(11750.0));
+        // runAction(new SetHoodAngleAction(28.0));
         s.firingVision();
+        runAction(new WaitAction(1.25));
+        runAction(new SetFeederState(FeederState.SHOOTING));
+        runAction(new WaitAction(1.0));
         runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
         runAction(new SetFeederState(FeederState.INTAKING));
 
@@ -81,7 +86,7 @@ public class PartnerAutoAndDefend extends AutoModeBase {
         runAction(new RemainingProgressAction(0.05));
         runAction(new WaitAction(0.5));
         runAction(new SetPivotState(PivotState.LILDOWN));
-        runAction(new SetFeederState(FeederState.SHOOTING));
+        // runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new WaitAction(1.5));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new ParallelAction(
@@ -91,21 +96,25 @@ public class PartnerAutoAndDefend extends AutoModeBase {
                 new SetPivotState(PivotState.DOWN)
             )
             ));
-        runAction(new SetTrajectoryAction(trajectories.yourPartnersBallsPart2, 60.0, 1.5));
+        runAction(new SetTrajectoryAction(trajectories.yourPartnersBallsPart2, 30.0, 1.5));
+        runAction(new RemainingProgressAction(0.25));
+        s.firingVision();
+        runAction(new WaitAction(0.05));
         runAction(new SetFeederState(FeederState.SHOOTING));
-        runAction(new WaitAction(1.0));        
+        runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
+        runAction(new WaitAction(1.5));        
             //if this works first try i will cry lmao
-            runAction(new WaitAction(1.0));        
-            runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
-            runAction(new SetFeederState(FeederState.INTAKING));
-            runAction(new SetTrajectoryAction(trajectories.oneBallOneToDefend, -90.0, 1.0));
+            // runAction(new WaitAction(1.0));        
+        // runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
+        runAction(new SetFeederState(FeederState.INTAKING));
+            runAction(new SetTrajectoryAction(trajectories.oneBallOneToDefend, -90.0, 0.75));
             runAction(new RemainingProgressAction(0.05));
             runAction(new WaitAction(0.25));
-            runAction(new SetTrajectoryAction(trajectories.oneBallToDefendTwo, 135.0, 1.0));
+            runAction(new SetTrajectoryAction(trajectories.oneBallToDefendTwo, 135.0, 0.75));
             runAction(new RemainingProgressAction(0.05));
             runAction(new WaitAction(0.25));
-            // runAction(new TurnToHeading(250.0)); //For behind the hub
-            runAction(new TurnToHeading(0.0));
+            runAction(new TurnToHeading(5.0)); //For behind the hub
+            // runAction(new TurnToHeading(0.0));
             runAction(new WaitAction(1.5));  //irving was 1.0
             runAction(new SetPivotState(PivotState.UP));
             runAction(new SetFeederState(FeederState.UNJAM_FEED));
