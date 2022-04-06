@@ -90,7 +90,7 @@ public class GrabEmByTheBalls extends AutoModeBase {
                 new SetPivotState(PivotState.DOWN)
             )
             ));
-        runAction(new SetTrajectoryAction(trajectories.yourPartnersBallsPart2, 60.0, 1.5));
+        runAction(new SetTrajectoryAction(trajectories.yourPartnersBallsPart2, 30.0, 1.5));
         // runAction(new RemainingProgressAction(0.05)); 
         // runAction(new SetPivotState(PivotState.DOWN));
         runAction(new SetFeederState(FeederState.SHOOTING));

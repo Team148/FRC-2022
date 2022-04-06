@@ -87,7 +87,7 @@ public class PartnerAutoAndDefend extends AutoModeBase {
         runAction(new WaitAction(0.5));
         runAction(new SetPivotState(PivotState.LILDOWN));
         // runAction(new SetFeederState(FeederState.SHOOTING));
-        runAction(new WaitAction(1.5));
+        runAction(new WaitAction(0.5));
         runAction(new SetFeederState(FeederState.INTAKING));
         runAction(new ParallelAction(
                 Arrays.asList(
@@ -96,11 +96,13 @@ public class PartnerAutoAndDefend extends AutoModeBase {
                 new SetPivotState(PivotState.DOWN)
             )
             ));
+            
+        runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new SetTrajectoryAction(trajectories.yourPartnersBallsPart2, 30.0, 1.5));
         runAction(new RemainingProgressAction(0.25));
         s.firingVision();
         runAction(new WaitAction(0.05));
-        runAction(new SetFeederState(FeederState.SHOOTING));
+        // runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
         runAction(new WaitAction(1.5));        
             //if this works first try i will cry lmao

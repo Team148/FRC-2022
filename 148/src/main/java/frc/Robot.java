@@ -129,6 +129,8 @@ public class Robot extends TimedRobot {
 	private double hood_angle = 0.0;
 
 	public static boolean isRed = true;
+
+	public static boolean funkyFresh = true;
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -308,10 +310,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		try {
-			turret.resetToAbsolute();
-			// lightShow.conformToState(LEDs.State.RED);
 			if(DriverStation.getAlliance() == Alliance.Red) isRed = true;
 			else isRed = false;
+
+			SmartDashboard.putBoolean("Alliance Color", isRed);
+
+			turret.resetToAbsolute();
+			// lightShow.conformToState(LEDs.State.RED);
 			Settings.update();
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
@@ -444,13 +449,15 @@ public class Robot extends TimedRobot {
 		if(driver.leftTrigger.isBeingPressed()){
 			intake.setState(BallIntakeState.OUTTAKING);
 			feeder.setState(FeederState.UNJAM_FEED);
-		} else if(driver.leftBumper.isBeingPressed()){
-			intake.setState(BallIntakeState.OUTTAKING);
-			feeder.setState(FeederState.OFF);
 		}
 
 		if (driver.rightCenterClick.isBeingPressed()) {
 			pivot.setState(PivotState.RESET);
+		}
+
+		if (driver.leftBumper.longPressed() && driver.rightBumper.longPressed()){
+			 funkyFresh = false;
+			 SmartDashboard.putBoolean("Funky Fresh?", funkyFresh);
 		}
 
 		//OPERATOR
