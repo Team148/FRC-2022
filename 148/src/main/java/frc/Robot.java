@@ -310,6 +310,8 @@ public class Robot extends TimedRobot {
 		try {
 			turret.resetToAbsolute();
 			// lightShow.conformToState(LEDs.State.RED);
+			if(DriverStation.getAlliance() == Alliance.Red) isRed = true;
+			else isRed = false;
 			Settings.update();
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
