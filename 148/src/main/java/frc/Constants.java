@@ -473,6 +473,10 @@ public class Constants {
 	public static final Pose2d oneBallToDefend2 = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
 	public static final Pose2d oneBallDefendDropOff = new Pose2d(new Translation2d(kFieldLength - 210.0, 30.0), Rotation2d.fromDegrees(0.0));
 
+	// public static final Pose2d oneBallOneDefendPA = new Pose2d(new Translation2d(kFieldLength - 160.0, -30.0), Rotation2d.fromDegrees(-90.0));
+	// public static final Pose2d oneBallOneDefendPA2 = new Pose2d(new Translation2d(kFieldLength - 160.0, -30.0), Rotation2d.fromDegrees(135.0));
+	// public static final Pose2d oneBallToDefendPA = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
+
 	public static final Pose2d oneBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
 	public static final Pose2d oneBallTerminalShot = new Pose2d(new Translation2d(kFieldLength - 150.0, 0.0), Rotation2d.fromDegrees(0.0));
 
