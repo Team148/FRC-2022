@@ -133,8 +133,8 @@ public class PartnerAutoAndDefend extends AutoModeBase {
         // runAction(new WaitAction(1.5));        
         //     //if this works first try i will cry lmao
         //     // runAction(new WaitAction(1.0));        
-        // // runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
-        // runAction(new SetFeederState(FeederState.INTAKING));
+        ////runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
+        runAction(new SetFeederState(FeederState.INTAKING));
             runAction(new SetTrajectoryAction(trajectories.oneBallOneToDefend, -90.0, 0.75));
             runAction(new RemainingProgressAction(0.05));
             runAction(new WaitAction(0.25));
