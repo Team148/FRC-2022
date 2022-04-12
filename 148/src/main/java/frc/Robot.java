@@ -190,6 +190,9 @@ public class Robot extends TimedRobot {
 		AutoModeBase auto = new TwoBallAndTerminal();
 		qTransmitter.addPaths(auto.getPaths());
 		System.out.println("Total path time: " + qTransmitter.getTotalPathTime(auto.getPaths()));
+
+		// SmartDashboard.putBoolean("Alliance Color", isRed);
+		// SmartDashboard.putBoolean("Funky Fresh?", funkyFresh);
 	}
 
 	public void allPeriodic() {
@@ -314,6 +317,7 @@ public class Robot extends TimedRobot {
 			else isRed = false;
 
 			SmartDashboard.putBoolean("Alliance Color", isRed);
+
 
 			turret.resetToAbsolute();
 			// lightShow.conformToState(LEDs.State.RED);
