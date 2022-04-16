@@ -89,7 +89,7 @@ public class RobotState {
         turret_rotation_.put(new InterpolatingDouble(start_time), initial_turret_rotation);
         vehicle_velocity_ = Twist2d.identity();
         //vehicle_velocity_averaged_ = new MovingAverageTwist2d(20); 
-        vehicle_velocity_averaged_ = new MovingAverageExpTwist2d(20); //changed by GC
+        vehicle_velocity_averaged_ = new MovingAverageExpTwist2d(15); //changed by GC, was 15
         target_orientation = new CircularBuffer(20);
         goal_tracker_ = new GoalTracker();
         camera_pitch_correction_ = Rotation2d.fromDegrees(-Constants.kCameraPitchAngleDegrees);
