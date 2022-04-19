@@ -24,6 +24,9 @@ public class MovingAverageExpTwist2d {
     // private double prevEma_X = 0.0; 
     // private double prevEma_Y = 0.0;
     // private double prevEma_T = 0.0;
+    private double newEma_X = 0.0;
+    private double newEma_Y = 0.0;
+    private double newEma_T = 0.0;
 
     public MovingAverageExpTwist2d(int maxSize) {
         this.maxSize = maxSize;
@@ -57,30 +60,31 @@ public class MovingAverageExpTwist2d {
         //return new Twist2d(x / size, y / size, t / size);
 
         //EMA formula GC test
+        if(twists.size() >= 15) {
         // Get cur and prev twist objects
-        Twist2d twist_current = twists.get(maxSize-1);
-        Twist2d twist_previous = twists.get(maxSize-2);
+            Twist2d twist_current = twists.get(maxSize-1);
+            Twist2d twist_previous = twists.get(maxSize-2);
 
-        // Assign x/y/t values for each
-        double dx_current = twist_current.dx;
-        double dy_current = twist_current.dy;
-        double dt_current = twist_current.dtheta;
-        double dx_previous = twist_previous.dx;
-        double dy_previous = twist_previous.dy;
-        double dt_previous = twist_previous.dtheta; 
+            // Assign x/y/t values for each
+            double dx_current = twist_current.dx;
+            double dy_current = twist_current.dy;
+            double dt_current = twist_current.dtheta;
+            double dx_previous = twist_previous.dx;
+            double dy_previous = twist_previous.dy;
+            double dt_previous = twist_previous.dtheta; 
 
-        // Calculate EMA values
-        // https://www.investopedia.com/terms/e/ema.asp
-        // (this is not actually a correct EMA calculation... it's a slightly weighted SMA of 2 values)
-        double newEma_X = (dx_current * emaFudge) + (dx_previous * (1-emaFudge));
-        double newEma_Y = (dy_current * emaFudge) + (dy_previous * (1-emaFudge));
-        double newEma_T = (dt_current * emaFudge) + (dt_previous * (1-emaFudge));
+            // Calculate EMA values
+            // https://www.investopedia.com/terms/e/ema.asp
+            // (this is not actually a correct EMA calculation... it's a slightly weighted SMA of 2 values)
+            newEma_X = (dx_current * emaFudge) + (dx_previous * (1-emaFudge));
+            newEma_Y = (dy_current * emaFudge) + (dy_previous * (1-emaFudge));
+            newEma_T = (dt_current * emaFudge) + (dt_previous * (1-emaFudge));
 
-        //Save current run as previous, to be used in EMA formula (no longer used)
-        // prevEma_X = newEma_X;
-        // prevEma_Y = newEma_Y;
-        // prevEma_T = newEma_T;
-
+            //Save current run as previous, to be used in EMA formula (no longer used)
+            // prevEma_X = newEma_X;
+            // prevEma_Y = newEma_Y;
+            // prevEma_T = newEma_T;
+        }
         // output
         return new Twist2d(newEma_X, newEma_Y, newEma_T);
     }
