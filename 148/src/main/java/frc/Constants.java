@@ -102,10 +102,10 @@ public class Constants {
 			// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
 			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(11250.0*speedBuff));
 			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(11750.0*speedBuff));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(12750.0*(speedBuff+0.03))); //3
-			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(13500.0*(speedBuff+0.03))); //3
-			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0+25.0 ), new InterpolatingDouble(14500.0*(speedBuff+0.04)));//4
-			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0*(speedBuff+0.04)));      //5
+			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(12750.0*(speedBuff))); //3
+			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(13500.0*(speedBuff))); //3
+			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0+25.0 ), new InterpolatingDouble(14500.0*(speedBuff)));//4
+			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0*(speedBuff + 0.06)));      //5
 		}
 
 	//Vision Angle Constraint Treemap - Units are inches to center of goal / hood angle in degrees
@@ -182,6 +182,16 @@ public class Constants {
 			kVisionDistanceTreemap.put(new InterpolatingDouble(299.5), new InterpolatingDouble(228.0)); 
 			kVisionDistanceTreemap.put(new InterpolatingDouble(330.0), new InterpolatingDouble(252.0)); 
 			kVisionDistanceTreemap.put(new InterpolatingDouble(380.0), new InterpolatingDouble(287.0)); 
+
+			//Practice LL on CompBot 0418
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(77.5), new InterpolatingDouble(64.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(105.0), new InterpolatingDouble(95.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(148.0), new InterpolatingDouble(132.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(187.0), new InterpolatingDouble(167.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(216.0), new InterpolatingDouble(195.0)); 
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(265.5), new InterpolatingDouble(228.0)); 
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(292.0), new InterpolatingDouble(252.0)); 
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(333.5), new InterpolatingDouble(287.0)); 
 
 
 			//Comp Bot - Irving
