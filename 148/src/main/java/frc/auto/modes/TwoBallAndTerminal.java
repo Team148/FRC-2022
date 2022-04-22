@@ -111,7 +111,7 @@ public class TwoBallAndTerminal extends AutoModeBase {
         // runAction(new SetShooterSpeedAction(11000));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
-        runAction(new WaitAction(0.25));
+        // runAction(new WaitAction(0.25));
             // runAction(new SetBallIntakeState(BallIntakeState.INTAKING)); 
         runAction(new SetFeederState(FeederState.SHOOTING));
 
