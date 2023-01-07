@@ -16,6 +16,7 @@ import com.team1323.lib.util.CircularBuffer;
 import com.team1323.lib.util.InterpolatingDouble;
 import com.team1323.lib.util.InterpolatingTreeMap;
 import com.team1323.lib.util.Kinematics;
+import com.team1323.lib.util.MovingAverageExpTwist2d;
 import com.team1323.lib.util.MovingAverageTwist2d;
 import com.team254.lib.geometry.Pose2d;
 import com.team254.lib.geometry.Rotation2d;
@@ -47,8 +48,9 @@ public class RobotState {
     private InterpolatingTreeMap<InterpolatingDouble, Rotation2d> turret_rotation_; 
     private CircularBuffer target_orientation;
     private Twist2d vehicle_velocity_;
-    private MovingAverageTwist2d vehicle_velocity_averaged_;
-    
+    //private MovingAverageTwist2d vehicle_velocity_averaged_;
+    private MovingAverageExpTwist2d vehicle_velocity_averaged_;
+
     private GoalTracker goal_tracker_;
     private Rotation2d camera_pitch_correction_;
     private Rotation2d camera_yaw_correction_;
@@ -86,7 +88,8 @@ public class RobotState {
         turret_rotation_ = new InterpolatingTreeMap<>(kObservationBufferSize);
         turret_rotation_.put(new InterpolatingDouble(start_time), initial_turret_rotation);
         vehicle_velocity_ = Twist2d.identity();
-        vehicle_velocity_averaged_ = new MovingAverageTwist2d(25);
+        //vehicle_velocity_averaged_ = new MovingAverageTwist2d(20); 
+        vehicle_velocity_averaged_ = new MovingAverageExpTwist2d(15); //changed by GC, was 15
         target_orientation = new CircularBuffer(20);
         goal_tracker_ = new GoalTracker();
         camera_pitch_correction_ = Rotation2d.fromDegrees(-Constants.kCameraPitchAngleDegrees);

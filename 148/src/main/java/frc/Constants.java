@@ -91,23 +91,27 @@ public class Constants {
 	public static final double kIRThreshold = 20.0;
 
 	public static final double kBallTimeThreshold = 0.05;
+
+	public static final double speedBuff = 1.06; // practice bot is 1.0; comp bot is 1.06
+	// Practice bot has + .03, .03, .04, .05 on top four speedbuffs
+
 	//Vision Speed Constraint Treemap -- Units are inches to center of goal, then ticks per 100ms (Falcon Units)
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionSpeedTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(10500.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(10750.0*speedBuff));
 			// kVisionSpeedTreemap.put(new InterpolatingDouble(kClosestVisionDistance), new InterpolatingDouble(24.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(11250.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(11750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(12750.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(13500.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0+25.0 ), new InterpolatingDouble(14500.0));
-			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(11250.0*speedBuff));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(11750.0*speedBuff));
+			kVisionSpeedTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(12750.0*(speedBuff))); //speedbuff + 0.03
+			kVisionSpeedTreemap.put(new InterpolatingDouble(195.0+20.0+25.0), new InterpolatingDouble(13500.0*(speedBuff+0.06))); //3
+			kVisionSpeedTreemap.put(new InterpolatingDouble(228.0+20.0+25.0 ), new InterpolatingDouble(14500.0*(speedBuff+0.06)));//4
+			kVisionSpeedTreemap.put(new InterpolatingDouble(287.0+25.0), new InterpolatingDouble(16250.0*(speedBuff)));      //5
 		}
 
 	//Vision Angle Constraint Treemap - Units are inches to center of goal / hood angle in degrees
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionAngleTreemap = new InterpolatingTreeMap<>();
 		static{
-			kVisionAngleTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(17.0));
+			kVisionAngleTreemap.put(new InterpolatingDouble(64.0+20.0), new InterpolatingDouble(14.0));
 			kVisionAngleTreemap.put(new InterpolatingDouble(95.0+20.0+25.0), new InterpolatingDouble(27.0));
 			kVisionAngleTreemap.put(new InterpolatingDouble(132.0+20.0+25.0), new InterpolatingDouble(33.0));
 			kVisionAngleTreemap.put(new InterpolatingDouble(167.0+20.0+25.0), new InterpolatingDouble(36.0));
@@ -126,12 +130,29 @@ public class Constants {
 			// kVisionToFTreemap.put(new InterpolatingDouble(167.0), new InterpolatingDouble(1.3)); //made up
 			// kVisionToFTreemap.put(new InterpolatingDouble(195.0), new InterpolatingDouble(1.30)); //made up
 			// kVisionToFTreemap.put(new InterpolatingDouble(228.0+20.0), new InterpolatingDouble(1.4));
-			kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.4)); //made up
+			kVisionToFTreemap.put(new InterpolatingDouble(287.0), new InterpolatingDouble(1.2)); //made up // changed by GC to 1.2
 		}
 
 	//Vision Limelight Distance Calibration Treemap -- Janky fix to make sure we get good coorilation between tape measure and LL
 	public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kVisionDistanceTreemap = new InterpolatingTreeMap<>();
 		static{
+			/* =================== THE PROCEDURE FOR THIS: =================== 
+			- Put the end of the special tape measure against the hub
+			- Move the robot back such that the front bumper lines up with each line
+			- Fill in "Camera Distance" from Shuffleboard under the following values:
+			
+			64 = 
+			95 = 
+			132 = 
+			167 = 
+			195 = 
+			228 = 
+			252 = 
+			287 = 
+
+			- These new values go in the first column of the InterpolatingDouble table below
+			*/ 
+
 			//Practice Bot
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(67.0), new InterpolatingDouble(64.0));
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(93.0), new InterpolatingDouble(95.0));
@@ -142,15 +163,35 @@ public class Constants {
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(234.0), new InterpolatingDouble(252.0));
 			// kVisionDistanceTreemap.put(new InterpolatingDouble(259.0), new InterpolatingDouble(287.0));
 
-			// //Comp Bot
-			kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(115.0), new InterpolatingDouble(95.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(162.0), new InterpolatingDouble(132.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(207.0), new InterpolatingDouble(167.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(239.0), new InterpolatingDouble(195.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(302.0), new InterpolatingDouble(228.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(333.0), new InterpolatingDouble(252.0));
-			kVisionDistanceTreemap.put(new InterpolatingDouble(382.0), new InterpolatingDouble(287.0));
+			//Comp Bot
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(80.0), new InterpolatingDouble(64.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(115.0), new InterpolatingDouble(95.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(162.0), new InterpolatingDouble(132.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(207.0), new InterpolatingDouble(167.0)); //reads 213
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(239.0), new InterpolatingDouble(195.0)); //reads 243
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(302.0), new InterpolatingDouble(228.0)); //reads 296
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(333.0), new InterpolatingDouble(252.0)); //reads 321
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(382.0), new InterpolatingDouble(287.0)); //reads 372
+			
+			//Comp Bot in shop on 4-16
+			kVisionDistanceTreemap.put(new InterpolatingDouble(80.5), new InterpolatingDouble(64.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(114.1), new InterpolatingDouble(95.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(159.0), new InterpolatingDouble(132.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(206.0), new InterpolatingDouble(167.0));
+			kVisionDistanceTreemap.put(new InterpolatingDouble(239.0), new InterpolatingDouble(195.0)); 
+			kVisionDistanceTreemap.put(new InterpolatingDouble(299.5), new InterpolatingDouble(228.0)); 
+			kVisionDistanceTreemap.put(new InterpolatingDouble(330.0), new InterpolatingDouble(252.0)); 
+			kVisionDistanceTreemap.put(new InterpolatingDouble(380.0), new InterpolatingDouble(287.0)); 
+
+			//Practice LL on CompBot 0418
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(77.5), new InterpolatingDouble(64.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(105.0), new InterpolatingDouble(95.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(148.0), new InterpolatingDouble(132.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(187.0), new InterpolatingDouble(167.0));
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(216.0), new InterpolatingDouble(195.0)); 
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(265.5), new InterpolatingDouble(228.0)); 
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(292.0), new InterpolatingDouble(252.0)); 
+			// kVisionDistanceTreemap.put(new InterpolatingDouble(333.5), new InterpolatingDouble(287.0)); 
 
 
 			//Comp Bot - Irving
@@ -472,6 +513,10 @@ public class Constants {
 	public static final Pose2d oneBallToDefend = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
 	public static final Pose2d oneBallToDefend2 = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
 	public static final Pose2d oneBallDefendDropOff = new Pose2d(new Translation2d(kFieldLength - 210.0, 30.0), Rotation2d.fromDegrees(0.0));
+
+	// public static final Pose2d oneBallOneDefendPA = new Pose2d(new Translation2d(kFieldLength - 160.0, -30.0), Rotation2d.fromDegrees(-90.0));
+	// public static final Pose2d oneBallOneDefendPA2 = new Pose2d(new Translation2d(kFieldLength - 160.0, -30.0), Rotation2d.fromDegrees(135.0));
+	// public static final Pose2d oneBallToDefendPA = new Pose2d(new Translation2d(kFieldLength - 215.0, 117.0), Rotation2d.fromDegrees(135.0));
 
 	public static final Pose2d oneBallTerminal = new Pose2d(new Translation2d(kFieldLength - 40.0, -95.0), Rotation2d.fromDegrees(-45.0));
 	public static final Pose2d oneBallTerminalShot = new Pose2d(new Translation2d(kFieldLength - 150.0, 0.0), Rotation2d.fromDegrees(0.0));

@@ -43,7 +43,7 @@ public class RobotMap {
 
     //Map Hanger CAN IDs
     public static final int HANGER_MASTER = 16;
-
+    public static final int HANGER_FOLLOWER = 18;
     //Pigeon
     public static final int PIGEON = 17;    
     

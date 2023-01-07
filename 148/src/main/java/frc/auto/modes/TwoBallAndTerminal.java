@@ -83,6 +83,7 @@ public class TwoBallAndTerminal extends AutoModeBase {
         s.turretPositionState(-180.0);
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
+        runAction(new WaitAction(0.25));
         runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new WaitAction(1.25));
         runAction(new SetFeederState(FeederState.INTAKING));
@@ -92,6 +93,7 @@ public class TwoBallAndTerminal extends AutoModeBase {
         runAction(new SetTurretAngleAction(-250.0));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
+        runAction(new WaitAction(0.25));
         runAction(new SetFeederState(FeederState.SHOOTING));
         runAction(new WaitAction(1.25));
         runAction(new SetTrajectoryAction(trajectories.twoBallsToTheWall, -45.0, 0.6));
@@ -99,18 +101,18 @@ public class TwoBallAndTerminal extends AutoModeBase {
         runAction(new RemainingProgressAction(0.01));
         runAction(new WaitAction(0.5));
         runAction(new SetPivotState(PivotState.UP));
-        runAction(new WaitAction(1.25));
+        runAction(new WaitAction(1.0));
         runAction(new SetPivotState(PivotState.DOWN));
-        runAction(new WaitAction(0.25));
+        runAction(new WaitAction(0.5));
         runAction(new SetTrajectoryAction(trajectories.terminalToShot, 184.0, 0.5));
-        runAction(new SetBallIntakeState(BallIntakeState.OFF));
+            // runAction(new SetBallIntakeState(BallIntakeState.OFF));
         runAction(new SetTurretAngleAction(-90.0));        
         // runAction(new SetHoodAngleAction(28.0));
         // runAction(new SetShooterSpeedAction(11000));
         runAction(new RemainingProgressAction(0.05));
         s.firingVision();
-        runAction(new WaitAction(0.25));
-        runAction(new SetBallIntakeState(BallIntakeState.INTAKING));
+        // runAction(new WaitAction(0.25));
+            // runAction(new SetBallIntakeState(BallIntakeState.INTAKING)); 
         runAction(new SetFeederState(FeederState.SHOOTING));
 
         System.out.println("Auto mode finished in " + currentTime() + " seconds");

@@ -17,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 public class Hanger extends Subsystem {
   private WPI_TalonFX hangerMaster = new WPI_TalonFX(RobotMap.HANGER_MASTER);
+  private WPI_TalonFX hangerFollower = new WPI_TalonFX(RobotMap.HANGER_FOLLOWER);
 
   private LinearServo oneClawServo;
   private LinearServo twoClawServo;
@@ -26,7 +27,7 @@ public class Hanger extends Subsystem {
   private Hanger(){
     hangerMaster.configFactoryDefault();
     hangerMaster.set(ControlMode.PercentOutput, 0.0);
-    hangerMaster.setInverted(false);
+    hangerMaster.setInverted(true);
     hangerMaster.setNeutralMode(NeutralMode.Brake);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
@@ -39,6 +40,23 @@ public class Hanger extends Subsystem {
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 500);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
     hangerMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
+
+    hangerFollower.configFactoryDefault();
+    hangerFollower.set(ControlMode.PercentOutput, 0.0);
+    hangerFollower.setInverted(true);
+    hangerFollower.setNeutralMode(NeutralMode.Brake);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 20);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_6_Misc, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_7_CommStatus, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_9_MotProfBuffer, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_10_MotionMagic, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 500);
+    hangerFollower.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 500);
+    hangerFollower.follow(hangerMaster);
     // hangerMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 55, 65, 1.5));
 
     oneClawServo = new LinearServo(RobotMap.ONE_CLAW_SERVO, 100, 24);

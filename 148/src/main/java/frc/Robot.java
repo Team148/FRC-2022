@@ -1,3 +1,13 @@
+/*
+This is the code used for the 148 2022 Robot Quickdraw!
+The Robowranglers wish to extend our sincere gratitude to FRC 254 The Cheesy Poofs and FRC 1323 Madtown Robotics. Your contributions to our team and FRC as a whole is immeasurable.
+
+The Cheesy Poofs github is located at: https://github.com/Team254
+Madtown Robotics github is located at: https://github.com/team1323\
+
+Thank you again, and good luck to all the competing teams!
+*/
+
 package frc;
 
 import java.util.Arrays;
@@ -129,6 +139,8 @@ public class Robot extends TimedRobot {
 	private double hood_angle = 0.0;
 
 	public static boolean isRed = true;
+
+	public static boolean funkyFresh = true;
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -181,13 +193,16 @@ public class Robot extends TimedRobot {
 
 		UsbCamera camera = CameraServer.startAutomaticCapture();
 		camera.setFPS(10);
-		camera.setResolution(320, 240);
+		camera.setResolution(160, 120);
 
 		generator.generateTrajectories();
 
 		AutoModeBase auto = new TwoBallAndTerminal();
 		qTransmitter.addPaths(auto.getPaths());
 		System.out.println("Total path time: " + qTransmitter.getTotalPathTime(auto.getPaths()));
+
+		// SmartDashboard.putBoolean("Alliance Color", isRed);
+		// SmartDashboard.putBoolean("Funky Fresh?", funkyFresh);
 	}
 
 	public void allPeriodic() {
@@ -308,6 +323,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		try {
+			if(DriverStation.getAlliance() == Alliance.Red) isRed = true;
+			else isRed = false;
+
+			SmartDashboard.putBoolean("Alliance Color", isRed);
+
+
 			turret.resetToAbsolute();
 			// lightShow.conformToState(LEDs.State.RED);
 			Settings.update();
@@ -442,13 +463,15 @@ public class Robot extends TimedRobot {
 		if(driver.leftTrigger.isBeingPressed()){
 			intake.setState(BallIntakeState.OUTTAKING);
 			feeder.setState(FeederState.UNJAM_FEED);
-		} else if(driver.leftBumper.isBeingPressed()){
-			intake.setState(BallIntakeState.OUTTAKING);
-			feeder.setState(FeederState.OFF);
 		}
 
 		if (driver.rightCenterClick.isBeingPressed()) {
 			pivot.setState(PivotState.RESET);
+		}
+
+		if (driver.leftBumper.longPressed() && driver.rightBumper.longPressed()){
+			 funkyFresh = false;
+			 SmartDashboard.putBoolean("Funky Fresh?", funkyFresh);
 		}
 
 		//OPERATOR
@@ -495,7 +518,7 @@ public class Robot extends TimedRobot {
 
 		if(climbModeActivated) {
 			if(operator.aButton.isBeingPressed() || operator.aButton.longPressed()){
-				hanger.setMotor(1.00);
+				hanger.setMotor(0.69);
 			}
 			else if(operator.bButton.isBeingPressed() || operator.bButton.longPressed()) {
 				hanger.setMotor(-1.00);
